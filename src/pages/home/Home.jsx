@@ -9,6 +9,7 @@ const Home = () => {
       {/* Main Content */}
       <div className='bg-white-400 text-pr container mx-auto mt-8 p-8'>
         <Hero />
+
         <Blogs />
       </div>
 
