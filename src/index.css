@@ -1,0 +1,229 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.active{
+    color :#1E73BE;
+} 
+
+.editorjsdiv h2{
+    font-weight: 600;
+    font-size: 18px;
+
+}
+
+.editorjsdiv h2,h3,h4,h5,h6{
+    font-weight: 600;
+    font-size: 18px;
+
+}
+
+.editorjsdiv li{
+  margin-bottom: 10px;
+  list-style-type: disc;
+  padding-left: 10px;
+  margin-left: 25px;
+
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.shadow-intense {
+  border: none;
+  height: 2px;
+  background-color: #ccc;
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.6),
+    0 10px 50px rgba(0, 0, 0, 0.5),
+    0 0 40px rgba(0, 0, 0, 0.4);
+  animation: majesticGlow 10s infinite alternate ease-in-out;
+}
+
+@keyframes majesticGlow {
+  0% {
+    background-color: rgb(255, 0, 0);
+    box-shadow: 0 0 60px rgba(255, 0, 0, 1),
+                0 0 120px rgba(255, 0, 0, 0.9),
+                0 0 180px rgba(255, 0, 0, 0.8);
+  }
+  8.33% {
+    background-color: rgb(255, 127, 0);
+    box-shadow: 0 0 60px rgba(255, 127, 0, 1),
+                0 0 120px rgba(255, 127, 0, 0.9),
+                0 0 180px rgba(255, 127, 0, 0.8);
+  }
+  16.66% {
+    background-color: rgb(255, 255, 0);
+    box-shadow: 0 0 60px rgba(255, 255, 0, 1),
+                0 0 120px rgba(255, 255, 0, 0.9),
+                0 0 180px rgba(255, 255, 0, 0.8);
+  }
+  25% {
+    background-color: rgb(0, 255, 0);
+    box-shadow: 0 0 60px rgba(0, 255, 0, 1),
+                0 0 120px rgba(0, 255, 0, 0.9),
+                0 0 180px rgba(0, 255, 0, 0.8);
+  }
+  33.33% {
+    background-color: rgb(0, 255, 255);
+    box-shadow: 0 0 60px rgba(0, 255, 255, 1),
+                0 0 120px rgba(0, 255, 255, 0.9),
+                0 0 180px rgba(0, 255, 255, 0.8);
+  }
+  41.66% {
+    background-color: rgb(0, 0, 255);
+    box-shadow: 0 0 60px rgba(0, 0, 255, 1),
+                0 0 120px rgba(0, 0, 255, 0.9),
+                0 0 180px rgba(0, 0, 255, 0.8);
+  }
+  50% {
+    background-color: rgb(75, 0, 130);
+    box-shadow: 0 0 60px rgba(75, 0, 130, 1),
+                0 0 120px rgba(75, 0, 130, 0.9),
+                0 0 180px rgba(75, 0, 130, 0.8);
+  }
+  58.33% {
+    background-color: rgb(148, 0, 211);
+    box-shadow: 0 0 60px rgba(148, 0, 211, 1),
+                0 0 120px rgba(148, 0, 211, 0.9),
+                0 0 180px rgba(148, 0, 211, 0.8);
+  }
+  66.66% {
+    background-color: rgb(255, 20, 147);
+    box-shadow: 0 0 60px rgba(255, 20, 147, 1),
+                0 0 120px rgba(255, 20, 147, 0.9),
+                0 0 180px rgba(255, 20, 147, 0.8);
+  }
+  75% {
+    background-color: rgb(255, 105, 180);
+    box-shadow: 0 0 60px rgba(255, 105, 180, 1),
+                0 0 120px rgba(255, 105, 180, 0.9),
+                0 0 180px rgba(255, 105, 180, 0.8);
+  }
+  83.33% {
+    background-color: rgb(255, 215, 0);
+    box-shadow: 0 0 60px rgba(255, 215, 0, 1),
+                0 0 120px rgba(255, 215, 0, 0.9),
+                0 0 180px rgba(255, 215, 0, 0.8);
+  }
+  91.66% {
+    background-color: rgb(0, 255, 127);
+    box-shadow: 0 0 60px rgba(0, 255, 127, 1),
+                0 0 120px rgba(0, 255, 127, 0.9),
+                0 0 180px rgba(0, 255, 127, 0.8);
+  }
+  100% {
+    background-color: rgb(255, 0, 0);
+    box-shadow: 0 0 60px rgba(255, 0, 0, 1),
+                0 0 120px rgba(255, 0, 0, 0.9),
+                0 0 180px rgba(255, 0, 0, 0.8);
+  }
+}
+
+
+
+/* Add this in your global CSS file or within the component styles */
+html {
+  scroll-behavior: smooth;
+}
+/* Styling for the Table */
+.table-container {
+  margin-top: 20px;
+  background-color: #f9fafb; /* Light background color */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.table-auto {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.table-auto th,
+.table-auto td {
+  padding: 12px 18px;
+  text-align: left;
+  font-size: 16px;
+  color: #333;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.table-auto th {
+  background-color: #4c8bf5; /* Blue background for header */
+  color: white;
+  font-weight: bold;
+}
+
+.table-auto tr:hover {
+  background-color: #f1f5f9; /* Light gray background on hover */
+}
+
+.table-auto td {
+  background-color: #f9fafb;
+}
+
+.table-auto td a {
+  color: #4c8bf5; /* Link color */
+  text-decoration: none;
+}
+
+.table-auto td a:hover {
+  text-decoration: underline;
+}
+
+/* Zebra striping for rows */
+.table-auto tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+.table-auto tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+.table-auto td,
+.table-auto th {
+  transition: background-color 0.2s ease-in-out;
+}
+
+/* Responsiveness for smaller screens */
+@media screen and (max-width: 768px) {
+  .table-container {
+    padding: 10px;
+  }
+
+  .table-auto th,
+  .table-auto td {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+}
+@keyframes slideInTOC {
+  0% {
+    transform: translateX(-30px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.toc-item {
+  opacity: 0;
+  animation: slideInTOC 0.4s ease-out forwards;
+}
