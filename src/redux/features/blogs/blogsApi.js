@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const blogApi = createApi({
   reducerPath: "blogsApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://springfallusa.onrender.com/api/',
+    baseUrl: 'https://springfallusa-jq0e.onrender.com/api/',
     credentials: 'include',
    prepareHeaders: (headers) => {
   const token = localStorage.getItem('token');
