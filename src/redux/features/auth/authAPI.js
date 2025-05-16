@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://springfallusa-76wx.onrender.com/api/auth', // Base URL set to /api/auth
+    baseUrl: 'https://springfallusa.onrender.com/api/auth', // Base URL set to /api/auth
     credentials: 'include',
   }),
   tagTypes: ['User'], // Tagging for cache invalidation
