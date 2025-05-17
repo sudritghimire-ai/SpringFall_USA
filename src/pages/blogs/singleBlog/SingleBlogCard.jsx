@@ -234,4 +234,4 @@ const SingleBlogCard = ({ blog }) => {
   )
 }
 
-export default SingleBlogCard
+export default SingleBlogCard;
