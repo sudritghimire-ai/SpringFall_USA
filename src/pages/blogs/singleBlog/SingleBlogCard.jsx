@@ -33,12 +33,6 @@ const customParsers = {
       level === 1 ? 'text-gray-900' : level === 2 ? 'text-blue-800' : 'text-indigo-700'
     }">${text}</h${level}>`;
   },
-  list: (block) => {
-    const { style, items } = block.data;
-    const tag = style === 'ordered' ? 'ol' : 'ul';
-    const listItems = items.map((item) => `<li class="mb-2 ml-4 list-${style === 'ordered' ? 'decimal' : 'disc'}">${item}</li>`).join('');
-    return `<${tag} class="my-4 ml-6">${listItems}</${tag}>`;
-  },
 };
 
 const editorJSHTML = EditorJSHTML(customParsers);
@@ -60,6 +54,7 @@ const SingleBlogCard = ({ blog }) => {
       const level = heading.match(/<h([1-6])/)?.[1];
       if (!id) return null;
 
+      // Calculate animation delay based on the index
       const animationDelay = `${(index + 1) * 0.2}s`;
 
       return (
@@ -115,11 +110,13 @@ const SingleBlogCard = ({ blog }) => {
 
   return (
     <div className="flex flex-col lg:flex-row gap-6">
+      {/* Sidebar TOC */}
       <div className="hidden lg:block lg:w-64 p-4 fixed top-20 left-0 h-[calc(100vh-5rem)] overflow-y-auto animate-toc">
         <h3 className="text-lg font-bold text-gray-700 mb-4"></h3>
         <ul className="space-y-2 text-sm">{generateTOC(htmlContent)}</ul>
       </div>
 
+      {/* Main Content */}
       <div className="flex-1 p-4 lg:p-8 lg:ml-64 min-h-screen">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-semibold text-gray-900 mb-4">{title}</h1>
