@@ -1,17 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// Load user from localStorage
+// Load user and loginTime from localStorage
 const loadUserFromLocalStorage = () => {
     try {
-        const serializedState = localStorage.getItem('user');
-        if (serializedState === null) {
-            return { user: null };
-        }
-        return { user: JSON.parse(serializedState) };
+        const user = JSON.parse(localStorage.getItem('user'));
+        const loginTime = JSON.parse(localStorage.getItem('loginTime'));
+        return {
+            user: user || null,
+            loginTime: loginTime || null
+        };
     } catch (error) {
-        return { user: null };
+        return { user: null, loginTime: null };
     }
-}
+};
 
 // Initial state based on localStorage
 const initialState = loadUserFromLocalStorage();
@@ -23,14 +24,18 @@ const authSlice = createSlice({
     reducers: {
         setUser: (state, action) => {
             state.user = action.payload.user;
-            localStorage.setItem('user', JSON.stringify(state.user)); // Store user in localStorage
+            state.loginTime = new Date().getTime();
+            localStorage.setItem('user', JSON.stringify(state.user));
+            localStorage.setItem('loginTime', JSON.stringify(state.loginTime));
         },
         logout: (state) => {
             state.user = null;
-            localStorage.removeItem('user'); // Remove user from localStorage
+            state.loginTime = null;
+            localStorage.removeItem('user');
+            localStorage.removeItem('loginTime');
         }
     }
-})
+});
 
 export const { setUser, logout } = authSlice.actions;
 
