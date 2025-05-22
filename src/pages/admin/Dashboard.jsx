@@ -1,20 +1,46 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { RiAdminFill } from "react-icons/ri";
 import { FaBlog } from "react-icons/fa";
 import { useFetchBlogsQuery } from '../../redux/features/blogs/blogsApi';
 import { useGetCommentsQuery } from '../../redux/features/comments/commentApi';
 import { useGetUserQuery } from '../../redux/features/auth/authAPI';
+import { logout } from '../../redux/features/auth/authSlice';
 
 const Dashboard = () => {
   const [query, setQuery] = useState({ search: '', category: '' });
-  const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { user, token, loginTime } = useSelector((state) => state.auth);
   const { data: blogs = [], isLoading } = useFetchBlogsQuery(query);
   const { data: comments = {} } = useGetCommentsQuery();
   const { data: users = {}, error: usersError } = useGetUserQuery();
 
   const userArray = users?.users || [];
   const adminCounts = userArray.filter(user => user.role?.toLowerCase() === 'admin').length;
+
+  // ⏱️ Auto Logout Logic after 2 hours
+  useEffect(() => {
+    const TWO_HOURS = 2 * 60 * 60 * 1000;
+    const now = new Date().getTime();
+    const loginTimestamp = loginTime || now;
+
+    const remainingTime = TWO_HOURS - (now - loginTimestamp);
+
+    if (remainingTime <= 0) {
+      dispatch(logout());
+      navigate('/login');
+    } else {
+      const timer = setTimeout(() => {
+        dispatch(logout());
+        navigate('/login');
+      }, remainingTime);
+
+      return () => clearTimeout(timer);
+    }
+  }, [dispatch, navigate, loginTime]);
 
   return (
     <div className="min-h-screen bg-gray-100 px-4 py-10">
@@ -54,5 +80,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
-//well we wont be doing comment for now
