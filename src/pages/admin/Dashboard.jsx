@@ -13,7 +13,7 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { user, token, loginTime } = useSelector((state) => state.auth);
+  const { user, loginTime } = useSelector((state) => state.auth);
   const { data: blogs = [], isLoading } = useFetchBlogsQuery(query);
   const { data: comments = {} } = useGetCommentsQuery();
   const { data: users = {}, error: usersError } = useGetUserQuery();
@@ -21,7 +21,7 @@ const Dashboard = () => {
   const userArray = users?.users || [];
   const adminCounts = userArray.filter(user => user.role?.toLowerCase() === 'admin').length;
 
-  // ⏱️ Auto Logout Logic after 2 hours
+  // ⏱️ Auto Logout Logic
   useEffect(() => {
     const TWO_HOURS = 2 * 60 * 60 * 1000;
     const now = new Date().getTime();
