@@ -11,6 +11,7 @@ import { logout } from '../redux/features/auth/authSlice';
 const navLists = [
     { name: "Home", path: '/' },
     { name: "Privacy and Policy", path: '/privacy-policy' }
+    { name: "Privacy and Policy", path: '/about-us' }
 ];
 
 const Navbar = () => {
