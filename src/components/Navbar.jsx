@@ -199,12 +199,13 @@ const Navbar = () => {
                                     <li key={index}>
                                         <NavLink
                                             to={list.path}
-                                            className={({ isActive }) => 
-                                                block relative overflow-hidden rounded-xl transition-all duration-300
-                                                ${isActive 
-                                                    ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-md' 
-                                                    : 'bg-gradient-to-r from-blue-50 to-white text-gray-700 border border-blue-100'}
-                                            }
+                                           className={({ isActive }) =>
+  `py-2.5 px-6 rounded-full transition-all duration-300 
+   ${isActive 
+     ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-md' 
+     : 'bg-white text-[#1E73BE] border border-[#1E73BE]'}`
+}
+
                                             onClick={closeMenu}
                                         >
                                             <div className="relative z-10 py-4 px-5">
