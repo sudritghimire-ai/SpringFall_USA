@@ -254,12 +254,13 @@ const Navbar = () => {
                                 <NavLink 
                                     to='/login' 
                                     onClick={closeMenu} 
-                                    className={({ isActive }) => 
-                                        relative overflow-hidden block w-full py-4 px-6 rounded-xl transition-all duration-300 group
-                                        ${isActive 
-                                            ? 'bg-gradient-to-r from-[#1E73BE] to-[#2A80C5] text-white shadow-lg' 
-                                            : 'bg-gradient-to-r from-[#1E73BE] to-[#2A80C5] text-white shadow-md hover:shadow-[0_5px_15px_rgba(30,115,190,0.4)]'}
-                                    }
+                                   className={({ isActive }) =>
+  `py-2.5 px-6 rounded-full transition-all duration-300 
+   ${isActive 
+     ? 'bg-gradient-to-r from-[#1E73BE] to-[#2A80C5] text-white shadow-lg' 
+     : 'bg-white text-[#1E73BE] border border-[#1E73BE]'}`
+}
+
                                 >
                                     <span className="absolute top-0 left-0 w-0 h-full bg-white/20 skew-x-[25deg] transform transition-all duration-700 ease-out group-hover:w-full -z-5"></span>
                                     <span className="relative z-10 flex items-center justify-center text-lg font-medium">
