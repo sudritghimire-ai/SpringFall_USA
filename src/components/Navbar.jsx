@@ -54,13 +54,13 @@ const Navbar = () => {
 
     return (
         <header 
-            className={
-                bg-white
-                py-4 font-sans w-full z-50 transition-all duration-500
-                ${scrolled ? 'shadow-[0_8px_30px_rgb(0,0,0,0.04)]' : 'shadow-none'} 
-                ${isFixedNavbar ? 'fixed top-0 left-0 right-0' : ''}
-                ${scrolled ? 'py-3' : 'py-5'}
-            }
+           className={`
+    bg-white 
+    py-4 font-sans w-full z-50 transition-all duration-500
+    ${scrolled ? 'shadow-[0_8px_30px_rgb(0,0,0,0.04)]' : 'shadow-none'}
+    ${isFixedNavbar ? 'fixed top-0 left-0 right-0' : ''}
+`}
+
         >
             <nav className='container mx-auto flex justify-between items-center px-5 relative z-10'>
                 {/* Logo + Brand Name */}
