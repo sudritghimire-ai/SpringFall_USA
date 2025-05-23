@@ -88,10 +88,11 @@ const Navbar = () => {
                         <li key={index}>
                             <NavLink
                                 to={list.path}
-                                className={({ isActive }) => 
-                                    relative px-3 py-2 overflow-hidden group rounded-md
-                                    ${isActive ? 'text-[#1E73BE] font-semibold' : 'text-gray-700'}
-                                }
+                               className={({ isActive }) =>
+  `relative px-3 py-2 overflow-hidden group rounded-md 
+   ${isActive ? 'text-[#1E73BE] font-semibold' : 'text-gray-700'}`
+}
+
                                 onClick={closeMenu}
                             >
                                 <span className="absolute top-0 left-0 w-full h-0 transition-all duration-500 ease-out bg-gradient-to-r from-blue-50 to-blue-100 rounded-md -z-10 group-hover:h-full"></span>
