@@ -136,11 +136,12 @@ const Navbar = () => {
                            <NavLink 
   to="/login"
   className={({ isActive }) => 
-    py-2.5 px-6 rounded-full transition-all duration-300
-    ${isActive 
+  `py-2.5 px-6 rounded-full transition-all duration-300 
+   ${isActive 
       ? 'bg-[#1E73BE] text-white shadow-lg' 
-      : 'bg-white text-[#1E73BE] border border-[#1E73BE] hover:bg-[#1E73BE] hover:text-white hover:shadow-md'}
-  }
+      : 'bg-white text-[#1E73BE] border border-[#1E73BE]'}`
+}
+
 >
   Log In
 </NavLink>
