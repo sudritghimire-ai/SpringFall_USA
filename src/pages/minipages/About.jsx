@@ -208,7 +208,7 @@ const USAUniversityFinder = () => {
   const findUniversities = () => {
     const g = parseFloat(gpa);
     const i = parseFloat(ielts);
-    const b = budget ? parseInt(budget) : 0;
+    const b = budget;
 
     if (!g || !i || !major) {
       showNotification('Please enter GPA, IELTS, and select a major.');
@@ -224,7 +224,17 @@ const USAUniversityFinder = () => {
       const gCheck = g >= uni.minGPA;
       const iCheck = i >= uni.minIELTS;
       const mCheck = uni.majors.includes(major);
-      const bCheck = b ? parseInt(uni.tuition.replace(/[^0-9]/g, '')) <= b : true;
+
+      // ✅ FIXED BUDGET RANGE CHECK
+      let lower = 0, upper = Infinity;
+      if (b === "20000") upper = 20000;
+      else if (b === "40000") { lower = 20000; upper = 40000; }
+      else if (b === "60000") { lower = 40000; upper = 60000; }
+      else if (b === "100000") lower = 60000;
+
+      const tuition = parseInt(uni.tuition.replace(/[^0-9]/g, '')) || 0;
+      const bCheck = tuition >= lower && tuition <= upper;
+
       return gCheck && iCheck && mCheck && bCheck;
     });
 
