@@ -64,7 +64,7 @@ const Navbar = () => {
                             <NavLink
                                 to={list.path}
                                 className={({ isActive }) =>
-                                    `relative px-4 py-2 overflow-hidden group rounded-md font-medium text-sm ${
+                                    `relative px-4 py-2 overflow-hidden group rounded-md font-medium text-lg ${
                                         isActive ? 'text-[#1E73BE] font-semibold' : 'text-gray-700'
                                     }`
                                 }
@@ -151,7 +151,7 @@ const Navbar = () => {
                                         <NavLink
                                             to={list.path}
                                             className={({ isActive }) =>
-                                                `block text-center py-2.5 px-6 rounded-full text-sm transition-all duration-300 ${
+                                                `block text-center py-2.5 px-6 rounded-full text-base transition-all duration-300 ${
                                                     isActive
                                                         ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-md'
                                                         : 'bg-white text-[#1E73BE] border border-[#1E73BE]'
