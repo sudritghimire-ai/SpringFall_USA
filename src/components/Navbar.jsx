@@ -58,13 +58,13 @@ const Navbar = () => {
                 </a>
 
                 {/* Desktop Nav Items */}
-                <ul className='hidden sm:flex items-center space-x-6'>
+                <ul className='hidden sm:flex items-center gap-x-10'>
                     {navLists.map((list, index) => (
                         <li key={index} className='flex-shrink-0'>
                             <NavLink
                                 to={list.path}
                                 className={({ isActive }) =>
-                                    `relative px-4 py-2 overflow-hidden group rounded-md font-medium text-sm ${
+                                    `relative px-4 py-2 overflow-hidden group rounded-md font-medium text-lg ${
                                         isActive ? 'text-[#1E73BE] font-semibold' : 'text-gray-700'
                                     }`
                                 }
@@ -75,14 +75,8 @@ const Navbar = () => {
                             </NavLink>
                         </li>
                     ))}
-                    {user ? (
-                        <li className='flex items-center gap-4'>
-                            {user.role === "admin" && (
-                                <div className="relative group">
-                                    <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-white z-10"></div>
-                                    <img src={avatarImg || "/placeholder.svg"} alt='Admin Avatar' className='w-10 h-10 rounded-full object-cover border-2 border-[#1E73BE] group-hover:scale-110 transition-all duration-300 relative z-0' />
-                                </div>
-                            )}
+                    <li>
+                        {user ? (
                             <Link to='/dashboard'>
                                 <button className='relative overflow-hidden bg-gradient-to-r from-[#1E73BE] to-[#2A80C5] text-white py-2.5 px-6 rounded-full shadow-lg hover:shadow-[0_5px_15px_rgba(30,115,190,0.4)] transition-all duration-300 group'>
                                     <span className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-blue-500 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out -z-10"></span>
@@ -94,9 +88,7 @@ const Navbar = () => {
                                     </span>
                                 </button>
                             </Link>
-                        </li>
-                    ) : (
-                        <li>
+                        ) : (
                             <NavLink
                                 to="/login"
                                 className={({ isActive }) =>
@@ -107,8 +99,8 @@ const Navbar = () => {
                             >
                                 Log In
                             </NavLink>
-                        </li>
-                    )}
+                        )}
+                    </li>
                 </ul>
 
                 {/* Mobile Hamburger */}
@@ -151,7 +143,7 @@ const Navbar = () => {
                                         <NavLink
                                             to={list.path}
                                             className={({ isActive }) =>
-                                                `block text-center py-2.5 px-6 rounded-full text-sm transition-all duration-300 ${
+                                                `block text-center py-2.5 px-6 rounded-full text-base transition-all duration-300 ${
                                                     isActive
                                                         ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-md'
                                                         : 'bg-white text-[#1E73BE] border border-[#1E73BE]'
