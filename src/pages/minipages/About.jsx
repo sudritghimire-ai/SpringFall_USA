@@ -162,7 +162,8 @@ const universities = [
     acceptanceLevel: "high",
     type: "public",
     financialAid: "limited",
-    tags: ["Affordable", "Southern", "Friendly Campus"]
+    tags: ["Affordable", "Southern", "Friendly Campus"],
+    website:'https://springfall-usa.vercel.app/blogs/681da10ba6683ec206d4001c'
   }
 ];
 
