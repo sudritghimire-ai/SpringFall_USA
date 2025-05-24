@@ -9,7 +9,8 @@ import { logout } from '../redux/features/auth/authSlice';
 
 const navLists = [
     { name: "Home", path: '/' },
-    { name: "Privacy and Policy", path: '/privacy-policy' }
+    { name: "Privacy and Policy", path: '/privacy-policy' },
+    { name: "UniversitySearch", path: '/about-us' }
 ];
 
 const Navbar = () => {
@@ -29,7 +30,9 @@ const Navbar = () => {
     }, []);
 
     const handleLogout = () => {
-        logoutUser().then(() => dispatch(logout())).catch(console.error);
+        logoutUser()
+            .then(() => dispatch(logout()))
+            .catch(console.error);
     };
 
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
@@ -37,7 +40,7 @@ const Navbar = () => {
     const isFixedNavbar = location.pathname.includes('/blogs/');
 
     return (
-        <header className={`bg-white py-4 font-sans w-full z-50 transition-all duration-500 ${scrolled ? 'shadow-[0_8px_30px_rgb(0,0,0,0.04)]' : ''} ${isFixedNavbar ? 'fixed top-0 left-0 right-0' : ''}`}>
+        <header className={`bg-white py-4 font-sans w-full z-50 transition-all duration-500 ${scrolled ? 'shadow-[0_8px_30px_rgb(0,0,0,0.04)]' : 'shadow-none'} ${isFixedNavbar ? 'fixed top-0 left-0 right-0' : ''}`}>
             <nav className='container mx-auto flex justify-between items-center px-5 relative z-10'>
                 {/* Logo */}
                 <a href='/' className="flex items-center space-x-3 group">
@@ -54,13 +57,17 @@ const Navbar = () => {
                     </div>
                 </a>
 
-                {/* Desktop Navigation */}
-                <ul className='hidden sm:flex space-x-10 items-center'>
+                {/* Desktop Nav Items */}
+                <ul className='hidden sm:flex items-center space-x-6'>
                     {navLists.map((list, index) => (
-                        <li key={index}>
+                        <li key={index} className='flex-shrink-0'>
                             <NavLink
                                 to={list.path}
-                                className={({ isActive }) => `relative px-3 py-2 group rounded-md ${isActive ? 'text-[#1E73BE] font-semibold' : 'text-gray-700'}`}
+                                className={({ isActive }) =>
+                                    `relative px-4 py-2 overflow-hidden group rounded-md font-medium text-sm ${
+                                        isActive ? 'text-[#1E73BE] font-semibold' : 'text-gray-700'
+                                    }`
+                                }
                                 onClick={closeMenu}
                             >
                                 <span className="absolute top-0 left-0 w-full h-0 bg-gradient-to-r from-blue-50 to-blue-100 group-hover:h-full transition-all duration-500 ease-out rounded-md -z-10"></span>
@@ -73,8 +80,7 @@ const Navbar = () => {
                             {user.role === "admin" && (
                                 <div className="relative group">
                                     <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-white z-10"></div>
-                                    <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-400 to-blue-600 blur-md opacity-0 group-hover:opacity-70 transition-opacity duration-300"></div>
-                                    <img src={avatarImg || "/placeholder.svg"} alt='Admin Avatar' className='w-10 h-10 rounded-full object-cover border-2 border-[#1E73BE] group-hover:scale-110 cursor-pointer transition-all duration-300 relative z-0' />
+                                    <img src={avatarImg || "/placeholder.svg"} alt='Admin Avatar' className='w-10 h-10 rounded-full object-cover border-2 border-[#1E73BE] group-hover:scale-110 transition-all duration-300 relative z-0' />
                                 </div>
                             )}
                             <Link to='/dashboard'>
@@ -91,9 +97,13 @@ const Navbar = () => {
                         </li>
                     ) : (
                         <li>
-                            <NavLink 
-                                to="/login" 
-                                className={({ isActive }) => `py-2.5 px-6 rounded-full transition-all duration-300 ${isActive ? 'bg-[#1E73BE] text-white shadow-lg' : 'bg-white text-[#1E73BE] border border-[#1E73BE]'}`}
+                            <NavLink
+                                to="/login"
+                                className={({ isActive }) =>
+                                    `py-2.5 px-6 rounded-full transition-all duration-300 ${
+                                        isActive ? 'bg-[#1E73BE] text-white shadow-lg' : 'bg-white text-[#1E73BE] border border-[#1E73BE]'
+                                    }`
+                                }
                             >
                                 Log In
                             </NavLink>
@@ -101,9 +111,12 @@ const Navbar = () => {
                     )}
                 </ul>
 
-                {/* Mobile Menu Icon */}
+                {/* Mobile Hamburger */}
                 <div className='sm:hidden'>
-                    <button onClick={toggleMenu} className='relative flex items-center justify-center w-12 h-12 bg-gradient-to-r from-blue-50 to-blue-100 rounded-full text-[#1E73BE] shadow-sm hover:shadow-md group'>
+                    <button
+                        onClick={toggleMenu}
+                        className='relative flex items-center justify-center w-12 h-12 bg-gradient-to-r from-blue-50 to-blue-100 rounded-full text-[#1E73BE] shadow-sm hover:shadow-md group'
+                    >
                         <span className="absolute inset-0 bg-gradient-to-r from-blue-100 to-blue-200 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
                         {isMenuOpen ? (
                             <AiOutlineCloseCircle className='text-2xl transition-transform duration-500 rotate-90 group-hover:rotate-0' />
@@ -114,7 +127,7 @@ const Navbar = () => {
                 </div>
             </nav>
 
-            {/* Mobile Navigation Drawer */}
+            {/* Mobile Nav Drawer */}
             {isMenuOpen && (
                 <div className="sm:hidden fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm z-40" onClick={closeMenu}>
                     <div className="absolute right-0 top-[72px] h-screen w-[85%] max-w-[320px] bg-white shadow-2xl animate-slide-in-right" onClick={e => e.stopPropagation()}>
@@ -138,9 +151,9 @@ const Navbar = () => {
                                         <NavLink
                                             to={list.path}
                                             className={({ isActive }) =>
-                                                `py-2.5 px-6 rounded-full transition-all duration-300 w-full block text-center ${
-                                                    isActive 
-                                                        ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-md' 
+                                                `block text-center py-2.5 px-6 rounded-full text-sm transition-all duration-300 ${
+                                                    isActive
+                                                        ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-md'
                                                         : 'bg-white text-[#1E73BE] border border-[#1E73BE]'
                                                 }`
                                             }
@@ -153,7 +166,7 @@ const Navbar = () => {
                             </ul>
                         </div>
 
-                        {/* Admin Info */}
+                        {/* Admin + Dashboard or Login Button */}
                         {user && user.role === "admin" && (
                             <div className="px-6 mt-10">
                                 <div className="flex items-center bg-gradient-to-r from-blue-50 to-white p-4 rounded-xl border border-blue-100">
@@ -169,7 +182,6 @@ const Navbar = () => {
                             </div>
                         )}
 
-                        {/* Dashboard or Login */}
                         <div className="px-6 mt-8">
                             <Link to={user ? "/dashboard" : "/login"} onClick={closeMenu}>
                                 <button className='w-full py-3 rounded-full text-white bg-gradient-to-r from-[#1E73BE] to-[#2A80C5] text-lg font-medium'>
