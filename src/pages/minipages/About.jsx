@@ -19,7 +19,24 @@ const universities = [
     financialAid: "limited",
     tags: ["Affordable", "Southern", "Community-Oriented"],
     website:'https://springfall-usa.vercel.app/blogs/68298c505022bb8a6efc5548'
-  },
+  },{
+  "name": "Middle Tennessee State University (MTSU)",
+  "location": "Murfreesboro, Tennessee",
+  "ranking": 293,
+  "acceptanceRate": "94%",
+  "tuition": "$12,200",
+  "minGPA": 2.5,
+  "minSAT": 1100,
+  "minACT": 22,
+  "minIELTS": 5.5,
+  "majors": ["Aerospace", "Business", "Music", "Mechatronics Engineering", "Psychology", "Media & Entertainment"],
+  "acceptanceLevel": "very high",
+  "type": "public",
+  "financialAid": "generous (up to $16,000/year)",
+  "tags": ["Affordable", "Supportive", "Cultural Diversity", "STEM-Friendly"],
+  "website": "https://springfall-usa.vercel.app/blogs/68315b9e32f5a705c0e436a2"
+},
+
   {
     name: "University of Wisconsin-Green Bay",
     location: "Green Bay, Wisconsin",
