@@ -17,7 +17,8 @@ const universities = [
     acceptanceLevel: "high",
     type: "public",
     financialAid: "limited",
-    tags: ["Affordable", "Southern", "Community-Oriented"]
+    tags: ["Affordable", "Southern", "Community-Oriented"],
+    website:'https://springfall-usa.vercel.app/blogs/68298c505022bb8a6efc5548'
   },
   {
     name: "University of Wisconsin-Green Bay",
@@ -33,7 +34,8 @@ const universities = [
     acceptanceLevel: "high",
     type: "public",
     financialAid: "limited",
-    tags: ["Eco Campus", "Affordable", "Safe Community"]
+    tags: ["Eco Campus", "Affordable", "Safe Community"],
+    website:'https://springfall-usa.vercel.app/blogs/6826dce8b870a0f044dbc0cd'
   },
   {
     name: "University of Wisconsin-Superior",
@@ -49,7 +51,8 @@ const universities = [
     acceptanceLevel: "high",
     type: "public",
     financialAid: "limited",
-    tags: ["Small Classes", "Affordable", "Liberal Arts"]
+    tags: ["Small Classes", "Affordable", "Liberal Arts"],
+    website:'https://springfall-usa.vercel.app/blogs/6826d33fb870a0f044dbc040'
   },
   {
     name: "McNeese State University",
@@ -65,7 +68,8 @@ const universities = [
     acceptanceLevel: "high",
     type: "public",
     financialAid: "limited",
-    tags: ["Affordable", "STEM Focus", "Southern"]
+    tags: ["Affordable", "STEM Focus", "Southern"],
+    website:'https://springfall-usa.vercel.app/blogs/6824bb70c5f80929f4d5d37d'
   },
   {
     name: "Louisiana Tech University",
@@ -81,7 +85,8 @@ const universities = [
     acceptanceLevel: "medium",
     type: "public",
     financialAid: "limited",
-    tags: ["Tech Focus", "Affordable", "Public Research"]
+    tags: ["Tech Focus", "Affordable", "Public Research"],
+    website:'https://springfall-usa.vercel.app/blogs/682475472c6f25f9e777d840'
   },
   {
     name: "Weber State University",
@@ -97,7 +102,8 @@ const universities = [
     acceptanceLevel: "high",
     type: "public",
     financialAid: "limited",
-    tags: ["Open Admission", "Affordable", "Utah Public"]
+    tags: ["Open Admission", "Affordable", "Utah Public"],
+    website:'https://springfall-usa.vercel.app/blogs/682088009c81af52ecd7c45d'
   },
   {
     name: "University of Texas at Arlington (UTA)",
@@ -113,7 +119,8 @@ const universities = [
     acceptanceLevel: "high",
     type: "public",
     financialAid: "limited",
-    tags: ["Urban", "Diverse", "Research-Oriented"]
+    tags: ["Urban", "Diverse", "Research-Oriented"],
+    website:'https://springfall-usa.vercel.app/blogs/681dec66ce3277f5baea6e69'
   },
   {
     name: "Idaho State University (ISU)",
@@ -129,7 +136,8 @@ const universities = [
     acceptanceLevel: "high",
     type: "public",
     financialAid: "limited",
-    tags: ["Health-Focused", "Research", "Affordable"]
+    tags: ["Health-Focused", "Research", "Affordable"],
+    website:'https://springfall-usa.vercel.app/blogs/681deb7cce3277f5baea6e5b'
   },
   {
     name: "Texas State University (TXST)",
