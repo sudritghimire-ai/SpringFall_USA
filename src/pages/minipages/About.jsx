@@ -19,7 +19,40 @@ const universities = [
     financialAid: "limited",
     tags: ["Affordable", "Southern", "Community-Oriented"],
     website:'https://springfall-usa.vercel.app/blogs/68298c505022bb8a6efc5548'
-  },{
+  },
+{
+  "name": "Texas A&M University – College Station (TAMU)",
+  "location": "College Station, Texas",
+  "ranking": 51,
+  "acceptanceRate": "63%",
+  "tuition": {
+    "inState": "$12,841",
+    "outOfState": "$40,328"
+  },
+  "minGPA": null,
+  "minSAT": 1260,
+  "minACT": 28,
+  "minIELTS": 6.5,
+  "majors": [
+    "Engineering",
+    "Business",
+    "Agriculture",
+    "Education",
+    "Sciences",
+    "Liberal Arts"
+  ],
+  "acceptanceLevel": "moderate",
+  "type": "public",
+  "financialAid": "extensive",
+  "tags": [
+    "Research-Intensive",
+    "Aggie Spirit",
+    "STEM Excellence",
+    "Large Campus Community"
+  ],
+  "website": "https://www.tamu.edu"
+},
+{
   "name": "Middle Tennessee State University (MTSU)",
   "location": "Murfreesboro, Tennessee",
   "ranking": 293,
