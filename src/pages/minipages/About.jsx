@@ -1,4 +1,3 @@
-// ✅ USAUniversityFinder.jsx - Full Working JSX File
 
 import React, { useState } from 'react';
 
@@ -18,7 +17,7 @@ const universities = [
     type: "public",
     financialAid: "limited",
     tags: ["Affordable", "Southern", "Community-Oriented"],
-    website:'https://springfall-usa.vercel.app/blogs/68298c505022bb8a6efc5548'
+    website: "https://springfall-usa.vercel.app/blogs/68298c505022bb8a6efc5548"
   },
   {
     name: "Middle Tennessee State University (MTSU)",
@@ -52,7 +51,7 @@ const universities = [
     type: "public",
     financialAid: "limited",
     tags: ["Eco Campus", "Affordable", "Safe Community"],
-    website:'https://springfall-usa.vercel.app/blogs/6826dce8b870a0f044dbc0cd'
+    website: "https://springfall-usa.vercel.app/blogs/6826dce8b870a0f044dbc0cd"
   },
   {
     name: "University of Wisconsin-Superior",
@@ -69,7 +68,7 @@ const universities = [
     type: "public",
     financialAid: "limited",
     tags: ["Small Classes", "Affordable", "Liberal Arts"],
-    website:'https://springfall-usa.vercel.app/blogs/6826d33fb870a0f044dbc040'
+    website: "https://springfall-usa.vercel.app/blogs/6826d33fb870a0f044dbc040"
   },
   {
     name: "McNeese State University",
@@ -86,7 +85,7 @@ const universities = [
     type: "public",
     financialAid: "limited",
     tags: ["Affordable", "STEM Focus", "Southern"],
-    website:'https://springfall-usa.vercel.app/blogs/6824bb70c5f80929f4d5d37d'
+    website: "https://springfall-usa.vercel.app/blogs/6824bb70c5f80929f4d5d37d"
   },
   {
     name: "Louisiana Tech University",
@@ -103,7 +102,7 @@ const universities = [
     type: "public",
     financialAid: "limited",
     tags: ["Tech Focus", "Affordable", "Public Research"],
-    website:'https://springfall-usa.vercel.app/blogs/682475472c6f25f9e777d840'
+    website: "https://springfall-usa.vercel.app/blogs/682475472c6f25f9e777d840"
   },
   {
     name: "Weber State University",
@@ -120,7 +119,7 @@ const universities = [
     type: "public",
     financialAid: "limited",
     tags: ["Open Admission", "Affordable", "Utah Public"],
-    website:'https://springfall-usa.vercel.app/blogs/682088009c81af52ecd7c45d'
+    website: "https://springfall-usa.vercel.app/blogs/682088009c81af52ecd7c45d"
   },
   {
     name: "University of Texas at Arlington (UTA)",
@@ -137,7 +136,7 @@ const universities = [
     type: "public",
     financialAid: "limited",
     tags: ["Urban", "Diverse", "Research-Oriented"],
-    website:'https://springfall-usa.vercel.app/blogs/681dec66ce3277f5baea6e69'
+    website: "https://springfall-usa.vercel.app/blogs/681dec66ce3277f5baea6e69"
   },
   {
     name: "Idaho State University (ISU)",
@@ -154,7 +153,7 @@ const universities = [
     type: "public",
     financialAid: "limited",
     tags: ["Health-Focused", "Research", "Affordable"],
-    website:'https://springfall-usa.vercel.app/blogs/681deb7cce3277f5baea6e5b'
+    website: "https://springfall-usa.vercel.app/blogs/681deb7cce3277f5baea6e5b"
   },
   {
     name: "Texas State University (TXST)",
@@ -188,10 +187,8 @@ const universities = [
     type: "public",
     financialAid: "limited",
     tags: ["Affordable", "Southern", "Friendly Campus"],
-    website:'https://springfall-usa.vercel.app/blogs/681da10ba6683ec206d4001c'
+    website: "https://springfall-usa.vercel.app/blogs/681da10ba6683ec206d4001c"
   },
-
-  // ✅ NEW UNIVERSITIES ADDED
   {
     name: "Caldwell University",
     location: "Caldwell, New Jersey",
@@ -310,8 +307,111 @@ const universities = [
     financialAid: "limited",
     tags: ["Affordable", "Community-Oriented", "Diversity"],
     website: "https://springfall-usa.vercel.app/blogs/6841b450c93f4acbbebf4d35"
+  },
+  {
+    name: "Wright State University",
+    location: "Dayton, Ohio",
+    ranking: 365,
+    acceptanceRate: "95%",
+    tuition: "$20,000",
+    minGPA: 2.5,
+    minSAT: 1040,
+    minACT: 21,
+    minIELTS: 6.0,
+    majors: ["Business", "Engineering", "Nursing", "Computer Science", "Education", "Psychology"],
+    acceptanceLevel: "very high",
+    type: "public",
+    financialAid: "limited",
+    tags: ["STEM-Friendly", "Affordable", "Urban"],
+    website: "https://springfall-usa.vercel.app/blogs/6841b6a8c93f4acbbebf4e1b"
+  },
+  {
+    name: "Lyon College",
+    location: "Batesville, Arkansas",
+    ranking: 458,
+    acceptanceRate: "75%",
+    tuition: "$31,500",
+    minGPA: 2.75,
+    minSAT: 1050,
+    minACT: 21,
+    minIELTS: 6.0,
+    majors: ["Biology", "Business", "Psychology", "History", "Education"],
+    acceptanceLevel: "medium",
+    type: "private",
+    financialAid: "generous (up to $18,000/year)",
+    tags: ["Liberal Arts", "Private", "Community-Oriented"],
+    website: "https://springfall-usa.vercel.app/blogs/6841ba04c93f4acbbebf4f4c"
+  },
+  {
+    name: "University of South Dakota (USD)",
+    location: "Vermillion, South Dakota",
+    ranking: 321,
+    acceptanceRate: "87%",
+    tuition: "$12,800",
+    minGPA: 2.5,
+    minSAT: 1030,
+    minACT: 21,
+    minIELTS: 6.0,
+    majors: ["Business", "Health Sciences", "Nursing", "Computer Science", "Law"],
+    acceptanceLevel: "high",
+    type: "public",
+    financialAid: "limited",
+    tags: ["Affordable", "Research", "Community-Oriented"],
+    website: "https://springfall-usa.vercel.app/blogs/6841bd2dc93f4acbbebf507a"
+  },
+  {
+    name: "University of Cincinnati (UC)",
+    location: "Cincinnati, Ohio",
+    ranking: 142,
+    acceptanceRate: "86%",
+    tuition: "$28,500",
+    minGPA: 3.0,
+    minSAT: 1150,
+    minACT: 24,
+    minIELTS: 6.5,
+    majors: ["Engineering", "Business", "Health Sciences", "Computer Science", "Architecture"],
+    acceptanceLevel: "medium",
+    type: "public",
+    financialAid: "limited",
+    tags: ["Research", "Urban", "Public"],
+    website: "https://springfall-usa.vercel.app/blogs/6841c12ec93f4acbbebf51b3"
+  },
+  {
+    name: "Louisiana State University Shreveport (LSUS)",
+    location: "Shreveport, Louisiana",
+    ranking: 500,
+    acceptanceRate: "84%",
+    tuition: "$20,400",
+    minGPA: 2.5,
+    minSAT: 1020,
+    minACT: 20,
+    minIELTS: 6.0,
+    majors: ["Business", "Health Sciences", "Computer Science", "Education", "Social Work"],
+    acceptanceLevel: "high",
+    type: "public",
+    financialAid: "limited",
+    tags: ["Affordable", "Community-Oriented", "Southern"],
+    website: "https://springfall-usa.vercel.app/blogs/6841c450c93f4acbbebf52f9"
+  },
+  {
+    name: "Texas A&M University - College Station (TAMU)",
+    location: "College Station, Texas",
+    ranking: 67,
+    acceptanceRate: "64%",
+    tuition: "$39,800",
+    minGPA: 3.0,
+    minSAT: 1250,
+    minACT: 26,
+    minIELTS: 7.0,
+    majors: ["Engineering", "Business", "Computer Science", "Agriculture", "Architecture", "Education"],
+    acceptanceLevel: "medium",
+    type: "public",
+    financialAid: "limited",
+    tags: ["Research", "STEM Focus", "Large Campus"],
+    website: "https://springfall-usa.vercel.app/blogs/6841c7aec93f4acbbebf5434"
   }
 ];
+
 
 const USAUniversityFinder = () => {
   const [gpa, setGpa] = useState('');
