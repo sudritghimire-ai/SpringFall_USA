@@ -498,18 +498,21 @@ const USAUniversityFinder = () => {
       </div>
 
       {/* Fixed Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-white/70 border-b border-white/20 shadow-lg">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-center">
-            <div className="text-center">
-              <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-indigo-600 to-cyan-600 bg-clip-text text-transparent">
-                University Search Engine
-              </h1>
-              <p className="text-sm text-gray-600 mt-1">Find your perfect match among top American universities</p>
-            </div>
-          </div>
-        </div>
-      </header>
+    {/* Fixed Header */}
+{/* 
+<header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-white/70 border-b border-white/20 shadow-lg">
+  <div className="max-w-7xl mx-auto px-6 py-4">
+    <div className="flex items-center justify-center">
+      <div className="text-center">
+        <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-indigo-600 to-cyan-600 bg-clip-text text-transparent">
+          University Search Engine
+        </h1>
+        <p className="text-sm text-gray-600 mt-1">Find your perfect match among top American universities</p>
+      </div>
+    </div>
+  </div>
+</header>
+*/}
 
       {/* Notification */}
       {notification && (
