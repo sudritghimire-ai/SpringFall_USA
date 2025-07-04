@@ -253,8 +253,7 @@ const SingleBlogCard = ({ blog }) => {
             {/* Header Section */}
             <header className="text-center mb-12 pb-8 border-b-2 border-gray-200">
               <div className="mb-6">
-                <span className="inline-flex items-center gap-2 px-4 py-2 text-blue-800 rounded-full text-sm font-medium tracking-wide uppercase font-outfit"
->
+                <span className="inline-flex items-center gap-2 px-4 py-2 border border-blue-200 text-blue-800 rounded-full text-sm font-medium tracking-wide uppercase font-outfit bg-transparent hover:border-blue-300 transition-colors">
                   <span className="text-base">🏆</span>
                   {category}
                 </span>
@@ -309,7 +308,7 @@ const SingleBlogCard = ({ blog }) => {
                       className="bg-white p-8 rounded-xl shadow-md border border-gray-200 hover:shadow-xl hover:border-blue-200 transition-all duration-300 group"
                     >
                       <div className="flex items-start gap-3 mb-4">
-                        <div className="w-10 h-10 bg-gradient-to-br from-blue-100 to-amber-100 rounded-lg flex items-center justify-center group-hover:from-blue-200 group-hover:to-amber-200 transition-colors">
+                        <div className="w-10 h-10 bg-transparent border border-blue-200 rounded-lg flex items-center justify-center group-hover:border-amber-400 transition-colors">
                           <span className="text-blue-800 text-lg">🎓</span>
                         </div>
                         <h3 className="text-xl font-serif-academic font-semibold text-blue-900 leading-tight">
@@ -325,7 +324,7 @@ const SingleBlogCard = ({ blog }) => {
 
             {/* Rating Section */}
             <footer className="mt-16 pt-8 border-t border-gray-200">
-              <div className="bg-gradient-to-r from-blue-50 to-amber-50 p-8 rounded-xl border border-blue-200 text-center">
+              <div className="bg-transparent border border-blue-200 p-8 rounded-xl text-center hover:border-amber-300 transition-colors">
                 <div className="flex items-center justify-center gap-2 mb-2">
                   <span className="text-amber-600 text-lg">🏆</span>
                   <span className="font-serif-academic font-semibold text-slate-800 text-lg">Academic Rating</span>
