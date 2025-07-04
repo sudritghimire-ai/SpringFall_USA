@@ -10,11 +10,11 @@ const customParsers = {
   embed: (block) => {
     const { service, source, embed } = block.data
     if (service === "youtube") {
-      return `<figure class="my-8 bg-white p-4 rounded-xl shadow-sm border border-gray-200">
-                <div class="aspect-video rounded-lg overflow-hidden border border-gray-300">
+      return `<figure class="my-8 bg-white p-4 border border-gray-200">
+                <div class="aspect-video overflow-hidden border border-gray-300">
                   <iframe class="w-full h-full" src="${embed}" frameborder="0" allowfullscreen></iframe>
                 </div>
-                <figcaption class="mt-3 text-sm text-gray-600 italic font-serif-academic text-center">Educational Video Content</figcaption>
+                <figcaption class="mt-3 text-sm text-gray-600 italic text-center">Educational Video Content</figcaption>
               </figure>`
     }
     return `<a href="${source}" target="_blank" rel="noopener noreferrer" class="text-blue-800 hover:text-amber-600 underline decoration-2 underline-offset-2 transition-colors">${source}</a>`
@@ -36,7 +36,7 @@ const customParsers = {
       })
       .join("")
     return `<div class="my-8 overflow-x-auto">
-              <table class="w-full border-collapse border border-gray-300 shadow-md rounded-xl overflow-hidden bg-white">
+              <table class="w-full border-collapse border border-gray-300 bg-white">
                 ${tableRows}
               </table>
             </div>`
@@ -62,7 +62,7 @@ const customParsers = {
 
   quote: (block) => {
     const { text } = block.data
-    return `<blockquote class="my-8 pl-8 pr-6 py-6 bg-blue-50 border-l-4 border-blue-800 rounded-r-xl shadow-sm relative">
+    return `<blockquote class="my-8 pl-8 pr-6 py-6 bg-blue-50 border-l-4 border-blue-800 relative">
               <div class="absolute top-4 left-4 text-blue-300 text-2xl">"</div>
               <p class="text-gray-700 italic font-serif-academic text-lg leading-relaxed ml-4">${text}</p>
               <footer class="mt-4 text-sm text-gray-600 font-outfit ml-4">— Academic Source</footer>
@@ -100,10 +100,10 @@ const SingleBlogCard = ({ blog }) => {
             <a
               href={`#${id}`}
               onClick={(e) => handleTOCClick(e, id)}
-              className={`flex items-center gap-2 py-2.5 px-3 rounded-lg transition-all duration-200 text-sm font-outfit group ${
+              className={`flex items-center gap-2 py-2.5 px-3 transition-all duration-200 text-sm font-outfit group ${
                 activeSection === id
-                  ? "bg-blue-100 text-blue-900 border-l-4 border-amber-600 shadow-sm font-medium"
-                  : "text-gray-700 hover:bg-gray-100 hover:text-blue-800 hover:shadow-sm"
+                  ? "bg-blue-100 text-blue-900 border-l-4 border-amber-600 font-medium"
+                  : "text-gray-700 hover:bg-gray-100 hover:text-blue-800"
               }`}
             >
               <span className="text-amber-600 opacity-70 group-hover:opacity-100 transition-opacity text-sm">
@@ -269,10 +269,10 @@ const SingleBlogCard = ({ blog }) => {
               {similarUniversities.map((university) => (
                 <div
                   key={university.id}
-                  className="bg-white p-4 rounded-xl shadow-md border border-gray-200 hover:shadow-xl hover:border-blue-200 transition-all duration-300 group"
+                  className="bg-white p-4 border border-gray-200 hover:border-blue-200 transition-all duration-300 group"
                 >
                   <div className="flex items-start gap-3 mb-4">
-                    <div className="w-10 h-10 bg-transparent border border-blue-200 rounded-lg flex items-center justify-center group-hover:border-amber-400 transition-colors">
+                    <div className="w-10 h-10 bg-transparent border border-blue-200 flex items-center justify-center group-hover:border-amber-400 transition-colors">
                       <span className="text-blue-800 text-lg">🎓</span>
                     </div>
                     <h3 className="text-lg font-serif-academic font-semibold text-blue-900 leading-tight">
@@ -290,55 +290,51 @@ const SingleBlogCard = ({ blog }) => {
       {/* Main Content Container */}
       <div className="pt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          {/* CSS Grid Layout - 12 columns */}
-          <div className="grid grid-cols-1 xl:grid-cols-12 gap-8">
-            {/* Left Column - Table of Contents (3 columns on desktop) */}
-            <aside className="hidden xl:block xl:col-span-3">
-              <div className="sticky top-24">
-                <div className="bg-white rounded-2xl shadow-lg border border-amber-200/50 overflow-hidden">
-                  <div className="bg-gradient-to-r from-blue-50 to-amber-50 px-6 py-4 border-b border-amber-200/50">
-                    <h3 className="font-bold text-gray-900 flex items-center space-x-2">
-                      <span>📚</span>
-                      <span>Table of Contents</span>
-                    </h3>
-                  </div>
-                  <nav className="p-6 max-h-96 overflow-y-auto">
-                    <ul className="space-y-1">{generateTOC(htmlContent)}</ul>
-                  </nav>
+          {/* Flex Layout - 3 columns */}
+          <div className="flex flex-col xl:flex-row gap-8">
+            {/* Left Column - Table of Contents (1/4 width on desktop) */}
+            <aside className="hidden xl:block xl:w-1/4">
+              <div className="bg-white border border-gray-200 p-4">
+                <div className="mb-4 pb-4 border-b border-gray-200">
+                  <h3 className="font-bold text-gray-900 flex items-center space-x-2">
+                    <span>📚</span>
+                    <span>Table of Contents</span>
+                  </h3>
                 </div>
+                <nav>
+                  <ul className="space-y-1">{generateTOC(htmlContent)}</ul>
+                </nav>
               </div>
             </aside>
 
-            {/* Center Column - Main Content (6 columns on desktop) */}
-            <main className="xl:col-span-6">
-              <article className="bg-white rounded-2xl shadow-lg border border-amber-200/50 overflow-hidden">
+            {/* Center Column - Main Content (1/2 width on desktop) */}
+            <main className="w-full xl:w-2/4">
+              <article className="bg-white border border-gray-200 p-4">
                 {/* Article Header */}
-                <header className="px-8 py-12 bg-gradient-to-br from-white via-blue-50/30 to-amber-50/30">
-                  <div className="text-center">
-                    <div className="mb-6">
-                      <span className="inline-flex items-center space-x-2 px-4 py-2 bg-white/80 backdrop-blur-sm text-blue-700 rounded-full text-sm font-semibold border border-blue-200/50 shadow-sm">
-                        <span>🏆</span>
-                        <span>{category}</span>
-                      </span>
-                    </div>
-                    <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif-academic font-bold text-slate-800 mb-6 leading-tight">
-                      {title}
-                    </h1>
-                    <div className="flex items-center justify-center space-x-4 text-gray-600 font-outfit flex-wrap">
-                      <time className="font-serif-academic italic text-sm">{formatDate(createdAt)}</time>
-                      <span className="text-amber-600 hidden sm:inline">•</span>
-                      <span className="text-blue-800 hover:text-amber-600 cursor-pointer font-medium text-sm">
-                        By {author || "SpringFallUSA Editorial"}
-                      </span>
-                    </div>
+                <header className="text-center mb-12 pb-8 border-b border-gray-200">
+                  <div className="mb-6">
+                    <span className="inline-flex items-center space-x-2 px-4 py-2 bg-blue-50 text-blue-700 border border-blue-200 text-sm font-semibold">
+                      <span>🏆</span>
+                      <span>{category}</span>
+                    </span>
+                  </div>
+                  <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif-academic font-bold text-slate-800 mb-6 leading-tight">
+                    {title}
+                  </h1>
+                  <div className="flex items-center justify-center space-x-4 text-gray-600 font-outfit flex-wrap">
+                    <time className="font-serif-academic italic text-sm">{formatDate(createdAt)}</time>
+                    <span className="text-amber-600 hidden sm:inline">•</span>
+                    <span className="text-blue-800 hover:text-amber-600 cursor-pointer font-medium text-sm">
+                      By {author || "SpringFallUSA Editorial"}
+                    </span>
                   </div>
                 </header>
 
                 {/* Cover Image */}
                 {coverImg && (
-                  <div className="px-8 py-6">
+                  <div className="mb-12">
                     <figure className="relative">
-                      <div className="aspect-video rounded-2xl overflow-hidden bg-gray-100 shadow-lg">
+                      <div className="aspect-video bg-gray-100">
                         <img
                           src={coverImg || "/placeholder.svg"}
                           alt="Article cover"
@@ -353,7 +349,7 @@ const SingleBlogCard = ({ blog }) => {
                 )}
 
                 {/* Article Content */}
-                <div className="px-8 py-6">
+                <div className="mb-12">
                   <div
                     dangerouslySetInnerHTML={{ __html: htmlContent }}
                     className="prose prose-lg max-w-none text-gray-700 leading-relaxed"
@@ -362,9 +358,9 @@ const SingleBlogCard = ({ blog }) => {
 
                 {/* Rating Section */}
                 {rating && (
-                  <footer className="px-8 py-6 border-t border-gray-100 bg-gradient-to-r from-blue-50/50 to-amber-50/50">
+                  <footer className="pt-8 border-t border-gray-200">
                     <div className="text-center">
-                      <div className="inline-flex items-center space-x-3 bg-white/80 backdrop-blur-sm px-6 py-4 rounded-2xl border border-amber-200/50 shadow-sm">
+                      <div className="inline-flex items-center space-x-3 bg-blue-50 border border-blue-200 px-6 py-4">
                         <span className="text-2xl">🏆</span>
                         <div>
                           <p className="text-sm font-medium text-gray-600">Academic Rating</p>
@@ -380,80 +376,42 @@ const SingleBlogCard = ({ blog }) => {
               </article>
             </main>
 
-            {/* Right Column - Related Institutions (3 columns on desktop) */}
+            {/* Right Column - Related Institutions (1/4 width on desktop) */}
             {similarUniversities && similarUniversities.length > 0 && (
-              <aside className="hidden xl:block xl:col-span-3">
-                <div className="sticky top-24">
-                  <div className="bg-white rounded-2xl shadow-lg border border-amber-200/50 overflow-hidden">
-                    <div className="bg-gradient-to-r from-amber-50 to-blue-50 px-6 py-4 border-b border-amber-200/50">
-                      <h3 className="font-bold text-gray-900 flex items-center space-x-2">
-                        <span>🏛️</span>
-                        <span>Related Institutions</span>
-                      </h3>
-                    </div>
-                    <div className="p-6 space-y-4 max-h-96 overflow-y-auto">
-                      {similarUniversities.map((university) => (
-                        <div
-                          key={university.id}
-                          className="group bg-gradient-to-br from-white to-amber-50/30 p-4 rounded-2xl border border-amber-200/30 hover:shadow-lg hover:border-blue-200/50 transition-all duration-300 cursor-pointer"
-                        >
-                          <div className="flex items-start space-x-3">
-                            <div className="w-10 h-10 bg-blue-100 group-hover:bg-blue-200 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors">
-                              <span className="text-blue-600 text-lg">🎓</span>
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <h4 className="font-semibold text-gray-900 text-sm leading-tight mb-2 group-hover:text-blue-700 transition-colors">
-                                {university.name}
-                              </h4>
-                              <p className="text-xs text-gray-600 leading-relaxed">
-                                {university.description?.substring(0, 100)}...
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
+              <aside className="w-full xl:w-1/4">
+                <div className="bg-white border border-gray-200 p-4">
+                  <div className="mb-4 pb-4 border-b border-gray-200">
+                    <h3 className="font-bold text-gray-900 flex items-center space-x-2">
+                      <span>🏛️</span>
+                      <span>Related Institutions</span>
+                    </h3>
                   </div>
-                </div>
-              </aside>
-            )}
-          </div>
-
-          {/* Mobile Related Institutions Section - Below main content */}
-          {similarUniversities && similarUniversities.length > 0 && (
-            <section className="xl:hidden mt-8">
-              <div className="bg-white rounded-2xl shadow-lg border border-amber-200/50 overflow-hidden">
-                <div className="bg-gradient-to-r from-amber-50 to-blue-50 px-6 py-4 border-b border-amber-200/50">
-                  <h3 className="font-bold text-gray-900 flex items-center space-x-2">
-                    <span>🏛️</span>
-                    <span>Related Institutions</span>
-                  </h3>
-                </div>
-                <div className="p-6">
-                  <div className="grid gap-4 sm:grid-cols-2">
+                  <div className="space-y-4">
                     {similarUniversities.map((university) => (
                       <div
                         key={university.id}
-                        className="group bg-gradient-to-br from-white to-amber-50/30 p-6 rounded-2xl border border-amber-200/30 hover:shadow-lg hover:border-blue-200/50 transition-all duration-300"
+                        className="group bg-gray-50 p-4 border border-gray-200 hover:border-blue-200 transition-all duration-300 cursor-pointer"
                       >
                         <div className="flex items-start space-x-3">
-                          <div className="w-10 h-10 bg-blue-100 group-hover:bg-blue-200 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors">
+                          <div className="w-10 h-10 bg-blue-100 group-hover:bg-blue-200 flex items-center justify-center flex-shrink-0 transition-colors">
                             <span className="text-blue-600 text-lg">🎓</span>
                           </div>
                           <div className="flex-1 min-w-0">
-                            <h4 className="font-semibold text-gray-900 leading-tight mb-2 group-hover:text-blue-700 transition-colors">
+                            <h4 className="font-semibold text-gray-900 text-sm leading-tight mb-2 group-hover:text-blue-700 transition-colors">
                               {university.name}
                             </h4>
-                            <p className="text-sm text-gray-600 leading-relaxed">{university.description}</p>
+                            <p className="text-xs text-gray-600 leading-relaxed">
+                              {university.description?.substring(0, 100)}...
+                            </p>
                           </div>
                         </div>
                       </div>
                     ))}
                   </div>
                 </div>
-              </div>
-            </section>
-          )}
+              </aside>
+            )}
+          </div>
         </div>
       </div>
 
@@ -543,25 +501,6 @@ const SingleBlogCard = ({ blog }) => {
         
         ::-webkit-scrollbar-thumb:hover {
           background: #d97706;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 320px) {
-          .academic-content {
-            font-size: 0.9rem;
-          }
-        }
-        
-        @media (min-width: 768px) and (max-width: 1023px) {
-          .academic-content {
-            font-size: 1.1rem;
-          }
-        }
-        
-        @media (min-width: 1440px) {
-          .academic-content {
-            font-size: 1.125rem;
-          }
         }
       `}</style>
     </div>
