@@ -121,7 +121,7 @@ const RelatedBlogs = () => {
       {/* Footer note */}
       {blogs.length > 0 && (
         <div className="mt-6 pt-4 border-t border-gray-200 text-center">
-          <p className="text-xs text-gray-500 italic font-serif">Curated by SpringFallUSA Academic Team</p>
+          <p className="text-xs text-gray-500 italic font-serif">Curated by Gravity</p>
         </div>
       )}
 
