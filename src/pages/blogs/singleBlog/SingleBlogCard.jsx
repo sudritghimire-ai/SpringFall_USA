@@ -88,11 +88,10 @@ const SingleBlogCard = ({ blog }) => {
       .map((heading, index) => {
         const title = heading.replace(/<[^>]*>/g, "")
         const id = heading.match(/id="([^"]*)"/)?.[1]
-        const level = Number.parseInt(heading.match(/<h([1-6])/)?.[1])
+        const level = parseInt(heading.match(/<h([1-6])/)?.[1])
         if (!id) return null
 
         const indentClass = level > 2 ? "ml-8" : level > 1 ? "ml-4" : ""
-        const iconSize = level === 1 ? "w-3 h-3" : "w-2.5 h-2.5"
 
         return (
           <li key={id} className={`toc-item mb-2 ${indentClass}`} style={{ animationDelay: `${(index + 1) * 0.1}s` }}>
@@ -105,15 +104,9 @@ const SingleBlogCard = ({ blog }) => {
                   : "text-gray-700 hover:bg-gray-100 hover:text-blue-800 hover:shadow-sm"
               }`}
             >
-              <div className={`${iconSize} text-amber-600 opacity-70 group-hover:opacity-100 transition-opacity`}>
-                {level === 1 ? (
-                  <BookOpen className={iconSize} />
-                ) : level === 2 ? (
-                  <FileText className={iconSize} />
-                ) : (
-                  <div className={`${iconSize} bg-amber-600 rounded-full`} />
-                )}
-              </div>
+              <span className="text-amber-600 opacity-70 group-hover:opacity-100 transition-opacity text-sm">
+                {level === 1 ? "📖" : level === 2 ? "📄" : "•"}
+              </span>
               <span className="leading-tight">{title}</span>
             </a>
           </li>
@@ -179,7 +172,7 @@ const SingleBlogCard = ({ blog }) => {
             <div className="p-6 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-amber-50">
               <div className="flex justify-between items-center">
                 <div className="flex items-center gap-2">
-                  <GraduationCap className="w-5 h-5 text-blue-800" />
+                  <span className="text-lg">🎓</span>
                   <h3 className="text-lg font-serif-academic font-bold text-slate-800">Table of Contents</h3>
                 </div>
                 <button onClick={() => setIsTocOpen(false)} className="text-gray-500 hover:text-gray-700 p-1">
@@ -204,7 +197,7 @@ const SingleBlogCard = ({ blog }) => {
             <div className="mb-6 pb-6 border-b border-gray-200">
               <div className="flex items-center gap-3 mb-2">
                 <div className="w-8 h-8 bg-gradient-to-br from-blue-800 to-amber-600 rounded-lg flex items-center justify-center">
-                  <GraduationCap className="w-5 h-5 text-white" />
+                  <span className="text-white text-sm">🎓</span>
                 </div>
                 <div>
                   <h3 className="text-lg font-serif-academic font-bold text-slate-800">SpringFallUSA</h3>
@@ -230,7 +223,7 @@ const SingleBlogCard = ({ blog }) => {
             <header className="text-center mb-12 pb-8 border-b-2 border-gray-200">
               <div className="mb-6">
                 <span className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium tracking-wide uppercase font-outfit">
-                  <Award className="w-4 h-4" />
+                  <span className="text-base">🏆</span>
                   {category}
                 </span>
               </div>
@@ -285,7 +278,7 @@ const SingleBlogCard = ({ blog }) => {
                     >
                       <div className="flex items-start gap-3 mb-4">
                         <div className="w-10 h-10 bg-gradient-to-br from-blue-100 to-amber-100 rounded-lg flex items-center justify-center group-hover:from-blue-200 group-hover:to-amber-200 transition-colors">
-                          <GraduationCap className="w-5 h-5 text-blue-800" />
+                          <span className="text-blue-800 text-lg">🎓</span>
                         </div>
                         <h3 className="text-xl font-serif-academic font-semibold text-blue-900 leading-tight">
                           {university.name}
@@ -302,7 +295,7 @@ const SingleBlogCard = ({ blog }) => {
             <footer className="mt-16 pt-8 border-t border-gray-200">
               <div className="bg-gradient-to-r from-blue-50 to-amber-50 p-8 rounded-xl border border-blue-200 text-center">
                 <div className="flex items-center justify-center gap-2 mb-2">
-                  <Award className="w-5 h-5 text-amber-600" />
+                  <span className="text-amber-600 text-lg">🏆</span>
                   <span className="font-serif-academic font-semibold text-slate-800 text-lg">Academic Rating</span>
                 </div>
                 <div className="text-3xl font-bold text-amber-600 mb-2">{rating}</div>
@@ -316,7 +309,7 @@ const SingleBlogCard = ({ blog }) => {
       </div>
 
       <style jsx global>{`
-   
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
         
         .font-outfit { font-family: 'Outfit', system-ui, sans-serif; }
         .font-serif-academic { font-family: 'EB Garamond', Georgia, 'Times New Roman', serif; }
