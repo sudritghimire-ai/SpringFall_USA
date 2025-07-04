@@ -253,7 +253,8 @@ const SingleBlogCard = ({ blog }) => {
             {/* Header Section */}
             <header className="text-center mb-12 pb-8 border-b-2 border-gray-200">
               <div className="mb-6">
-                <span className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium tracking-wide uppercase font-outfit">
+                <span className="inline-flex items-center gap-2 px-4 py-2 text-blue-800 rounded-full text-sm font-medium tracking-wide uppercase font-outfit"
+>
                   <span className="text-base">🏆</span>
                   {category}
                 </span>
