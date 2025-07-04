@@ -149,7 +149,7 @@ const SingleBlogCard = ({ blog }) => {
 
   return (
     <div
-      className="min-h-screen bg-gradient-to-br from-stone-50 via-amber-50 to-stone-100"
+      className="min-h-screen bg-gradient-to-b from-white to-stone-50"
       style={{ backgroundColor: "#fefdf8" }}
     >
       {/* Fixed Header Bar */}
