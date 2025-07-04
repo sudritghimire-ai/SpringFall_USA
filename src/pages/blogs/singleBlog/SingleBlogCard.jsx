@@ -57,7 +57,7 @@ const customParsers = {
       5: "text-lg font-serif-academic font-medium text-gray-700 mt-5 mb-3",
       6: "text-base font-serif-academic font-medium text-gray-600 mt-4 mb-2",
     }
-    return `<h${level} id="${id}" class="${headerClasses[level] || headerClasses[6]}">${text}</h${level}>`
+    return `<h${level} id="${id}" class="${headerClasses[level] || headerClasses[6]} scroll-mt-24">${text}</h${level}>`
   },
 
   quote: (block) => {
@@ -287,139 +287,169 @@ const SingleBlogCard = ({ blog }) => {
         </div>
       )}
 
-      <div className="flex pt-16">
-        {/* Desktop Sidebar TOC */}
-        <div className="hidden xl:block xl:w-80 fixed left-0 top-[4rem] h-[calc(100vh-4rem)] bg-white shadow-2xl border-r border-gray-200 overflow-y-auto z-30">
-          <div className="p-8">
-            {/* TOC Header */}
-            <div className="mb-6">
-              <h4 className="text-base font-serif-academic font-semibold text-slate-700 mb-1">Table of Contents</h4>
-              <div className="w-12 h-0.5 bg-amber-600 rounded-full"></div>
-            </div>
-            <ul className="space-y-1">{generateTOC(htmlContent)}</ul>
-          </div>
-        </div>
-
-        {/* Desktop Related Sidebar */}
-        {similarUniversities && similarUniversities.length > 0 && (
-          <div className="hidden xl:block xl:w-80 fixed right-0 top-[4rem] h-[calc(100vh-4rem)] bg-white shadow-2xl border-l border-gray-200 overflow-y-auto z-30">
-            <div className="p-8">
-              {/* Related Header */}
-              <div className="mb-6">
-                <h4 className="text-base font-serif-academic font-semibold text-slate-700 mb-1">
-                  Related Institutions
-                </h4>
-                <div className="w-12 h-0.5 bg-amber-600 rounded-full"></div>
+      {/* Main Content Container */}
+      <div className="pt-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          {/* CSS Grid Layout - 12 columns */}
+          <div className="grid grid-cols-1 xl:grid-cols-12 gap-8">
+            {/* Left Column - Table of Contents (3 columns on desktop) */}
+            <aside className="hidden xl:block xl:col-span-3">
+              <div className="sticky top-24">
+                <div className="bg-white rounded-2xl shadow-lg border border-amber-200/50 overflow-hidden">
+                  <div className="bg-gradient-to-r from-blue-50 to-amber-50 px-6 py-4 border-b border-amber-200/50">
+                    <h3 className="font-bold text-gray-900 flex items-center space-x-2">
+                      <span>📚</span>
+                      <span>Table of Contents</span>
+                    </h3>
+                  </div>
+                  <nav className="p-6 max-h-96 overflow-y-auto">
+                    <ul className="space-y-1">{generateTOC(htmlContent)}</ul>
+                  </nav>
+                </div>
               </div>
-              <div className="space-y-4">
-                {similarUniversities.map((university) => (
-                  <div
-                    key={university.id}
-                    className="bg-white p-6 rounded-xl shadow-md border border-gray-200 hover:shadow-xl hover:border-blue-200 transition-all duration-300 group"
-                  >
-                    <div className="flex items-start gap-3 mb-4">
-                      <div className="w-10 h-10 bg-transparent border border-blue-200 rounded-lg flex items-center justify-center group-hover:border-amber-400 transition-colors">
-                        <span className="text-blue-800 text-lg">🎓</span>
+            </aside>
+
+            {/* Center Column - Main Content (6 columns on desktop) */}
+            <main className="xl:col-span-6">
+              <article className="bg-white rounded-2xl shadow-lg border border-amber-200/50 overflow-hidden">
+                {/* Article Header */}
+                <header className="px-8 py-12 bg-gradient-to-br from-white via-blue-50/30 to-amber-50/30">
+                  <div className="text-center">
+                    <div className="mb-6">
+                      <span className="inline-flex items-center space-x-2 px-4 py-2 bg-white/80 backdrop-blur-sm text-blue-700 rounded-full text-sm font-semibold border border-blue-200/50 shadow-sm">
+                        <span>🏆</span>
+                        <span>{category}</span>
+                      </span>
+                    </div>
+                    <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif-academic font-bold text-slate-800 mb-6 leading-tight">
+                      {title}
+                    </h1>
+                    <div className="flex items-center justify-center space-x-4 text-gray-600 font-outfit flex-wrap">
+                      <time className="font-serif-academic italic text-sm">{formatDate(createdAt)}</time>
+                      <span className="text-amber-600 hidden sm:inline">•</span>
+                      <span className="text-blue-800 hover:text-amber-600 cursor-pointer font-medium text-sm">
+                        By {author || "SpringFallUSA Editorial"}
+                      </span>
+                    </div>
+                  </div>
+                </header>
+
+                {/* Cover Image */}
+                {coverImg && (
+                  <div className="px-8 py-6">
+                    <figure className="relative">
+                      <div className="aspect-video rounded-2xl overflow-hidden bg-gray-100 shadow-lg">
+                        <img
+                          src={coverImg || "/placeholder.svg"}
+                          alt="Article cover"
+                          className="w-full h-full object-cover"
+                        />
                       </div>
-                      <h3 className="text-xl font-serif-academic font-semibold text-blue-900 leading-tight">
-                        {university.name}
+                      <figcaption className="mt-4 text-center text-sm text-gray-600 italic font-serif-academic">
+                        Featured illustration: "{title}"
+                      </figcaption>
+                    </figure>
+                  </div>
+                )}
+
+                {/* Article Content */}
+                <div className="px-8 py-6">
+                  <div
+                    dangerouslySetInnerHTML={{ __html: htmlContent }}
+                    className="prose prose-lg max-w-none text-gray-700 leading-relaxed"
+                  />
+                </div>
+
+                {/* Rating Section */}
+                {rating && (
+                  <footer className="px-8 py-6 border-t border-gray-100 bg-gradient-to-r from-blue-50/50 to-amber-50/50">
+                    <div className="text-center">
+                      <div className="inline-flex items-center space-x-3 bg-white/80 backdrop-blur-sm px-6 py-4 rounded-2xl border border-amber-200/50 shadow-sm">
+                        <span className="text-2xl">🏆</span>
+                        <div>
+                          <p className="text-sm font-medium text-gray-600">Academic Rating</p>
+                          <p className="text-2xl font-bold text-amber-600">{rating}</p>
+                        </div>
+                      </div>
+                      <p className="mt-4 text-xs text-gray-500 italic">
+                        Evaluated by SpringFallUSA Academic Review Board
+                      </p>
+                    </div>
+                  </footer>
+                )}
+              </article>
+            </main>
+
+            {/* Right Column - Related Institutions (3 columns on desktop) */}
+            {similarUniversities && similarUniversities.length > 0 && (
+              <aside className="hidden xl:block xl:col-span-3">
+                <div className="sticky top-24">
+                  <div className="bg-white rounded-2xl shadow-lg border border-amber-200/50 overflow-hidden">
+                    <div className="bg-gradient-to-r from-amber-50 to-blue-50 px-6 py-4 border-b border-amber-200/50">
+                      <h3 className="font-bold text-gray-900 flex items-center space-x-2">
+                        <span>🏛️</span>
+                        <span>Related Institutions</span>
                       </h3>
                     </div>
-                    <p className="text-gray-700 leading-relaxed font-outfit">{university.description}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Main Content */}
-        <div className="flex-1 xl:ml-80 xl:mr-80">
-          <article className="max-w-4xl mx-auto px-4 sm:px-6 py-8 lg:px-12 font-outfit border-0 shadow-none">
-            {/* Header Section */}
-            <header className="text-center mb-12 pb-8 border-0 border-b border-gray-200 shadow-none">
-              <div className="mb-6">
-                <span className="inline-flex items-center gap-2 px-4 py-2 border border-blue-200 text-blue-800 rounded-full text-sm font-medium tracking-wide uppercase font-outfit bg-transparent hover:border-blue-300 transition-colors">
-                  <span className="text-base">🏆</span>
-                  {category}
-                </span>
-              </div>
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-serif-academic font-bold text-slate-800 mb-6 leading-tight">
-                {title}
-              </h1>
-              <div className="flex items-center justify-center space-x-4 text-gray-600 font-outfit flex-wrap">
-                <time className="font-serif-academic italic text-sm">{formatDate(createdAt)}</time>
-                <span className="text-amber-600 hidden sm:inline">•</span>
-                <span className="text-blue-800 hover:text-amber-600 cursor-pointer font-medium text-sm">
-                  By {author || "SpringFallUSA Editorial"}
-                </span>
-              </div>
-            </header>
-
-            {/* Cover Image */}
-            {coverImg && (
-              <figure className="mb-12">
-                <div className="relative bg-white p-4 rounded-xl border-0 shadow-none max-w-4xl mx-auto">
-                  <img
-                    src={coverImg || "/placeholder.svg"}
-                    alt="Article cover"
-                    className="w-full h-auto max-h-80 object-cover rounded-lg"
-                  />
-                  <figcaption className="mt-4 text-center text-sm text-gray-600 italic font-serif-academic">
-                    Featured illustration: "{title}"
-                  </figcaption>
-                </div>
-              </figure>
-            )}
-
-            {/* Article Content */}
-            <div className="prose prose-lg max-w-none border-0 shadow-none">
-              <div
-                dangerouslySetInnerHTML={{ __html: htmlContent }}
-                className="academic-content text-gray-700 leading-relaxed border-0 shadow-none"
-              />
-            </div>
-
-            {/* Rating Section */}
-            <footer className="mt-16 pt-8 border-t border-gray-200">
-              <div className="bg-transparent border border-blue-200 p-8 rounded-xl text-center hover:border-amber-300 transition-colors">
-                <div className="flex items-center justify-center gap-2 mb-2">
-                  <span className="text-amber-600 text-lg">🏆</span>
-                  <span className="font-serif-academic font-semibold text-slate-800 text-lg">Academic Rating</span>
-                </div>
-                <div className="text-3xl font-bold text-amber-600 mb-2">{rating}</div>
-                <p className="text-sm text-gray-600 italic font-outfit">
-                  Evaluated by SpringFallUSA Academic Review Board
-                </p>
-              </div>
-            </footer>
-          </article>
-
-          {/* Mobile Related Institutions Section */}
-          {similarUniversities && similarUniversities.length > 0 && (
-            <section className="xl:hidden mt-16 px-4 sm:px-6 lg:px-12">
-              <div className="max-w-4xl mx-auto">
-                <div className="text-center mb-10">
-                  <h2 className="text-3xl font-serif-academic font-bold text-slate-800 mb-3">Related Institutions</h2>
-                  <div className="w-16 h-1 bg-amber-600 rounded-full mx-auto"></div>
-                </div>
-                <div className="grid gap-6 md:grid-cols-2">
-                  {similarUniversities.map((university) => (
-                    <div
-                      key={university.id}
-                      className="bg-white p-8 rounded-xl shadow-md border border-gray-200 hover:shadow-xl hover:border-blue-200 transition-all duration-300 group"
-                    >
-                      <div className="flex items-start gap-3 mb-4">
-                        <div className="w-10 h-10 bg-transparent border border-blue-200 rounded-lg flex items-center justify-center group-hover:border-amber-400 transition-colors">
-                          <span className="text-blue-800 text-lg">🎓</span>
+                    <div className="p-6 space-y-4 max-h-96 overflow-y-auto">
+                      {similarUniversities.map((university) => (
+                        <div
+                          key={university.id}
+                          className="group bg-gradient-to-br from-white to-amber-50/30 p-4 rounded-2xl border border-amber-200/30 hover:shadow-lg hover:border-blue-200/50 transition-all duration-300 cursor-pointer"
+                        >
+                          <div className="flex items-start space-x-3">
+                            <div className="w-10 h-10 bg-blue-100 group-hover:bg-blue-200 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors">
+                              <span className="text-blue-600 text-lg">🎓</span>
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <h4 className="font-semibold text-gray-900 text-sm leading-tight mb-2 group-hover:text-blue-700 transition-colors">
+                                {university.name}
+                              </h4>
+                              <p className="text-xs text-gray-600 leading-relaxed">
+                                {university.description?.substring(0, 100)}...
+                              </p>
+                            </div>
+                          </div>
                         </div>
-                        <h3 className="text-xl font-serif-academic font-semibold text-blue-900 leading-tight">
-                          {university.name}
-                        </h3>
-                      </div>
-                      <p className="text-gray-700 leading-relaxed font-outfit">{university.description}</p>
+                      ))}
                     </div>
-                  ))}
+                  </div>
+                </div>
+              </aside>
+            )}
+          </div>
+
+          {/* Mobile Related Institutions Section - Below main content */}
+          {similarUniversities && similarUniversities.length > 0 && (
+            <section className="xl:hidden mt-8">
+              <div className="bg-white rounded-2xl shadow-lg border border-amber-200/50 overflow-hidden">
+                <div className="bg-gradient-to-r from-amber-50 to-blue-50 px-6 py-4 border-b border-amber-200/50">
+                  <h3 className="font-bold text-gray-900 flex items-center space-x-2">
+                    <span>🏛️</span>
+                    <span>Related Institutions</span>
+                  </h3>
+                </div>
+                <div className="p-6">
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    {similarUniversities.map((university) => (
+                      <div
+                        key={university.id}
+                        className="group bg-gradient-to-br from-white to-amber-50/30 p-6 rounded-2xl border border-amber-200/30 hover:shadow-lg hover:border-blue-200/50 transition-all duration-300"
+                      >
+                        <div className="flex items-start space-x-3">
+                          <div className="w-10 h-10 bg-blue-100 group-hover:bg-blue-200 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors">
+                            <span className="text-blue-600 text-lg">🎓</span>
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <h4 className="font-semibold text-gray-900 leading-tight mb-2 group-hover:text-blue-700 transition-colors">
+                              {university.name}
+                            </h4>
+                            <p className="text-sm text-gray-600 leading-relaxed">{university.description}</p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </section>
@@ -492,19 +522,9 @@ const SingleBlogCard = ({ blog }) => {
           }
         }
         
-        /* Remove all borders and shadows from article content */
-        article, article *, .academic-content, .academic-content * {
-          border-left: none !important;
-          border-right: none !important;
-          box-shadow: none !important;
-        }
-        
-        /* Preserve only intentional borders */
-        .academic-content table,
-        .academic-content table *,
-        .academic-content blockquote {
-          border: revert !important;
-          box-shadow: revert !important;
+        /* Smooth scrolling */
+        html {
+          scroll-behavior: smooth;
         }
         
         /* Custom scrollbar */
@@ -513,16 +533,16 @@ const SingleBlogCard = ({ blog }) => {
         }
         
         ::-webkit-scrollbar-track {
-          background: #f1f5f9;
+          background: #fef3c7;
         }
         
         ::-webkit-scrollbar-thumb {
-          background: #cbd5e1;
+          background: #f59e0b;
           border-radius: 3px;
         }
         
         ::-webkit-scrollbar-thumb:hover {
-          background: #94a3b8;
+          background: #d97706;
         }
 
         /* Responsive adjustments */
