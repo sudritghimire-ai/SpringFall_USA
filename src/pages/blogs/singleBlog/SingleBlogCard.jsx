@@ -3,22 +3,22 @@
 import { useEffect, useState } from "react"
 import { formatDate } from "../../../utils/formatDate"
 import EditorJSHTML from "editorjs-html"
+import { BookOpen, GraduationCap, FileText, Award } from "lucide-react"
 
 const customParsers = {
-  delimiter: () =>
-    '<hr class="my-12 border-t border-amber-200 shadow-sm" style="border-top: 2px solid #d97706; opacity: 0.3;" />',
+  delimiter: () => '<hr class="my-8 border-t-2 border-amber-200 opacity-60" />',
 
   embed: (block) => {
     const { service, source, embed } = block.data
     if (service === "youtube") {
-      return `<div class="my-8 p-4 bg-white rounded-lg shadow-md border border-gray-200">
-                <div class="aspect-w-16 aspect-h-9">
-                  <iframe class="w-full h-[400px] rounded-md border border-gray-300" src="${embed}" frameborder="0" allowfullscreen></iframe>
+      return `<figure class="my-8 bg-white p-4 rounded-xl shadow-sm border border-gray-200">
+                <div class="aspect-video rounded-lg overflow-hidden border border-gray-300">
+                  <iframe class="w-full h-full" src="${embed}" frameborder="0" allowfullscreen></iframe>
                 </div>
-                <p class="text-sm text-gray-600 mt-2 italic text-center">Video Content</p>
-              </div>`
+                <figcaption class="mt-3 text-sm text-gray-600 italic font-serif-academic text-center">Educational Video Content</figcaption>
+              </figure>`
     }
-    return `<a href="${source}" target="_blank" rel="noopener noreferrer" class="text-blue-800 hover:text-amber-600 underline">${source}</a>`
+    return `<a href="${source}" target="_blank" rel="noopener noreferrer" class="text-blue-800 hover:text-amber-600 underline decoration-2 underline-offset-2 transition-colors">${source}</a>`
   },
 
   table: (block) => {
@@ -26,18 +26,18 @@ const customParsers = {
     const tableRows = content
       .map((row, rowIndex) => {
         const tableCells = row
-          .map((cell, cellIndex) => {
+          .map((cell) => {
             if (rowIndex === 0) {
-              return `<th class="px-6 py-4 bg-slate-800 text-white border border-gray-300 font-serif text-sm font-semibold">${cell}</th>`
+              return `<th class="px-6 py-4 bg-slate-800 text-white border border-gray-300 font-serif-academic text-sm font-semibold tracking-wide">${cell}</th>`
             }
-            return `<td class="px-6 py-4 border border-gray-300 text-gray-700">${cell}</td>`
+            return `<td class="px-6 py-4 border border-gray-300 text-gray-700 font-outfit">${cell}</td>`
           })
           .join("")
-        return `<tr class="even:bg-gray-50">${tableCells}</tr>`
+        return `<tr class="even:bg-gray-50 hover:bg-blue-50 transition-colors">${tableCells}</tr>`
       })
       .join("")
     return `<div class="my-8 overflow-x-auto">
-              <table class="w-full border-collapse border border-gray-300 shadow-sm rounded-lg overflow-hidden bg-white">
+              <table class="w-full border-collapse border border-gray-300 shadow-md rounded-xl overflow-hidden bg-white">
                 ${tableRows}
               </table>
             </div>`
@@ -49,22 +49,24 @@ const customParsers = {
       .toLowerCase()
       .replace(/\s+/g, "-")
       .replace(/[^\w-]/g, "")
+
     const headerClasses = {
-      1: "text-4xl font-serif font-bold text-slate-800 mt-12 mb-6 pb-3 border-b-2 border-amber-600",
-      2: "text-3xl font-serif font-semibold text-blue-900 mt-10 mb-5",
-      3: "text-2xl font-serif font-medium text-blue-800 mt-8 mb-4",
-      4: "text-xl font-serif font-medium text-gray-800 mt-6 mb-3",
-      5: "text-lg font-serif font-medium text-gray-700 mt-5 mb-3",
-      6: "text-base font-serif font-medium text-gray-600 mt-4 mb-2",
+      1: "text-4xl font-serif-academic font-bold text-slate-800 mt-12 mb-6 pb-4 border-b-2 border-amber-600",
+      2: "text-3xl font-serif-academic font-semibold text-blue-900 mt-10 mb-5",
+      3: "text-2xl font-serif-academic font-medium text-blue-800 mt-8 mb-4",
+      4: "text-xl font-serif-academic font-medium text-gray-800 mt-6 mb-3",
+      5: "text-lg font-serif-academic font-medium text-gray-700 mt-5 mb-3",
+      6: "text-base font-serif-academic font-medium text-gray-600 mt-4 mb-2",
     }
     return `<h${level} id="${id}" class="${headerClasses[level] || headerClasses[6]}">${text}</h${level}>`
   },
 
   quote: (block) => {
     const { text } = block.data
-    return `<blockquote class="my-8 pl-6 pr-4 py-4 bg-blue-50 border-l-4 border-blue-800 rounded-r-lg shadow-sm">
-              <p class="text-gray-700 italic font-serif text-lg leading-relaxed">"${text}"</p>
-              <footer class="mt-2 text-sm text-gray-600">— Academic Citation</footer>
+    return `<blockquote class="my-8 pl-8 pr-6 py-6 bg-blue-50 border-l-4 border-blue-800 rounded-r-xl shadow-sm relative">
+              <div class="absolute top-4 left-4 text-blue-300 text-2xl">"</div>
+              <p class="text-gray-700 italic font-serif-academic text-lg leading-relaxed ml-4">${text}</p>
+              <footer class="mt-4 text-sm text-gray-600 font-outfit ml-4">— Academic Source</footer>
             </blockquote>`
   },
 }
@@ -90,21 +92,30 @@ const SingleBlogCard = ({ blog }) => {
         const level = Number.parseInt(heading.match(/<h([1-6])/)?.[1])
         if (!id) return null
 
-        const indentClass = level > 2 ? "ml-6" : level > 1 ? "ml-3" : ""
-        const textSize = level === 1 ? "text-sm font-semibold" : "text-sm"
+        const indentClass = level > 2 ? "ml-8" : level > 1 ? "ml-4" : ""
+        const iconSize = level === 1 ? "w-3 h-3" : "w-2.5 h-2.5"
 
         return (
           <li key={id} className={`toc-item mb-2 ${indentClass}`} style={{ animationDelay: `${(index + 1) * 0.1}s` }}>
             <a
               href={`#${id}`}
               onClick={(e) => handleTOCClick(e, id)}
-              className={`block py-2 px-3 rounded-md transition-all duration-200 ${textSize} font-serif ${
+              className={`flex items-center gap-2 py-2.5 px-3 rounded-lg transition-all duration-200 text-sm font-outfit group ${
                 activeSection === id
-                  ? "bg-blue-100 text-blue-900 border-l-3 border-amber-600 shadow-sm"
+                  ? "bg-blue-100 text-blue-900 border-l-4 border-amber-600 shadow-sm font-medium"
                   : "text-gray-700 hover:bg-gray-100 hover:text-blue-800 hover:shadow-sm"
               }`}
             >
-              {title}
+              <div className={`${iconSize} text-amber-600 opacity-70 group-hover:opacity-100 transition-opacity`}>
+                {level === 1 ? (
+                  <BookOpen className={iconSize} />
+                ) : level === 2 ? (
+                  <FileText className={iconSize} />
+                ) : (
+                  <div className={`${iconSize} bg-amber-600 rounded-full`} />
+                )}
+              </div>
+              <span className="leading-tight">{title}</span>
             </a>
           </li>
         )
@@ -122,9 +133,6 @@ const SingleBlogCard = ({ blog }) => {
           currentSection = section.id
         }
       })
-
-
-
 
       setActiveSection(currentSection)
     }
@@ -146,12 +154,15 @@ const SingleBlogCard = ({ blog }) => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-stone-50 to-amber-50" style={{ backgroundColor: "#fefdf8" }}>
+    <div
+      className="min-h-screen bg-gradient-to-br from-stone-50 via-amber-50 to-stone-100"
+      style={{ backgroundColor: "#fefdf8" }}
+    >
       {/* Mobile TOC Toggle */}
-      <div className="lg:hidden fixed top-4 left-4 z-50">
+      <div className="lg:hidden fixed top-6 left-6 z-50">
         <button
           onClick={() => setIsTocOpen(!isTocOpen)}
-          className="bg-white shadow-lg rounded-lg p-3 border border-gray-200 hover:shadow-xl transition-shadow"
+          className="bg-white shadow-xl rounded-xl p-3 border border-gray-200 hover:shadow-2xl hover:bg-blue-50 transition-all duration-200"
         >
           <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
@@ -161,48 +172,77 @@ const SingleBlogCard = ({ blog }) => {
 
       {/* Mobile TOC Overlay */}
       {isTocOpen && (
-        <div className="lg:hidden fixed inset-0 z-40 bg-black bg-opacity-50" onClick={() => setIsTocOpen(false)}>
-          <div className="bg-white w-80 h-full shadow-2xl p-6 overflow-y-auto" onClick={(e) => e.stopPropagation()}>
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="text-lg font-serif font-bold text-slate-800">Table of Contents</h3>
-              <button onClick={() => setIsTocOpen(false)} className="text-gray-500 hover:text-gray-700">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
+        <div
+          className="lg:hidden fixed inset-0 z-40 bg-black bg-opacity-50 backdrop-blur-sm"
+          onClick={() => setIsTocOpen(false)}
+        >
+          <div className="bg-white w-80 h-full shadow-2xl overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+            <div className="p-6 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-amber-50">
+              <div className="flex justify-between items-center">
+                <div className="flex items-center gap-2">
+                  <GraduationCap className="w-5 h-5 text-blue-800" />
+                  <h3 className="text-lg font-serif-academic font-bold text-slate-800">Table of Contents</h3>
+                </div>
+                <button onClick={() => setIsTocOpen(false)} className="text-gray-500 hover:text-gray-700 p-1">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
             </div>
-            <ul className="space-y-1">{generateTOC(htmlContent)}</ul>
+            <div className="p-6">
+              <ul className="space-y-1">{generateTOC(htmlContent)}</ul>
+            </div>
           </div>
         </div>
       )}
 
       <div className="flex">
         {/* Desktop Sidebar TOC */}
-        <div className="hidden lg:block lg:w-80 fixed left-0 top-0 h-full bg-white shadow-xl border-r border-gray-200 overflow-y-auto">
+        <div className="hidden lg:block lg:w-80 fixed left-0 top-0 h-full bg-white shadow-2xl border-r border-gray-200 overflow-y-auto">
           <div className="p-8">
-            <div className="mb-4 pb-6 border-b border-gray-200">
-              <h3 className="text-xl font-serif font-bold text-slate-800 mb-2">Table of Contents</h3>
+            {/* SpringFallUSA Header */}
+            <div className="mb-6 pb-6 border-b border-gray-200">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-8 h-8 bg-gradient-to-br from-blue-800 to-amber-600 rounded-lg flex items-center justify-center">
+                  <GraduationCap className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-serif-academic font-bold text-slate-800">SpringFallUSA</h3>
+                  <p className="text-xs text-gray-600 font-outfit">Academic Resources</p>
+                </div>
+              </div>
             </div>
+
+            {/* TOC Header */}
+            <div className="mb-6">
+              <h4 className="text-base font-serif-academic font-semibold text-slate-700 mb-1">Table of Contents</h4>
+              <div className="w-12 h-0.5 bg-amber-600 rounded-full"></div>
+            </div>
+
             <ul className="space-y-1">{generateTOC(htmlContent)}</ul>
           </div>
         </div>
 
         {/* Main Content */}
         <div className="flex-1 lg:ml-80">
-          <article className="max-w-4xl mx-auto px-6 py-12 lg:px-12">
+          <article className="max-w-4xl mx-auto px-6 py-12 lg:px-12 font-outfit">
             {/* Header Section */}
-            <header className="text-center mb-12 pb-8 border-b border-gray-200">
+            <header className="text-center mb-12 pb-8 border-b-2 border-gray-200">
               <div className="mb-6">
-                <span className="inline-block px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium tracking-wide uppercase">
+                <span className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium tracking-wide uppercase font-outfit">
+                  <Award className="w-4 h-4" />
                   {category}
                 </span>
               </div>
-              <h1 className="text-5xl lg:text-6xl font-serif font-bold text-slate-800 mb-6 leading-tight">{title}</h1>
-              <div className="flex items-center justify-center space-x-4 text-gray-600">
-                <time className="font-serif italic">{formatDate(createdAt)}</time>
-                <span>•</span>
-                <span className="text-blue-800 hover:text-amber-600 cursor-pointer font-medium">
-                  By {"Admin"}
+              <h1 className="text-5xl lg:text-6xl font-serif-academic font-bold text-slate-800 mb-6 leading-tight">
+                {title}
+              </h1>
+              <div className="flex items-center justify-center space-x-4 text-gray-600 font-outfit">
+                <time className="font-serif-academic italic text-sm">{formatDate(createdAt)}</time>
+                <span className="text-amber-600">•</span>
+                <span className="text-blue-800 hover:text-amber-600 cursor-pointer font-medium text-sm">
+                  By {author || "SpringFallUSA Editorial"}
                 </span>
               </div>
             </header>
@@ -210,14 +250,14 @@ const SingleBlogCard = ({ blog }) => {
             {/* Cover Image */}
             {coverImg && (
               <figure className="mb-12">
-                <div className="relative bg-white p-4 rounded-lg shadow-lg border border-gray-200">
+                <div className="relative bg-white p-4 rounded-xl shadow-lg border border-gray-200 max-w-4xl mx-auto">
                   <img
                     src={coverImg || "/placeholder.svg"}
                     alt="Article cover"
-                    className="w-full h-auto lg:h-[500px] object-cover rounded-md"
+                    className="w-full h-auto max-h-80 object-cover rounded-lg"
                   />
-                  <figcaption className="mt-4 text-center text-sm text-gray-600 italic font-serif">
-                    Featured illustration for "{title}"
+                  <figcaption className="mt-4 text-center text-sm text-gray-600 italic font-serif-academic">
+                    Featured illustration: "{title}"
                   </figcaption>
                 </div>
               </figure>
@@ -228,25 +268,31 @@ const SingleBlogCard = ({ blog }) => {
               <div
                 dangerouslySetInnerHTML={{ __html: htmlContent }}
                 className="academic-content text-gray-700 leading-relaxed"
-                style={{
-                  fontFamily: "system-ui, -apple-system, sans-serif",
-                  lineHeight: "1.7",
-                }}
               />
             </div>
 
             {/* Similar Universities Section */}
             {similarUniversities && similarUniversities.length > 0 && (
               <section className="mt-16 pt-12 border-t-2 border-amber-600">
-                <h2 className="text-3xl font-serif font-bold text-slate-800 mb-8 text-center">Related Institutions</h2>
+                <div className="text-center mb-10">
+                  <h2 className="text-3xl font-serif-academic font-bold text-slate-800 mb-3">Related Institutions</h2>
+                  <div className="w-16 h-1 bg-amber-600 rounded-full mx-auto"></div>
+                </div>
                 <div className="grid gap-6 md:grid-cols-2">
                   {similarUniversities.map((university) => (
                     <div
                       key={university.id}
-                      className="bg-white p-8 rounded-lg shadow-md border border-gray-200 hover:shadow-lg transition-shadow"
+                      className="bg-white p-8 rounded-xl shadow-md border border-gray-200 hover:shadow-xl hover:border-blue-200 transition-all duration-300 group"
                     >
-                      <h3 className="text-xl font-serif font-semibold text-blue-900 mb-4">{university.name}</h3>
-                      <p className="text-gray-700 leading-relaxed">{university.description}</p>
+                      <div className="flex items-start gap-3 mb-4">
+                        <div className="w-10 h-10 bg-gradient-to-br from-blue-100 to-amber-100 rounded-lg flex items-center justify-center group-hover:from-blue-200 group-hover:to-amber-200 transition-colors">
+                          <GraduationCap className="w-5 h-5 text-blue-800" />
+                        </div>
+                        <h3 className="text-xl font-serif-academic font-semibold text-blue-900 leading-tight">
+                          {university.name}
+                        </h3>
+                      </div>
+                      <p className="text-gray-700 leading-relaxed font-outfit">{university.description}</p>
                     </div>
                   ))}
                 </div>
@@ -254,13 +300,16 @@ const SingleBlogCard = ({ blog }) => {
             )}
 
             {/* Rating Section */}
-            <footer className="mt-16 pt-8 border-t border-gray-200 text-center">
-              <div className="bg-blue-50 p-6 rounded-lg border border-blue-200">
-                <p className="text-lg font-serif">
-                  <span className="font-semibold text-slate-800">Academic Rating: </span>
-                  <span className="text-amber-600 font-bold text-xl">{rating}</span>
+            <footer className="mt-16 pt-8 border-t border-gray-200">
+              <div className="bg-gradient-to-r from-blue-50 to-amber-50 p-8 rounded-xl border border-blue-200 text-center">
+                <div className="flex items-center justify-center gap-2 mb-2">
+                  <Award className="w-5 h-5 text-amber-600" />
+                  <span className="font-serif-academic font-semibold text-slate-800 text-lg">Academic Rating</span>
+                </div>
+                <div className="text-3xl font-bold text-amber-600 mb-2">{rating}</div>
+                <p className="text-sm text-gray-600 italic font-outfit">
+                  Evaluated by SpringFallUSA Academic Review Board
                 </p>
-                <p className="text-sm text-gray-600 mt-2 italic">As evaluated by SpringFallUSA Academic Review Board</p>
               </div>
             </footer>
           </article>
@@ -268,14 +317,25 @@ const SingleBlogCard = ({ blog }) => {
       </div>
 
       <style jsx global>{`
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
+        
+        .font-outfit { font-family: 'Outfit', system-ui, sans-serif; }
+        .font-serif-academic { font-family: 'EB Garamond', Georgia, 'Times New Roman', serif; }
+        
+        .academic-content {
+          font-family: 'Outfit', system-ui, sans-serif;
+          line-height: 1.8;
+        }
+        
         .academic-content h1, .academic-content h2, .academic-content h3,
         .academic-content h4, .academic-content h5, .academic-content h6 {
-          font-family: Georgia, 'Times New Roman', serif;
+          font-family: 'EB Garamond', Georgia, 'Times New Roman', serif;
         }
         
         .academic-content p {
           margin-bottom: 1.5rem;
           text-align: justify;
+          hyphens: auto;
         }
         
         .academic-content ul, .academic-content ol {
@@ -284,13 +344,27 @@ const SingleBlogCard = ({ blog }) => {
         }
         
         .academic-content li {
-          margin-bottom: 0.5rem;
+          margin-bottom: 0.75rem;
+          line-height: 1.7;
         }
         
         .academic-content img {
           margin: 2rem auto;
-          border-radius: 8px;
-          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+          border-radius: 12px;
+          box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .academic-content a {
+          color: #1e40af;
+          text-decoration: underline;
+          text-decoration-color: #d97706;
+          text-underline-offset: 3px;
+          transition: all 0.2s ease;
+        }
+        
+        .academic-content a:hover {
+          color: #d97706;
+          text-decoration-color: #1e40af;
         }
         
         .toc-item {
@@ -304,6 +378,24 @@ const SingleBlogCard = ({ blog }) => {
             opacity: 1;
             transform: translateY(0);
           }
+        }
+        
+        /* Scrollbar styling for academic feel */
+        ::-webkit-scrollbar {
+          width: 6px;
+        }
+        
+        ::-webkit-scrollbar-track {
+          background: #f1f5f9;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+          background: #cbd5e1;
+          border-radius: 3px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+          background: #94a3b8;
         }
       `}</style>
     </div>
