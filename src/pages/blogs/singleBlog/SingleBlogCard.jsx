@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react"
 import { formatDate } from "../../../utils/formatDate"
 import EditorJSHTML from "editorjs-html"
-import { BookOpen, GraduationCap, FileText, Award } from "lucide-react"
 
 const customParsers = {
   delimiter: () => '<hr class="my-8 border-t-2 border-amber-200 opacity-60" />',
