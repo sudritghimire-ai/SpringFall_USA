@@ -410,13 +410,15 @@ const SingleBlogCard = ({ blog }) => {
 
             {/* TOC Header */}
 
-          <aside className="hidden lg:block lg:w-80 sticky top-[6rem] h-[calc(100vh-6rem)] bg-white shadow-2xl border-r border-gray-200 overflow-y-auto z-30 p-8">
-  <div className="mb-6">
-    <h4 className="text-base font-serif-academic font-semibold text-slate-700 mb-1">Table of Contents</h4>
-    <div className="w-12 h-0.5 bg-amber-600 rounded-full"></div>
+  <div className="hidden lg:block lg:w-80 fixed left-4 top-[4rem] h-[calc(100vh-4rem)] bg-white shadow-2xl border-r border-gray-200 overflow-y-auto z-30">
+  <div className="p-8">
+    <div className="mb-6">
+      <h4 className="text-base font-serif-academic font-semibold text-slate-700 mb-1">Table of Contents</h4>
+      <div className="w-12 h-0.5 bg-amber-600 rounded-full"></div>
+    </div>
+    <ul className="space-y-1">{generateTOC(htmlContent)}</ul>
   </div>
-  <ul className="space-y-1">{generateTOC(htmlContent)}</ul>
-</aside>
+</div>
 
 
         {/* Main Content */}
