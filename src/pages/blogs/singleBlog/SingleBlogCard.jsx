@@ -93,10 +93,10 @@ const SingleBlogCard = ({ blog }) => {
 
         const indentClass = level > 2 ? "ml-8" : level > 1 ? "ml-4" : ""
         const iconMap = {
-          1: "📚",
-          2: "📖",
+          1: "",
+          2: "",
           3: "",
-          4: "📝",
+          4: "",
           5: "•",
           6: "•",
         }
