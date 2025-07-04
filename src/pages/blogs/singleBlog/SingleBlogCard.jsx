@@ -123,6 +123,9 @@ const SingleBlogCard = ({ blog }) => {
         }
       })
 
+
+
+
       setActiveSection(currentSection)
     }
 
@@ -199,7 +202,7 @@ const SingleBlogCard = ({ blog }) => {
                 <time className="font-serif italic">{formatDate(createdAt)}</time>
                 <span>•</span>
                 <span className="text-blue-800 hover:text-amber-600 cursor-pointer font-medium">
-                  By {author || "Admin"}
+                  By {"Admin"}
                 </span>
               </div>
             </header>
