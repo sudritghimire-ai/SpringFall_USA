@@ -426,7 +426,7 @@ const SingleBlogCard = ({ blog }) => {
 
         {/* Main Content */}
 
-        <div className="flex-1 lg:ml-80">
+<div className="flex-1 lg:ml-[22rem]">
 
           <article className="max-w-4xl mx-auto px-4 sm:px-6 py-8 lg:px-12 font-outfit border-0 shadow-none">
 
