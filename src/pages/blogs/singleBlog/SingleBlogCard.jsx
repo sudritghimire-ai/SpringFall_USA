@@ -291,7 +291,7 @@ const SingleBlogCard = ({ blog }) => {
                   <span className="text-amber-600 hidden sm:inline text-xl">•</span>
                   <span className="text-blue-800 hover:text-amber-600 cursor-pointer font-semibold text-base flex items-center gap-2 transition-colors duration-300">
                     <span className="text-blue-600">✍️</span>
-                    By {author || "SpringFallUSA Editorial"}
+                    By {SpringFallUSA Editorial}
                   </span>
                 </div>
               </div>
