@@ -35,11 +35,12 @@ const customParsers = {
         return `<tr class="even:bg-gray-50 hover:bg-blue-50 transition-colors">${tableCells}</tr>`
       })
       .join("")
-    return `<div class="my-8 overflow-x-auto">
-              <table class="w-full border-collapse border border-gray-300 shadow-md rounded-xl overflow-hidden bg-white">
-                ${tableRows}
-              </table>
-            </div>`
+   return `<div class="my-8 overflow-x-auto">
+  <table class="w-full border-collapse bg-white">
+    ${tableRows}
+  </table>
+</div>`
+
   },
 
   header: (block) => {
