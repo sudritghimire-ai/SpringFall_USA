@@ -317,7 +317,7 @@ const SingleBlogCard = ({ blog }) => {
       </div>
 
       <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
+   
         
         .font-outfit { font-family: 'Outfit', system-ui, sans-serif; }
         .font-serif-academic { font-family: 'EB Garamond', Georgia, 'Times New Roman', serif; }
