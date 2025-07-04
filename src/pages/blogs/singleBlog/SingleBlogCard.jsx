@@ -76,6 +76,7 @@ const SingleBlogCard = ({ blog }) => {
   const { title, description, content, coverImg, category, rating, author, createdAt, similarUniversities } = blog || {}
   const [activeSection, setActiveSection] = useState(null)
   const [isTocOpen, setIsTocOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
 
   const parsedContent = editorJSHTML.parse(content)
   const htmlContent = Array.isArray(parsedContent) ? parsedContent.join("") : parsedContent
@@ -88,7 +89,7 @@ const SingleBlogCard = ({ blog }) => {
       .map((heading, index) => {
         const title = heading.replace(/<[^>]*>/g, "")
         const id = heading.match(/id="([^"]*)"/)?.[1]
-        const level = parseInt(heading.match(/<h([1-6])/)?.[1])
+        const level = Number.parseInt(heading.match(/<h([1-6])/)?.[1])
         if (!id) return null
 
         const indentClass = level > 2 ? "ml-8" : level > 1 ? "ml-4" : ""
@@ -121,12 +122,13 @@ const SingleBlogCard = ({ blog }) => {
       let currentSection = ""
 
       sections.forEach((section) => {
-        if (window.scrollY >= section.offsetTop - 150) {
+        if (window.scrollY >= section.offsetTop - 200) {
           currentSection = section.id
         }
       })
 
       setActiveSection(currentSection)
+      setIsScrolled(window.scrollY > 10)
     }
 
     window.addEventListener("scroll", handleScroll)
@@ -138,7 +140,7 @@ const SingleBlogCard = ({ blog }) => {
     const target = document.getElementById(id)
     if (target) {
       window.scrollTo({
-        top: target.offsetTop - 120,
+        top: target.offsetTop - 140,
         behavior: "smooth",
       })
     }
@@ -150,17 +152,52 @@ const SingleBlogCard = ({ blog }) => {
       className="min-h-screen bg-gradient-to-br from-stone-50 via-amber-50 to-stone-100"
       style={{ backgroundColor: "#fefdf8" }}
     >
-      {/* Mobile TOC Toggle */}
-      <div className="lg:hidden fixed top-6 left-6 z-50">
-        <button
-          onClick={() => setIsTocOpen(!isTocOpen)}
-          className="bg-white shadow-xl rounded-xl p-3 border border-gray-200 hover:shadow-2xl hover:bg-blue-50 transition-all duration-200"
-        >
-          <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </button>
-      </div>
+      {/* Fixed Header Bar */}
+      <header 
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          isScrolled 
+            ? 'bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200' 
+            : 'bg-gradient-to-r from-white/90 to-blue-50/90 backdrop-blur-sm'
+        }`}
+      >
+        <div className="flex items-center justify-between px-4 py-3 max-w-7xl mx-auto">
+          {/* Left: Hamburger Menu (Mobile Only) */}
+          <div className="flex items-center lg:w-20">
+            <button
+              onClick={() => setIsTocOpen(!isTocOpen)}
+              className="lg:hidden bg-white/80 hover:bg-white shadow-md hover:shadow-lg rounded-xl p-2.5 border border-gray-200 hover:border-blue-200 transition-all duration-200"
+              aria-label="Toggle Table of Contents"
+            >
+              <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Center: SpringFallUSA Brand */}
+          <div className="flex items-center justify-center flex-1">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 bg-gradient-to-br from-blue-800 to-amber-600 rounded-lg flex items-center justify-center shadow-sm">
+                <span className="text-white text-sm">🎓</span>
+              </div>
+              <div className="text-center">
+                <h1 className="text-lg font-serif-academic font-bold text-slate-800 tracking-wide">
+                  SpringFallUSA
+                </h1>
+                <p className="text-xs text-gray-600 font-outfit -mt-1">Academic Resources</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Right: Future Icons Space */}
+          <div className="flex items-center gap-2 lg:w-20 justify-end">
+            {/* Placeholder for future icons like search, user menu, etc. */}
+            <div className="w-8 h-8 flex items-center justify-center">
+              {/* Future: Search, User Profile, etc. */}
+            </div>
+          </div>
+        </div>
+      </header>
 
       {/* Mobile TOC Overlay */}
       {isTocOpen && (
@@ -168,14 +205,21 @@ const SingleBlogCard = ({ blog }) => {
           className="lg:hidden fixed inset-0 z-40 bg-black bg-opacity-50 backdrop-blur-sm"
           onClick={() => setIsTocOpen(false)}
         >
-          <div className="bg-white w-80 h-full shadow-2xl overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+          <div 
+            className="bg-white w-80 h-full shadow-2xl overflow-y-auto mt-16" 
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className="p-6 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-amber-50">
               <div className="flex justify-between items-center">
                 <div className="flex items-center gap-2">
                   <span className="text-lg">🎓</span>
                   <h3 className="text-lg font-serif-academic font-bold text-slate-800">Table of Contents</h3>
                 </div>
-                <button onClick={() => setIsTocOpen(false)} className="text-gray-500 hover:text-gray-700 p-1">
+                <button 
+                  onClick={() => setIsTocOpen(false)} 
+                  className="text-gray-500 hover:text-gray-700 p-1 rounded-md hover:bg-gray-100 transition-colors"
+                  aria-label="Close Table of Contents"
+                >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
@@ -189,23 +233,10 @@ const SingleBlogCard = ({ blog }) => {
         </div>
       )}
 
-      <div className="flex">
+      <div className="flex pt-16">
         {/* Desktop Sidebar TOC */}
-        <div className="hidden lg:block lg:w-80 fixed left-0 top-0 h-full bg-white shadow-2xl border-r border-gray-200 overflow-y-auto">
+        <div className="hidden lg:block lg:w-80 fixed left-0 top-16 h-[calc(100vh-4rem)] bg-white shadow-2xl border-r border-gray-200 overflow-y-auto z-30">
           <div className="p-8">
-            {/* SpringFallUSA Header */}
-            <div className="mb-6 pb-6 border-b border-gray-200">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-8 h-8 bg-gradient-to-br from-blue-800 to-amber-600 rounded-lg flex items-center justify-center">
-                  <span className="text-white text-sm">🎓</span>
-                </div>
-                <div>
-                  <h3 className="text-lg font-serif-academic font-bold text-slate-800">SpringFallUSA</h3>
-                  <p className="text-xs text-gray-600 font-outfit">Academic Resources</p>
-                </div>
-              </div>
-            </div>
-
             {/* TOC Header */}
             <div className="mb-6">
               <h4 className="text-base font-serif-academic font-semibold text-slate-700 mb-1">Table of Contents</h4>
@@ -218,7 +249,7 @@ const SingleBlogCard = ({ blog }) => {
 
         {/* Main Content */}
         <div className="flex-1 lg:ml-80">
-          <article className="max-w-4xl mx-auto px-6 py-12 lg:px-12 font-outfit">
+          <article className="max-w-4xl mx-auto px-4 sm:px-6 py-8 lg:px-12 font-outfit">
             {/* Header Section */}
             <header className="text-center mb-12 pb-8 border-b-2 border-gray-200">
               <div className="mb-6">
@@ -227,12 +258,12 @@ const SingleBlogCard = ({ blog }) => {
                   {category}
                 </span>
               </div>
-              <h1 className="text-5xl lg:text-6xl font-serif-academic font-bold text-slate-800 mb-6 leading-tight">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-serif-academic font-bold text-slate-800 mb-6 leading-tight">
                 {title}
               </h1>
-              <div className="flex items-center justify-center space-x-4 text-gray-600 font-outfit">
+              <div className="flex items-center justify-center space-x-4 text-gray-600 font-outfit flex-wrap">
                 <time className="font-serif-academic italic text-sm">{formatDate(createdAt)}</time>
-                <span className="text-amber-600">•</span>
+                <span className="text-amber-600 hidden sm:inline">•</span>
                 <span className="text-blue-800 hover:text-amber-600 cursor-pointer font-medium text-sm">
                   By {author || "SpringFallUSA Editorial"}
                 </span>
@@ -372,7 +403,7 @@ const SingleBlogCard = ({ blog }) => {
           }
         }
         
-        /* Scrollbar styling for academic feel */
+        /* Custom scrollbar */
         ::-webkit-scrollbar {
           width: 6px;
         }
@@ -388,6 +419,25 @@ const SingleBlogCard = ({ blog }) => {
         
         ::-webkit-scrollbar-thumb:hover {
           background: #94a3b8;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 320px) {
+          .academic-content {
+            font-size: 0.9rem;
+          }
+        }
+        
+        @media (min-width: 768px) and (max-width: 1023px) {
+          .academic-content {
+            font-size: 1.1rem;
+          }
+        }
+        
+        @media (min-width: 1440px) {
+          .academic-content {
+            font-size: 1.125rem;
+          }
         }
       `}</style>
     </div>
