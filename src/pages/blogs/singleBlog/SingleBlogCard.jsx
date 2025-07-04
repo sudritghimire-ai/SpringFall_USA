@@ -103,23 +103,21 @@ const SingleBlogCard = ({ blog }) => {
 
         return (
           <li key={id} className={`toc-item mb-1 ${indentClass}`} style={{ animationDelay: `${(index + 1) * 0.1}s` }}>
-            <a
-              href={`#${id}`}
-              onClick={(e) => handleTOCClick(e, id)}
-              className={`flex items-center gap-3 py-3 px-4 rounded-xl transition-all duration-300 text-sm font-outfit group relative overflow-hidden ${
-                activeSection === id
-                  ? "bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-900 border-l-4 border-amber-600 shadow-md font-semibold transform scale-[1.02]"
-                  : "text-slate-700 hover:bg-gradient-to-r hover:from-slate-50 hover:to-blue-50/50 hover:text-blue-800 hover:shadow-sm hover:transform hover:scale-[1.01]"
-              }`}
-            >
-              <span className="text-amber-600 opacity-70 group-hover:opacity-100 transition-all duration-300 text-base flex-shrink-0">
-                {iconMap[level] || "•"}
-              </span>
-              <span className="leading-tight flex-1">{title}</span>
-              {activeSection === id && (
-                <div className="absolute right-2 w-2 h-2 bg-amber-500 rounded-full animate-pulse"></div>
-              )}
-            </a>
+          <a
+  href={`#${id}`}
+  onClick={(e) => handleTOCClick(e, id)}
+  className={`flex items-center py-3 px-4 rounded-xl transition-all duration-300 text-sm font-outfit group relative overflow-hidden ${
+    activeSection === id
+      ? "bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-900 border-l-4 border-amber-600 shadow-md font-semibold transform scale-[1.02]"
+      : "text-slate-700 hover:bg-gradient-to-r hover:from-slate-50 hover:to-blue-50/50 hover:text-blue-800 hover:shadow-sm hover:transform hover:scale-[1.01]"
+  }`}
+>
+  <span className="leading-tight flex-1">{title}</span>
+  {activeSection === id && (
+    <div className="absolute right-2 w-2 h-2 bg-amber-500 rounded-full animate-pulse"></div>
+  )}
+</a>
+
           </li>
         )
       })
