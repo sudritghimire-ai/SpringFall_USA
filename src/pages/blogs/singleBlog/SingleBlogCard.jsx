@@ -93,10 +93,10 @@ const SingleBlogCard = ({ blog }) => {
 
         const indentClass = level > 2 ? "ml-8" : level > 1 ? "ml-4" : ""
         const iconMap = {
-          1: "",
-          2: "",
-          3: "",
-          4: "",
+          1: "📚",
+          2: "📖",
+          3: "📄",
+          4: "📝",
           5: "•",
           6: "•",
         }
@@ -229,6 +229,7 @@ const SingleBlogCard = ({ blog }) => {
             <div className="p-6 border-b border-slate-200/60 bg-gradient-to-r from-blue-50/80 to-amber-50/60">
               <div className="flex justify-between items-center">
                 <div className="flex items-center gap-3">
+                  <span className="text-xl">📚</span>
                   <h3 className="text-lg font-serif-academic font-bold text-slate-800">Table of Contents</h3>
                 </div>
                 <button
@@ -255,6 +256,7 @@ const SingleBlogCard = ({ blog }) => {
           <div className="h-full flex flex-col">
             <div className="p-8 border-b border-slate-200/60 bg-gradient-to-r from-blue-50/80 to-amber-50/60">
               <div className="flex items-center gap-3 mb-2">
+                <span className="text-2xl">📚</span>
                 <h4 className="text-lg font-serif-academic font-bold text-slate-800">Table of Contents</h4>
               </div>
               <div className="w-16 h-1 bg-gradient-to-r from-amber-600 to-amber-400 rounded-full"></div>
@@ -289,7 +291,7 @@ const SingleBlogCard = ({ blog }) => {
                   <span className="text-amber-600 hidden sm:inline text-xl">•</span>
                   <span className="text-blue-800 hover:text-amber-600 cursor-pointer font-semibold text-base flex items-center gap-2 transition-colors duration-300">
                     <span className="text-blue-600">✍️</span>
-                    By {SpringFallUSA Editorial}
+                    By {author || "SpringFallUSA Editorial"}
                   </span>
                 </div>
               </div>
