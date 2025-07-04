@@ -321,7 +321,7 @@ const SingleBlogCard = ({ blog }) => {
 
             {/* Similar Universities Section */}
             {similarUniversities && similarUniversities.length > 0 && (
-<section className="mt-8 pt-16 border-t-2 border-gradient-to-r from-amber-600 to-amber-400 relative">
+<section className="mt-0 pt-16 border-t-2 border-gradient-to-r from-amber-600 to-amber-400 relative">
                 <div className="absolute top-[-2px] left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-amber-600 to-amber-400 rounded-full"></div>
                 <div className="text-center mb-12">
                   <h2 className="text-4xl font-serif-academic font-bold text-slate-800 mb-4">Related Institutions</h2>
