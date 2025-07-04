@@ -1,141 +1,149 @@
-import React, { useEffect, useState } from 'react';
-import { formatDate } from "../../../utils/formatDate";
-import EditorJSHTML from 'editorjs-html';
+"use client"
+
+import { useEffect, useState } from "react"
+import { formatDate } from "../../../utils/formatDate"
+import EditorJSHTML from "editorjs-html"
 
 const customParsers = {
-  delimiter: () => '<hr class="my-12 border-t border-amber-200 shadow-sm" style="border-top: 2px solid #d97706; opacity: 0.3;" />',
-  
+  delimiter: () =>
+    '<hr class="my-12 border-t border-amber-200 shadow-sm" style="border-top: 2px solid #d97706; opacity: 0.3;" />',
+
   embed: (block) => {
-    const { service, source, embed } = block.data;
-    if (service === 'youtube') {
+    const { service, source, embed } = block.data
+    if (service === "youtube") {
       return `<div class="my-8 p-4 bg-white rounded-lg shadow-md border border-gray-200">
                 <div class="aspect-w-16 aspect-h-9">
                   <iframe class="w-full h-[400px] rounded-md border border-gray-300" src="${embed}" frameborder="0" allowfullscreen></iframe>
                 </div>
                 <p class="text-sm text-gray-600 mt-2 italic text-center">Video Content</p>
-              </div>`;
+              </div>`
     }
-    return `<a href="${source}" target="_blank" rel="noopener noreferrer" class="text-blue-800 hover:text-amber-600 underline">${source}</a>`;
+    return `<a href="${source}" target="_blank" rel="noopener noreferrer" class="text-blue-800 hover:text-amber-600 underline">${source}</a>`
   },
-  
+
   table: (block) => {
-    const { content } = block.data;
-    const tableRows = content.map((row, rowIndex) => {
-      const tableCells = row.map((cell, cellIndex) => {
-        if (rowIndex === 0) {
-          return `<th class="px-6 py-4 bg-slate-800 text-white border border-gray-300 font-serif text-sm font-semibold">${cell}</th>`;
-        }
-        return `<td class="px-6 py-4 border border-gray-300 text-gray-700">${cell}</td>`;
-      }).join('');
-      return `<tr class="even:bg-gray-50">${tableCells}</tr>`;
-    }).join('');
+    const { content } = block.data
+    const tableRows = content
+      .map((row, rowIndex) => {
+        const tableCells = row
+          .map((cell, cellIndex) => {
+            if (rowIndex === 0) {
+              return `<th class="px-6 py-4 bg-slate-800 text-white border border-gray-300 font-serif text-sm font-semibold">${cell}</th>`
+            }
+            return `<td class="px-6 py-4 border border-gray-300 text-gray-700">${cell}</td>`
+          })
+          .join("")
+        return `<tr class="even:bg-gray-50">${tableCells}</tr>`
+      })
+      .join("")
     return `<div class="my-8 overflow-x-auto">
               <table class="w-full border-collapse border border-gray-300 shadow-sm rounded-lg overflow-hidden bg-white">
                 ${tableRows}
               </table>
-            </div>`;
+            </div>`
   },
-  
+
   header: (block) => {
-    const { text, level } = block.data;
-    const id = text.toLowerCase().replace(/\s+/g, '-').replace(/[^\w\-]/g, '');
+    const { text, level } = block.data
+    const id = text
+      .toLowerCase()
+      .replace(/\s+/g, "-")
+      .replace(/[^\w-]/g, "")
     const headerClasses = {
-      1: 'text-4xl font-serif font-bold text-slate-800 mt-12 mb-6 pb-3 border-b-2 border-amber-600',
-      2: 'text-3xl font-serif font-semibold text-blue-900 mt-10 mb-5',
-      3: 'text-2xl font-serif font-medium text-blue-800 mt-8 mb-4',
-      4: 'text-xl font-serif font-medium text-gray-800 mt-6 mb-3',
-      5: 'text-lg font-serif font-medium text-gray-700 mt-5 mb-3',
-      6: 'text-base font-serif font-medium text-gray-600 mt-4 mb-2'
-    };
-    return `<h${level} id="${id}" class="${headerClasses[level] || headerClasses[6]}">${text}</h${level}>`;
+      1: "text-4xl font-serif font-bold text-slate-800 mt-12 mb-6 pb-3 border-b-2 border-amber-600",
+      2: "text-3xl font-serif font-semibold text-blue-900 mt-10 mb-5",
+      3: "text-2xl font-serif font-medium text-blue-800 mt-8 mb-4",
+      4: "text-xl font-serif font-medium text-gray-800 mt-6 mb-3",
+      5: "text-lg font-serif font-medium text-gray-700 mt-5 mb-3",
+      6: "text-base font-serif font-medium text-gray-600 mt-4 mb-2",
+    }
+    return `<h${level} id="${id}" class="${headerClasses[level] || headerClasses[6]}">${text}</h${level}>`
   },
-  
+
   quote: (block) => {
-    const { text } = block.data;
+    const { text } = block.data
     return `<blockquote class="my-8 pl-6 pr-4 py-4 bg-blue-50 border-l-4 border-blue-800 rounded-r-lg shadow-sm">
               <p class="text-gray-700 italic font-serif text-lg leading-relaxed">"${text}"</p>
               <footer class="mt-2 text-sm text-gray-600">— Academic Citation</footer>
-            </blockquote>`;
-  }
-};
+            </blockquote>`
+  },
+}
 
-const editorJSHTML = EditorJSHTML(customParsers);
+const editorJSHTML = EditorJSHTML(customParsers)
 
 const SingleBlogCard = ({ blog }) => {
-  const { title, description, content, coverImg, category, rating, author, createdAt, similarUniversities } = blog || {};
-  const [activeSection, setActiveSection] = useState(null);
-  const [isTocOpen, setIsTocOpen] = useState(false);
-  
-  const parsedContent = editorJSHTML.parse(content);
-  const htmlContent = Array.isArray(parsedContent) ? parsedContent.join('') : parsedContent;
+  const { title, description, content, coverImg, category, rating, author, createdAt, similarUniversities } = blog || {}
+  const [activeSection, setActiveSection] = useState(null)
+  const [isTocOpen, setIsTocOpen] = useState(false)
+
+  const parsedContent = editorJSHTML.parse(content)
+  const htmlContent = Array.isArray(parsedContent) ? parsedContent.join("") : parsedContent
 
   const generateTOC = (content) => {
-    const headings = content.match(/<h[1-6][^>]*>(.*?)<\/h[1-6]>/g);
-    if (!headings) return [];
-    
-    return headings.map((heading, index) => {
-      const title = heading.replace(/<[^>]*>/g, '');
-      const id = heading.match(/id="([^"]*)"/)?.[1];
-      const level = parseInt(heading.match(/<h([1-6])/)?.[1]);
-      if (!id) return null;
+    const headings = content.match(/<h[1-6][^>]*>(.*?)<\/h[1-6]>/g)
+    if (!headings) return []
 
-      const indentClass = level > 2 ? 'ml-6' : level > 1 ? 'ml-3' : '';
-      const textSize = level === 1 ? 'text-sm font-semibold' : 'text-sm';
-      
-      return (
-        <li
-          key={id}
-          className={`toc-item mb-2 ${indentClass}`}
-          style={{ animationDelay: `${(index + 1) * 0.1}s` }}
-        >
-          <a
-            href={`#${id}`}
-            onClick={(e) => handleTOCClick(e, id)}
-            className={`block py-2 px-3 rounded-md transition-all duration-200 ${textSize} font-serif ${
-              activeSection === id
-                ? 'bg-blue-100 text-blue-900 border-l-3 border-amber-600 shadow-sm'
-                : 'text-gray-700 hover:bg-gray-100 hover:text-blue-800 hover:shadow-sm'
-            }`}
-          >
-            {title}
-          </a>
-        </li>
-      );
-    }).filter(Boolean);
-  };
+    return headings
+      .map((heading, index) => {
+        const title = heading.replace(/<[^>]*>/g, "")
+        const id = heading.match(/id="([^"]*)"/)?.[1]
+        const level = Number.parseInt(heading.match(/<h([1-6])/)?.[1])
+        if (!id) return null
+
+        const indentClass = level > 2 ? "ml-6" : level > 1 ? "ml-3" : ""
+        const textSize = level === 1 ? "text-sm font-semibold" : "text-sm"
+
+        return (
+          <li key={id} className={`toc-item mb-2 ${indentClass}`} style={{ animationDelay: `${(index + 1) * 0.1}s` }}>
+            <a
+              href={`#${id}`}
+              onClick={(e) => handleTOCClick(e, id)}
+              className={`block py-2 px-3 rounded-md transition-all duration-200 ${textSize} font-serif ${
+                activeSection === id
+                  ? "bg-blue-100 text-blue-900 border-l-3 border-amber-600 shadow-sm"
+                  : "text-gray-700 hover:bg-gray-100 hover:text-blue-800 hover:shadow-sm"
+              }`}
+            >
+              {title}
+            </a>
+          </li>
+        )
+      })
+      .filter(Boolean)
+  }
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
-      let currentSection = '';
-      
+      const sections = document.querySelectorAll("h1, h2, h3, h4, h5, h6")
+      let currentSection = ""
+
       sections.forEach((section) => {
         if (window.scrollY >= section.offsetTop - 150) {
-          currentSection = section.id;
+          currentSection = section.id
         }
-      });
-      
-      setActiveSection(currentSection);
-    };
+      })
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+      setActiveSection(currentSection)
+    }
+
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   const handleTOCClick = (e, id) => {
-    e.preventDefault();
-    const target = document.getElementById(id);
+    e.preventDefault()
+    const target = document.getElementById(id)
     if (target) {
       window.scrollTo({
         top: target.offsetTop - 120,
-        behavior: 'smooth'
-      });
+        behavior: "smooth",
+      })
     }
-    setIsTocOpen(false);
-  };
+    setIsTocOpen(false)
+  }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-stone-50 to-amber-50" style={{ backgroundColor: '#fefdf8' }}>
+    <div className="min-h-screen bg-gradient-to-br from-stone-50 to-amber-50" style={{ backgroundColor: "#fefdf8" }}>
       {/* Mobile TOC Toggle */}
       <div className="lg:hidden fixed top-4 left-4 z-50">
         <button
@@ -169,9 +177,8 @@ const SingleBlogCard = ({ blog }) => {
         {/* Desktop Sidebar TOC */}
         <div className="hidden lg:block lg:w-80 fixed left-0 top-0 h-full bg-white shadow-xl border-r border-gray-200 overflow-y-auto">
           <div className="p-8">
-            <div className="mb-8 pb-6 border-b border-gray-200">
+            <div className="mb-4 pb-6 border-b border-gray-200">
               <h3 className="text-xl font-serif font-bold text-slate-800 mb-2">Table of Contents</h3>
-              <p className="text-sm text-gray-600 italic">Navigate through sections</p>
             </div>
             <ul className="space-y-1">{generateTOC(htmlContent)}</ul>
           </div>
@@ -187,14 +194,12 @@ const SingleBlogCard = ({ blog }) => {
                   {category}
                 </span>
               </div>
-              <h1 className="text-5xl lg:text-6xl font-serif font-bold text-slate-800 mb-6 leading-tight">
-                {title}
-              </h1>
+              <h1 className="text-5xl lg:text-6xl font-serif font-bold text-slate-800 mb-6 leading-tight">{title}</h1>
               <div className="flex items-center justify-center space-x-4 text-gray-600">
                 <time className="font-serif italic">{formatDate(createdAt)}</time>
                 <span>•</span>
                 <span className="text-blue-800 hover:text-amber-600 cursor-pointer font-medium">
-                  By {author || 'Admin'}
+                  By {author || "Admin"}
                 </span>
               </div>
             </header>
@@ -203,9 +208,9 @@ const SingleBlogCard = ({ blog }) => {
             {coverImg && (
               <figure className="mb-12">
                 <div className="relative bg-white p-4 rounded-lg shadow-lg border border-gray-200">
-                  <img 
-                    src={coverImg || "/placeholder.svg"} 
-                    alt="Article cover" 
+                  <img
+                    src={coverImg || "/placeholder.svg"}
+                    alt="Article cover"
                     className="w-full h-auto lg:h-[500px] object-cover rounded-md"
                   />
                   <figcaption className="mt-4 text-center text-sm text-gray-600 italic font-serif">
@@ -217,12 +222,12 @@ const SingleBlogCard = ({ blog }) => {
 
             {/* Article Content */}
             <div className="prose prose-lg max-w-none">
-              <div 
-                dangerouslySetInnerHTML={{ __html: htmlContent }} 
+              <div
+                dangerouslySetInnerHTML={{ __html: htmlContent }}
                 className="academic-content text-gray-700 leading-relaxed"
                 style={{
-                  fontFamily: 'system-ui, -apple-system, sans-serif',
-                  lineHeight: '1.7'
+                  fontFamily: "system-ui, -apple-system, sans-serif",
+                  lineHeight: "1.7",
                 }}
               />
             </div>
@@ -230,15 +235,14 @@ const SingleBlogCard = ({ blog }) => {
             {/* Similar Universities Section */}
             {similarUniversities && similarUniversities.length > 0 && (
               <section className="mt-16 pt-12 border-t-2 border-amber-600">
-                <h2 className="text-3xl font-serif font-bold text-slate-800 mb-8 text-center">
-                  Related Institutions
-                </h2>
+                <h2 className="text-3xl font-serif font-bold text-slate-800 mb-8 text-center">Related Institutions</h2>
                 <div className="grid gap-6 md:grid-cols-2">
                   {similarUniversities.map((university) => (
-                    <div key={university.id} className="bg-white p-8 rounded-lg shadow-md border border-gray-200 hover:shadow-lg transition-shadow">
-                      <h3 className="text-xl font-serif font-semibold text-blue-900 mb-4">
-                        {university.name}
-                      </h3>
+                    <div
+                      key={university.id}
+                      className="bg-white p-8 rounded-lg shadow-md border border-gray-200 hover:shadow-lg transition-shadow"
+                    >
+                      <h3 className="text-xl font-serif font-semibold text-blue-900 mb-4">{university.name}</h3>
                       <p className="text-gray-700 leading-relaxed">{university.description}</p>
                     </div>
                   ))}
@@ -253,9 +257,7 @@ const SingleBlogCard = ({ blog }) => {
                   <span className="font-semibold text-slate-800">Academic Rating: </span>
                   <span className="text-amber-600 font-bold text-xl">{rating}</span>
                 </p>
-                <p className="text-sm text-gray-600 mt-2 italic">
-                  As evaluated by SpringFallUSA Academic Review Board
-                </p>
+                <p className="text-sm text-gray-600 mt-2 italic">As evaluated by SpringFallUSA Academic Review Board</p>
               </div>
             </footer>
           </article>
@@ -302,7 +304,7 @@ const SingleBlogCard = ({ blog }) => {
         }
       `}</style>
     </div>
-  );
-};
+  )
+}
 
-export default SingleBlogCard; 
+export default SingleBlogCard
