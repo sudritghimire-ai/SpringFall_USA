@@ -148,15 +148,13 @@ const SingleBlogCard = ({ blog }) => {
   }
 
   return (
-
-      <div className="min-h-screen bg-white">
-
+    <div className="min-h-screen bg-gradient-to-b from-white to-stone-50" style={{ backgroundColor: "#fefdf8" }}>
       {/* Fixed Header Bar */}
-      <header 
+      <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled 
-            ? 'bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200' 
-            : 'bg-gradient-to-r from-white/90 to-blue-50/90 backdrop-blur-sm'
+          isScrolled
+            ? "bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200"
+            : "bg-gradient-to-r from-white/90 to-blue-50/90 backdrop-blur-sm"
         }`}
       >
         <div className="flex items-center justify-between px-4 py-3 max-w-7xl mx-auto">
@@ -180,9 +178,7 @@ const SingleBlogCard = ({ blog }) => {
                 <span className="text-white text-sm">🎓</span>
               </div>
               <div className="text-center">
-                <h1 className="text-lg font-serif-academic font-bold text-slate-800 tracking-wide">
-                  SpringFallUSA
-                </h1>
+                <h1 className="text-lg font-serif-academic font-bold text-slate-800 tracking-wide">SpringFallUSA</h1>
                 <p className="text-xs text-gray-600 font-outfit -mt-1">Academic Resources</p>
               </div>
             </div>
@@ -191,9 +187,7 @@ const SingleBlogCard = ({ blog }) => {
           {/* Right: Future Icons Space */}
           <div className="flex items-center gap-2 lg:w-20 justify-end">
             {/* Placeholder for future icons like search, user menu, etc. */}
-            <div className="w-8 h-8 flex items-center justify-center">
-              {/* Future: Search, User Profile, etc. */}
-            </div>
+            <div className="w-8 h-8 flex items-center justify-center">{/* Future: Search, User Profile, etc. */}</div>
           </div>
         </div>
       </header>
@@ -204,18 +198,15 @@ const SingleBlogCard = ({ blog }) => {
           className="lg:hidden fixed inset-0 z-40 bg-black bg-opacity-50 backdrop-blur-sm"
           onClick={() => setIsTocOpen(false)}
         >
-          <div 
-            className="bg-white w-80 h-full shadow-2xl overflow-y-auto mt-16" 
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className="bg-white w-80 h-full shadow-2xl overflow-y-auto mt-16" onClick={(e) => e.stopPropagation()}>
             <div className="p-6 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-amber-50">
               <div className="flex justify-between items-center">
                 <div className="flex items-center gap-2">
                   <span className="text-lg">🎓</span>
                   <h3 className="text-lg font-serif-academic font-bold text-slate-800">Table of Contents</h3>
                 </div>
-                <button 
-                  onClick={() => setIsTocOpen(false)} 
+                <button
+                  onClick={() => setIsTocOpen(false)}
                   className="text-gray-500 hover:text-gray-700 p-1 rounded-md hover:bg-gray-100 transition-colors"
                   aria-label="Close Table of Contents"
                 >
@@ -248,9 +239,9 @@ const SingleBlogCard = ({ blog }) => {
 
         {/* Main Content */}
         <div className="flex-1 lg:ml-80">
-          <article className="max-w-4xl mx-auto px-4 sm:px-6 py-8 lg:px-12 font-outfit">
+          <article className="max-w-4xl mx-auto px-4 sm:px-6 py-8 lg:px-12 font-outfit border-0 shadow-none">
             {/* Header Section */}
-            <header className="text-center mb-12 pb-8 border-b-2 border-gray-200">
+            <header className="text-center mb-12 pb-8 border-0 border-b border-gray-200 shadow-none">
               <div className="mb-6">
                 <span className="inline-flex items-center gap-2 px-4 py-2 border border-blue-200 text-blue-800 rounded-full text-sm font-medium tracking-wide uppercase font-outfit bg-transparent hover:border-blue-300 transition-colors">
                   <span className="text-base">🏆</span>
@@ -272,7 +263,7 @@ const SingleBlogCard = ({ blog }) => {
             {/* Cover Image */}
             {coverImg && (
               <figure className="mb-12">
-                <div className="relative bg-white p-4 rounded-xl shadow-lg border border-gray-200 max-w-4xl mx-auto">
+                <div className="relative bg-white p-4 rounded-xl border-0 shadow-none max-w-4xl mx-auto">
                   <img
                     src={coverImg || "/placeholder.svg"}
                     alt="Article cover"
@@ -286,10 +277,10 @@ const SingleBlogCard = ({ blog }) => {
             )}
 
             {/* Article Content */}
-            <div className="prose prose-lg max-w-none">
+            <div className="prose prose-lg max-w-none border-0 shadow-none">
               <div
                 dangerouslySetInnerHTML={{ __html: htmlContent }}
-                className="academic-content text-gray-700 leading-relaxed"
+                className="academic-content text-gray-700 leading-relaxed border-0 shadow-none"
               />
             </div>
 
@@ -373,7 +364,8 @@ const SingleBlogCard = ({ blog }) => {
         .academic-content img {
           margin: 2rem auto;
           border-radius: 12px;
-          box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.1);
+          box-shadow: none;
+          border: none;
         }
         
         .academic-content a {
@@ -400,6 +392,21 @@ const SingleBlogCard = ({ blog }) => {
             opacity: 1;
             transform: translateY(0);
           }
+        }
+        
+        /* Remove all borders and shadows from article content */
+        article, article *, .academic-content, .academic-content * {
+          border-left: none !important;
+          border-right: none !important;
+          box-shadow: none !important;
+        }
+        
+        /* Preserve only intentional borders */
+        .academic-content table,
+        .academic-content table *,
+        .academic-content blockquote {
+          border: revert !important;
+          box-shadow: revert !important;
         }
         
         /* Custom scrollbar */
