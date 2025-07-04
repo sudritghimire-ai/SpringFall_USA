@@ -76,6 +76,7 @@ const SingleBlogCard = ({ blog }) => {
   const { title, description, content, coverImg, category, rating, author, createdAt, similarUniversities } = blog || {}
   const [activeSection, setActiveSection] = useState(null)
   const [isTocOpen, setIsTocOpen] = useState(false)
+  const [isRelatedOpen, setIsRelatedOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
 
   const parsedContent = editorJSHTML.parse(content)
@@ -159,10 +160,10 @@ const SingleBlogCard = ({ blog }) => {
       >
         <div className="flex items-center justify-between px-4 py-3 max-w-7xl mx-auto">
           {/* Left: Hamburger Menu (Mobile Only) */}
-          <div className="flex items-center lg:w-20">
+          <div className="flex items-center xl:w-20">
             <button
               onClick={() => setIsTocOpen(!isTocOpen)}
-              className="lg:hidden bg-white/80 hover:bg-white shadow-md hover:shadow-lg rounded-xl p-2.5 border border-gray-200 hover:border-blue-200 transition-all duration-200"
+              className="xl:hidden bg-white/80 hover:bg-white shadow-md hover:shadow-lg rounded-xl p-2.5 border border-gray-200 hover:border-blue-200 transition-all duration-200"
               aria-label="Toggle Table of Contents"
             >
               <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -184,10 +185,24 @@ const SingleBlogCard = ({ blog }) => {
             </div>
           </div>
 
-          {/* Right: Future Icons Space */}
-          <div className="flex items-center gap-2 lg:w-20 justify-end">
-            {/* Placeholder for future icons like search, user menu, etc. */}
-            <div className="w-8 h-8 flex items-center justify-center">{/* Future: Search, User Profile, etc. */}</div>
+          {/* Right: Related Menu (Mobile Only) */}
+          <div className="flex items-center xl:w-20 justify-end">
+            {similarUniversities && similarUniversities.length > 0 && (
+              <button
+                onClick={() => setIsRelatedOpen(!isRelatedOpen)}
+                className="xl:hidden bg-white/80 hover:bg-white shadow-md hover:shadow-lg rounded-xl p-2.5 border border-gray-200 hover:border-blue-200 transition-all duration-200"
+                aria-label="Toggle Related Institutions"
+              >
+                <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+                  />
+                </svg>
+              </button>
+            )}
           </div>
         </div>
       </header>
@@ -195,7 +210,7 @@ const SingleBlogCard = ({ blog }) => {
       {/* Mobile TOC Overlay */}
       {isTocOpen && (
         <div
-          className="lg:hidden fixed inset-0 z-40 bg-black bg-opacity-50 backdrop-blur-sm"
+          className="xl:hidden fixed inset-0 z-40 bg-black bg-opacity-50 backdrop-blur-sm"
           onClick={() => setIsTocOpen(false)}
         >
           <div className="bg-white w-80 h-full shadow-2xl overflow-y-auto mt-16" onClick={(e) => e.stopPropagation()}>
@@ -223,22 +238,103 @@ const SingleBlogCard = ({ blog }) => {
         </div>
       )}
 
+      {/* Mobile Related Overlay */}
+      {isRelatedOpen && similarUniversities && similarUniversities.length > 0 && (
+        <div
+          className="xl:hidden fixed inset-0 z-40 bg-black bg-opacity-50 backdrop-blur-sm"
+          onClick={() => setIsRelatedOpen(false)}
+        >
+          <div
+            className="bg-white w-80 h-full shadow-2xl overflow-y-auto mt-16 ml-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="p-6 border-b border-gray-200 bg-gradient-to-r from-amber-50 to-blue-50">
+              <div className="flex justify-between items-center">
+                <div className="flex items-center gap-2">
+                  <span className="text-lg">🏛️</span>
+                  <h3 className="text-lg font-serif-academic font-bold text-slate-800">Related Institutions</h3>
+                </div>
+                <button
+                  onClick={() => setIsRelatedOpen(false)}
+                  className="text-gray-500 hover:text-gray-700 p-1 rounded-md hover:bg-gray-100 transition-colors"
+                  aria-label="Close Related Institutions"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div className="p-6 space-y-4">
+              {similarUniversities.map((university) => (
+                <div
+                  key={university.id}
+                  className="bg-white p-4 rounded-xl shadow-md border border-gray-200 hover:shadow-xl hover:border-blue-200 transition-all duration-300 group"
+                >
+                  <div className="flex items-start gap-3 mb-4">
+                    <div className="w-10 h-10 bg-transparent border border-blue-200 rounded-lg flex items-center justify-center group-hover:border-amber-400 transition-colors">
+                      <span className="text-blue-800 text-lg">🎓</span>
+                    </div>
+                    <h3 className="text-lg font-serif-academic font-semibold text-blue-900 leading-tight">
+                      {university.name}
+                    </h3>
+                  </div>
+                  <p className="text-gray-700 leading-relaxed font-outfit text-sm">{university.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="flex pt-16">
         {/* Desktop Sidebar TOC */}
-<div className="hidden lg:block lg:w-80 fixed left-0 top-[4rem] h-[calc(100vh-4rem)] bg-white shadow-2xl border-r border-gray-200 overflow-y-auto z-30">
+        <div className="hidden xl:block xl:w-80 fixed left-0 top-[4rem] h-[calc(100vh-4rem)] bg-white shadow-2xl border-r border-gray-200 overflow-y-auto z-30">
           <div className="p-8">
             {/* TOC Header */}
             <div className="mb-6">
               <h4 className="text-base font-serif-academic font-semibold text-slate-700 mb-1">Table of Contents</h4>
               <div className="w-12 h-0.5 bg-amber-600 rounded-full"></div>
             </div>
-
             <ul className="space-y-1">{generateTOC(htmlContent)}</ul>
           </div>
         </div>
 
+        {/* Desktop Related Sidebar */}
+        {similarUniversities && similarUniversities.length > 0 && (
+          <div className="hidden xl:block xl:w-80 fixed right-0 top-[4rem] h-[calc(100vh-4rem)] bg-white shadow-2xl border-l border-gray-200 overflow-y-auto z-30">
+            <div className="p-8">
+              {/* Related Header */}
+              <div className="mb-6">
+                <h4 className="text-base font-serif-academic font-semibold text-slate-700 mb-1">
+                  Related Institutions
+                </h4>
+                <div className="w-12 h-0.5 bg-amber-600 rounded-full"></div>
+              </div>
+              <div className="space-y-4">
+                {similarUniversities.map((university) => (
+                  <div
+                    key={university.id}
+                    className="bg-white p-6 rounded-xl shadow-md border border-gray-200 hover:shadow-xl hover:border-blue-200 transition-all duration-300 group"
+                  >
+                    <div className="flex items-start gap-3 mb-4">
+                      <div className="w-10 h-10 bg-transparent border border-blue-200 rounded-lg flex items-center justify-center group-hover:border-amber-400 transition-colors">
+                        <span className="text-blue-800 text-lg">🎓</span>
+                      </div>
+                      <h3 className="text-xl font-serif-academic font-semibold text-blue-900 leading-tight">
+                        {university.name}
+                      </h3>
+                    </div>
+                    <p className="text-gray-700 leading-relaxed font-outfit">{university.description}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Main Content */}
-        <div className="flex-1 lg:ml-80">
+        <div className="flex-1 xl:ml-80 xl:mr-80">
           <article className="max-w-4xl mx-auto px-4 sm:px-6 py-8 lg:px-12 font-outfit border-0 shadow-none">
             {/* Header Section */}
             <header className="text-center mb-12 pb-8 border-0 border-b border-gray-200 shadow-none">
@@ -284,9 +380,25 @@ const SingleBlogCard = ({ blog }) => {
               />
             </div>
 
-            {/* Similar Universities Section */}
-            {similarUniversities && similarUniversities.length > 0 && (
-              <section className="mt-16 pt-12 border-t-2 border-amber-600">
+            {/* Rating Section */}
+            <footer className="mt-16 pt-8 border-t border-gray-200">
+              <div className="bg-transparent border border-blue-200 p-8 rounded-xl text-center hover:border-amber-300 transition-colors">
+                <div className="flex items-center justify-center gap-2 mb-2">
+                  <span className="text-amber-600 text-lg">🏆</span>
+                  <span className="font-serif-academic font-semibold text-slate-800 text-lg">Academic Rating</span>
+                </div>
+                <div className="text-3xl font-bold text-amber-600 mb-2">{rating}</div>
+                <p className="text-sm text-gray-600 italic font-outfit">
+                  Evaluated by SpringFallUSA Academic Review Board
+                </p>
+              </div>
+            </footer>
+          </article>
+
+          {/* Mobile Related Institutions Section */}
+          {similarUniversities && similarUniversities.length > 0 && (
+            <section className="xl:hidden mt-16 px-4 sm:px-6 lg:px-12">
+              <div className="max-w-4xl mx-auto">
                 <div className="text-center mb-10">
                   <h2 className="text-3xl font-serif-academic font-bold text-slate-800 mb-3">Related Institutions</h2>
                   <div className="w-16 h-1 bg-amber-600 rounded-full mx-auto"></div>
@@ -309,23 +421,9 @@ const SingleBlogCard = ({ blog }) => {
                     </div>
                   ))}
                 </div>
-              </section>
-            )}
-
-            {/* Rating Section */}
-            <footer className="mt-16 pt-8 border-t border-gray-200">
-              <div className="bg-transparent border border-blue-200 p-8 rounded-xl text-center hover:border-amber-300 transition-colors">
-                <div className="flex items-center justify-center gap-2 mb-2">
-                  <span className="text-amber-600 text-lg">🏆</span>
-                  <span className="font-serif-academic font-semibold text-slate-800 text-lg">Academic Rating</span>
-                </div>
-                <div className="text-3xl font-bold text-amber-600 mb-2">{rating}</div>
-                <p className="text-sm text-gray-600 italic font-outfit">
-                  Evaluated by SpringFallUSA Academic Review Board
-                </p>
               </div>
-            </footer>
-          </article>
+            </section>
+          )}
         </div>
       </div>
 
