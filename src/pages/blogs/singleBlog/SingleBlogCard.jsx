@@ -426,10 +426,9 @@ const SingleBlogCard = ({ blog }) => {
 
         {/* Main Content */}
 
-<div className="flex-1 lg:ml-[21rem] lg:pl-8">
+<div className="flex-1 lg:ml-[24rem]"> 
 
-          <article className="max-w-4xl mx-auto px-4 sm:px-6 py-8 lg:px-12 font-outfit border-0 shadow-none">
-
+<article className="max-w-4xl mx-auto px-4 sm:px-6 py-8 lg:px-12 font-outfit border-0 shadow-none lg:pl-4">
             {/* Header Section */}
 
             <header className="text-center mb-12 pb-8 border-0 border-b border-gray-200 shadow-none">
