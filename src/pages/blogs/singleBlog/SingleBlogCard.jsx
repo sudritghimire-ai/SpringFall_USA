@@ -7,7 +7,7 @@ import EditorJSHTML from "editorjs-html"
 const customParsers = {
   delimiter: () =>
     '<div class="my-24 flex items-center justify-center"><div class="flex items-center gap-4"><div class="w-16 h-px bg-gradient-to-r from-transparent via-slate-400 to-transparent opacity-60"></div><div class="w-3 h-3 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full shadow-lg"></div><div class="w-16 h-px bg-gradient-to-r from-transparent via-slate-400 to-transparent opacity-60"></div></div></div>',
-  
+
   embed: (block) => {
     const { service, source, embed } = block.data
     if (service === "youtube") {
@@ -31,7 +31,7 @@ const customParsers = {
               </a>
             </div>`
   },
-  
+
   table: (block) => {
     const { content } = block.data
     const tableRows = content
@@ -53,14 +53,14 @@ const customParsers = {
               </div>
             </div>`
   },
-  
+
   header: (block) => {
     const { text, level } = block.data
     const id = text
       .toLowerCase()
       .replace(/\s+/g, "-")
       .replace(/[^\w-]/g, "")
-    
+
     const spacing = level === 1 ? "mt-24 mb-12" : level === 2 ? "mt-20 mb-10" : "mt-16 mb-8"
     const size =
       level === 1
@@ -76,20 +76,22 @@ const customParsers = {
               </h${level}>
             </div>`
   },
-  
+
   paragraph: (block) => {
     const { text } = block.data
     return `<p class="text-xl leading-relaxed text-slate-700 mb-8 font-medium tracking-wide">${text}</p>`
   },
-  
+
   list: (block) => {
     const { style, items } = block.data
-    const listItems = items.map(item => `<li class="mb-4 text-xl text-slate-700 leading-relaxed">${item}</li>`).join('')
-    const listType = style === 'ordered' ? 'ol' : 'ul'
-    const listClass = style === 'ordered' ? 'list-decimal' : 'list-disc'
-    
+    const listItems = items
+      .map((item) => `<li class="mb-4 text-xl text-slate-700 leading-relaxed">${item}</li>`)
+      .join("")
+    const listType = style === "ordered" ? "ol" : "ul"
+    const listClass = style === "ordered" ? "list-decimal" : "list-disc"
+
     return `<${listType} class="${listClass} pl-8 my-12 space-y-4">${listItems}</${listType}>`
-  }
+  },
 }
 
 const editorJSHTML = EditorJSHTML(customParsers)
@@ -101,10 +103,10 @@ const SingleBlogCard = ({ blog }) => {
   const [readingProgress, setReadingProgress] = useState(0)
   const [completionRate, setCompletionRate] = useState(0)
   const [estimatedReadTime, setEstimatedReadTime] = useState(0)
-  const [scrollDirection, setScrollDirection] = useState('down')
+  const [scrollDirection, setScrollDirection] = useState("down")
   const [isScrolling, setIsScrolling] = useState(false)
   const [viewedSections, setViewedSections] = useState(new Set())
-  
+
   const lastScrollY = useRef(0)
   const scrollTimeout = useRef(null)
   const contentRef = useRef(null)
@@ -115,79 +117,82 @@ const SingleBlogCard = ({ blog }) => {
   // Calculate estimated reading time
   useEffect(() => {
     if (htmlContent) {
-      const wordCount = htmlContent.replace(/<[^>]*>/g, '').split(/\s+/).length
+      const wordCount = htmlContent.replace(/<[^>]*>/g, "").split(/\s+/).length
       const readTime = Math.ceil(wordCount / 200) // Average reading speed
       setEstimatedReadTime(readTime)
     }
   }, [htmlContent])
 
-  const generateTOC = useCallback((content) => {
-    const headings = content.match(/<h[1-6][^>]*>(.*?)<\/h[1-6]>/g)
-    if (!headings) return []
+  const generateTOC = useCallback(
+    (content) => {
+      const headings = content.match(/<h[1-6][^>]*>(.*?)<\/h[1-6]>/g)
+      if (!headings) return []
 
-    return headings
-      .map((heading, index) => {
-        const title = heading.replace(/<[^>]*>/g, "")
-        const id = heading.match(/id="([^"]*)"/)?.[1]
-        const level = heading.match(/<h([1-6])/)?.[1]
-        if (!id) return null
+      return headings
+        .map((heading, index) => {
+          const title = heading.replace(/<[^>]*>/g, "")
+          const id = heading.match(/id="([^"]*)"/)?.[1]
+          const level = heading.match(/<h([1-6])/)?.[1]
+          if (!id) return null
 
-        const animationDelay = `${(index + 1) * 0.1}s`
-        const isViewed = viewedSections.has(id)
+          const animationDelay = `${(index + 1) * 0.1}s`
+          const isViewed = viewedSections.has(id)
 
-        return (
-          <li
-            key={id}
-            className={`toc-item mb-4 ${
-              level >= "3" ? "ml-12" : level === "2" ? "ml-6" : ""
-            } opacity-0 animate-fade-in-up transform transition-all duration-500`}
-            style={{ animationDelay }}
-          >
-            <a
-              href={`#${id}`}
-              onClick={(e) => handleTOCClick(e, id)}
-              className={`group relative block py-4 px-6 rounded-2xl transition-all duration-500 text-base font-semibold border-l-4 hover:scale-105 transform ${
-                activeSection === id
-                  ? "bg-gradient-to-r from-indigo-50 via-purple-50 to-indigo-50 text-indigo-700 border-indigo-500 shadow-xl translate-x-4 scale-105"
-                  : "text-slate-600 hover:text-slate-900 border-transparent hover:bg-gradient-to-r hover:from-slate-50 hover:to-slate-100 hover:border-slate-300 hover:translate-x-3 hover:shadow-lg"
-              }`}
+          return (
+            <li
+              key={id}
+              className={`toc-item mb-4 ${
+                level >= "3" ? "ml-12" : level === "2" ? "ml-6" : ""
+              } opacity-0 animate-fade-in-up transform transition-all duration-500`}
+              style={{ animationDelay }}
             >
-              <div className="flex items-center justify-between">
-                <span className="block truncate leading-relaxed pr-4">{title}</span>
-                <div className="flex items-center gap-2">
-                  {isViewed && (
-                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                  )}
-                  <div className={`text-xs px-2 py-1 rounded-full font-medium ${
-                    activeSection === id 
-                      ? "bg-indigo-100 text-indigo-600" 
-                      : "bg-slate-100 text-slate-500"
-                  }`}>
-                    H{level}
+              <a
+                href={`#${id}`}
+                onClick={(e) => handleTOCClick(e, id)}
+                className={`group relative block py-4 px-6 rounded-2xl transition-all duration-500 text-base font-semibold border-l-4 hover:scale-105 transform ${
+                  activeSection === id
+                    ? "bg-gradient-to-r from-indigo-50 via-purple-50 to-indigo-50 text-indigo-700 border-indigo-500 shadow-xl translate-x-4 scale-105"
+                    : "text-slate-600 hover:text-slate-900 border-transparent hover:bg-gradient-to-r hover:from-slate-50 hover:to-slate-100 hover:border-slate-300 hover:translate-x-3 hover:shadow-lg"
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <span className="block truncate leading-relaxed pr-4">{title}</span>
+                  <div className="flex items-center gap-2">
+                    {isViewed && <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>}
+                    <div
+                      className={`text-xs px-2 py-1 rounded-full font-medium ${
+                        activeSection === id ? "bg-indigo-100 text-indigo-600" : "bg-slate-100 text-slate-500"
+                      }`}
+                    >
+                      H{level}
+                    </div>
                   </div>
                 </div>
-              </div>
-              
-              {activeSection === id && (
-                <div className="absolute left-0 top-1/2 transform -translate-y-1/2 w-2 h-12 bg-gradient-to-b from-indigo-500 via-purple-500 to-indigo-500 rounded-r-full shadow-lg animate-pulse"></div>
-              )}
-              
-              <div className={`mt-2 h-1 bg-gradient-to-r from-indigo-200 to-purple-200 rounded-full transition-all duration-500 ${
-                activeSection === id ? "opacity-100" : "opacity-0"
-              }`}></div>
-            </a>
-          </li>
-        )
-      })
-      .filter(Boolean)
-  }, [activeSection, viewedSections])
+
+                {activeSection === id && (
+                  <div className="absolute left-0 top-1/2 transform -translate-y-1/2 w-2 h-12 bg-gradient-to-b from-indigo-500 via-purple-500 to-indigo-500 rounded-r-full shadow-lg animate-pulse"></div>
+                )}
+
+                <div
+                  className={`mt-2 h-1 bg-gradient-to-r from-indigo-200 to-purple-200 rounded-full transition-all duration-500 ${
+                    activeSection === id ? "opacity-100" : "opacity-0"
+                  }`}
+                ></div>
+              </a>
+            </li>
+          )
+        })
+        .filter(Boolean)
+    },
+    [activeSection, viewedSections],
+  )
 
   const handleScroll = useCallback(() => {
     const currentScrollY = window.scrollY
-    const direction = currentScrollY > lastScrollY.current ? 'down' : 'up'
+    const direction = currentScrollY > lastScrollY.current ? "down" : "up"
     setScrollDirection(direction)
     lastScrollY.current = currentScrollY
-    
+
     setIsScrolling(true)
     if (scrollTimeout.current) {
       clearTimeout(scrollTimeout.current)
@@ -270,9 +275,11 @@ const SingleBlogCard = ({ blog }) => {
       </div>
 
       {/* Floating Reading Stats */}
-      <div className={`fixed top-6 right-6 z-40 transition-all duration-500 ${
-        isScrolling ? 'opacity-100 translate-y-0' : 'opacity-70 translate-y-2'
-      }`}>
+      <div
+        className={`fixed top-6 right-6 z-40 transition-all duration-500 ${
+          isScrolling ? "opacity-100 translate-y-0" : "opacity-70 translate-y-2"
+        }`}
+      >
         <div className="bg-white/90 backdrop-blur-xl border border-slate-200/60 rounded-2xl p-4 shadow-2xl">
           <div className="flex items-center gap-4 text-sm">
             <div className="flex items-center gap-2">
@@ -280,9 +287,7 @@ const SingleBlogCard = ({ blog }) => {
               <span className="font-semibold text-slate-700">{Math.round(readingProgress)}%</span>
             </div>
             <div className="w-px h-4 bg-slate-300"></div>
-            <div className="text-slate-600 font-medium">
-              {formatReadingTime(estimatedReadTime)}
-            </div>
+            <div className="text-slate-600 font-medium">{formatReadingTime(estimatedReadTime)}</div>
           </div>
         </div>
       </div>
@@ -306,7 +311,7 @@ const SingleBlogCard = ({ blog }) => {
                 </div>
               </div>
             </div>
-            
+
             <div className="flex items-center gap-3">
               <div className="text-xs bg-gradient-to-r from-indigo-100 to-purple-100 text-indigo-700 px-3 py-1 rounded-full font-bold">
                 {Math.round(readingProgress)}%
@@ -405,7 +410,9 @@ const SingleBlogCard = ({ blog }) => {
                       <div className="w-3 h-3 bg-purple-500 rounded-full animate-pulse"></div>
                     </div>
                     <div className="text-3xl font-bold text-purple-600 mb-1">{viewedSections.size}</div>
-                    <div className="text-xs text-slate-500 font-medium">of {document.querySelectorAll("h1, h2, h3, h4, h5, h6").length} viewed</div>
+                    <div className="text-xs text-slate-500 font-medium">
+                      of {document.querySelectorAll("h1, h2, h3, h4, h5, h6").length} viewed
+                    </div>
                   </div>
                 </div>
 
@@ -442,7 +449,7 @@ const SingleBlogCard = ({ blog }) => {
         {/* Enhanced Main Content with Better Spacing */}
         <div className="flex-1 lg:ml-[480px] xl:ml-[520px] 2xl:ml-[560px]">
           <div className="min-h-screen">
-            <div 
+            <div
               ref={contentRef}
               className="max-w-6xl xl:max-w-7xl 2xl:max-w-8xl mx-auto px-8 sm:px-12 lg:px-16 xl:px-20 2xl:px-24 py-12 sm:py-16 lg:py-20 xl:py-24 2xl:py-28"
             >
@@ -496,9 +503,7 @@ const SingleBlogCard = ({ blog }) => {
                           <div className="w-4 h-4 bg-white rounded-full animate-pulse"></div>
                           {category}
                         </div>
-                        <div className="text-white/80 text-lg font-semibold">
-                          Featured Article
-                        </div>
+                        <div className="text-white/80 text-lg font-semibold">Featured Article</div>
                       </div>
                     </div>
                   </div>
