@@ -248,7 +248,7 @@ const SingleBlogCard = ({ blog }) => {
         </div>
       )}
 
-      <div className="flex pt-16">
+<div className="flex pt-16 max-w-screen-xl mx-auto px-4">
         {/* Desktop Sidebar TOC */}
         <div className="hidden lg:block lg:w-80 xl:w-96 fixed left-6 top-20 h-[calc(100vh-5rem)] bg-white/95 backdrop-blur-xl shadow-2xl border border-slate-200/60 rounded-3xl overflow-hidden z-20">
           <div className="h-full flex flex-col">
