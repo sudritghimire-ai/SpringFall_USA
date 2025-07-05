@@ -200,8 +200,8 @@ const MobileTOCOverlay = ({ isTocOpen, setIsTocOpen, htmlContent, activeSection,
 
 // Desktop TOC Sidebar (Left)
 const DesktopTOCSidebar = ({ htmlContent, activeSection, handleTOCClick }) => (
-<div className="hidden lg:blockw-52 xl:w-56
- fixed left-3 xl:left-4 top-20 h-[calc(100vh-5rem)] bg-white/95 backdrop-blur-xl shadow-2xl border border-slate-200/60 rounded-2xl overflow-hidden z-20 transition-all duration-300">
+<div className="hidden lg:block w-64 xl:w-72 fixed left-4 xl:left-6 top-20 h-[calc(100vh-5rem)] bg-white/95 backdrop-blur-xl shadow-2xl border border-slate-200/60 rounded-2xl overflow-hidden z-20 transition-all duration-300">
+
     <div className="h-full flex flex-col">
       <div className="p-4 xl:p-5 border-b border-slate-200/60 bg-gradient-to-r from-blue-50/80 to-amber-50/60">
         <div className="flex items-center gap-2 mb-2">
