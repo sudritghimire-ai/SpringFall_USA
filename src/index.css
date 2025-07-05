@@ -227,3 +227,6 @@ html {
   opacity: 0;
   animation: slideInTOC 0.4s ease-out forwards;
 }
+.academic-content > *:last-child {
+  margin-bottom: 0 !important;
+}
