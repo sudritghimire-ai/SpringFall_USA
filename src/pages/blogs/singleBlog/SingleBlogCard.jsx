@@ -34,11 +34,16 @@ const customParsers = {
             return `<td class="px-3 md:px-5 lg:px-6 py-3 md:py-4 border border-slate-200/60 text-slate-700 font-outfit leading-relaxed text-sm md:text-base">${cell}</td>`
           })
           .join("")
-        return `<tr class="even:bg-slate-50/40 hover:bg-blue-50/60 transition-all duration-200">${tableCells}</tr>`
+        // Mobile: solid backgrounds, Desktop: zebra striping with hover
+        const rowClasses =
+          rowIndex === 0
+            ? "" // Header row - no background changes needed
+            : "bg-white sm:even:bg-slate-50/40 sm:hover:bg-blue-50/60 transition-all duration-200"
+        return `<tr class="${rowClasses}">${tableCells}</tr>`
       })
       .join("")
-    return `<div class="my-6 md:my-8 overflow-x-auto rounded-xl md:rounded-2xl shadow-lg border border-slate-200/60">
-              <table class="w-full min-w-[600px] border-collapse bg-white backdrop-blur-sm">
+    return `<div class="my-6 md:my-8 overflow-x-auto rounded-xl md:rounded-2xl shadow-lg border border-slate-200/60 bg-white">
+              <table class="w-full min-w-[600px] border-collapse bg-white">
                 ${tableRows}
               </table>
             </div>`
