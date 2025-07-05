@@ -273,7 +273,7 @@ const SingleBlogCard = ({ blog }) => {
               <div className="absolute inset-0 bg-gradient-to-b from-blue-50/30 to-transparent rounded-3xl -mx-8 -my-8"></div>
               <div className="relative">
                 <div className="mb-8">
-                  <span className="inline-flex items-center gap-3 px-6 py-3 border-2 border-blue-200/60 text-blue-800 rounded-full text-sm font-semibold tracking-wider uppercase font-outfit bg-white/80 backdrop-blur-sm hover:border-blue-300 hover:shadow-lg transition-all duration-300">
+<span className="inline-flex items-center gap-3 px-6 py-3 border-2 border-blue-200/60 text-blue-800 rounded-full text-sm font-semibold tracking-wider uppercase font-outfit bg-white hover:border-blue-300 hover:shadow-lg transition-all duration-300">
                     <span className="text-lg">🏆</span>
                     {category}
                   </span>
