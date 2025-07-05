@@ -34,11 +34,8 @@ const customParsers = {
             return `<td class="px-3 md:px-5 lg:px-6 py-3 md:py-4 border border-slate-200/60 text-slate-700 font-outfit leading-relaxed text-sm md:text-base">${cell}</td>`
           })
           .join("")
-        // Mobile: solid backgrounds, Desktop: zebra striping with hover
         const rowClasses =
-          rowIndex === 0
-            ? "" // Header row - no background changes needed
-            : "bg-white sm:even:bg-slate-50/40 sm:hover:bg-blue-50/60 transition-all duration-200"
+          rowIndex === 0 ? "" : "bg-white sm:even:bg-slate-50/40 sm:hover:bg-blue-50/60 transition-all duration-200"
         return `<tr class="${rowClasses}">${tableCells}</tr>`
       })
       .join("")
@@ -93,7 +90,6 @@ const BlogHeader = ({ isScrolled, isTocOpen, setIsTocOpen }) => (
     }`}
   >
     <div className="flex items-center justify-between px-3 md:px-4 lg:px-6 py-3 md:py-4 max-w-7xl mx-auto">
-      {/* Mobile Menu Button */}
       <div className="flex items-center lg:w-20">
         <button
           onClick={() => setIsTocOpen(!isTocOpen)}
@@ -106,7 +102,6 @@ const BlogHeader = ({ isScrolled, isTocOpen, setIsTocOpen }) => (
         </button>
       </div>
 
-      {/* Brand */}
       <div className="flex items-center justify-center flex-1">
         <div className="flex items-center gap-2 md:gap-3">
           <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-blue-800 via-blue-700 to-amber-600 rounded-xl md:rounded-2xl flex items-center justify-center shadow-lg">
@@ -121,7 +116,6 @@ const BlogHeader = ({ isScrolled, isTocOpen, setIsTocOpen }) => (
         </div>
       </div>
 
-      {/* Right Space */}
       <div className="flex items-center gap-2 lg:w-20 justify-end">
         <div className="w-6 h-6 md:w-8 md:h-8 flex items-center justify-center"></div>
       </div>
@@ -204,7 +198,7 @@ const MobileTOCOverlay = ({ isTocOpen, setIsTocOpen, htmlContent, activeSection,
   )
 }
 
-// Desktop TOC Sidebar
+// Desktop TOC Sidebar (Left)
 const DesktopTOCSidebar = ({ htmlContent, activeSection, handleTOCClick }) => (
   <div className="hidden lg:block w-56 xl:w-60 fixed left-3 xl:left-4 top-20 h-[calc(100vh-5rem)] bg-white/95 backdrop-blur-xl shadow-2xl border border-slate-200/60 rounded-2xl overflow-hidden z-20 transition-all duration-300">
     <div className="h-full flex flex-col">
@@ -221,6 +215,51 @@ const DesktopTOCSidebar = ({ htmlContent, activeSection, handleTOCClick }) => (
     </div>
   </div>
 )
+
+// NEW: Related Institutions Fixed Sidebar (Right)
+const RelatedInstitutionsSidebar = ({ similarUniversities }) => {
+  if (!similarUniversities || similarUniversities.length === 0) return null
+
+  return (
+    <div className="hidden xl:block w-72 fixed right-3 top-20 h-[calc(100vh-5rem)] bg-white/95 backdrop-blur-xl shadow-2xl border border-slate-200/60 rounded-2xl overflow-hidden z-20 transition-all duration-300">
+      <div className="h-full flex flex-col">
+        {/* Header */}
+        <div className="p-4 border-b border-slate-200/60 bg-gradient-to-r from-amber-50/80 to-blue-50/60">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="text-lg">🏛️</span>
+            <h4 className="text-sm font-serif-academic font-bold text-slate-800">Related Institutions</h4>
+          </div>
+          <div className="w-14 h-1 bg-gradient-to-r from-blue-600 to-blue-400 rounded-full"></div>
+        </div>
+
+        {/* Content */}
+        <div className="flex-1 overflow-y-auto p-4">
+          <div className="space-y-3">
+            {similarUniversities.map((university, index) => (
+              <div
+                key={university.id}
+                className="bg-gradient-to-br from-white to-slate-50/50 p-3 rounded-xl shadow-sm border border-slate-200/60 hover:shadow-lg hover:border-blue-200 transition-all duration-300 group backdrop-blur-sm transform hover:scale-[1.02]"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <div className="flex items-start gap-2 mb-2">
+                  <div className="w-6 h-6 bg-gradient-to-br from-blue-100 to-blue-50 border border-blue-200/60 rounded-lg flex items-center justify-center group-hover:border-amber-400 transition-all duration-300">
+                    <span className="text-blue-800 text-xs">🎓</span>
+                  </div>
+                  <h5 className="text-sm font-serif-academic font-bold text-blue-900 leading-tight flex-1">
+                    {university.name}
+                  </h5>
+                </div>
+                <p className="text-slate-700 leading-relaxed font-outfit text-xs line-clamp-3">
+                  {university.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 // Article Header
 const ArticleHeader = ({ title, category, createdAt, author }) => (
@@ -271,40 +310,6 @@ const CoverImage = ({ coverImg, title }) => {
   )
 }
 
-// Similar Universities Section
-const SimilarUniversities = ({ similarUniversities }) => {
-  if (!similarUniversities || similarUniversities.length === 0) return null
-
-  return (
-    <section className="mt-12 md:mt-16 pt-6 md:pt-8 border-t-2 border-gradient-to-r from-amber-600 to-amber-400 relative">
-      <div className="absolute top-[-2px] left-1/2 transform -translate-x-1/2 w-16 md:w-20 h-1 bg-gradient-to-r from-amber-600 to-amber-400 rounded-full"></div>
-      <div className="text-center mb-5 md:mb-6">
-        <h2 className="text-xl md:text-2xl font-serif-academic font-bold text-slate-800 mb-2">Related Institutions</h2>
-        <p className="text-slate-600 font-outfit text-sm md:text-base">Explore similar academic opportunities</p>
-      </div>
-      <div className="grid gap-3 md:gap-4 md:grid-cols-2">
-        {similarUniversities.map((university, index) => (
-          <div
-            key={university.id}
-            className="bg-gradient-to-br from-white to-slate-50/50 p-3 md:p-4 rounded-xl md:rounded-2xl shadow-lg border border-slate-200/60 hover:shadow-2xl hover:border-blue-200 transition-all duration-500 group backdrop-blur-sm transform hover:scale-[1.02]"
-            style={{ animationDelay: `${index * 0.1}s` }}
-          >
-            <div className="flex items-start gap-2 md:gap-3 mb-2 md:mb-3">
-              <div className="w-7 h-7 md:w-8 md:h-8 bg-gradient-to-br from-blue-100 to-blue-50 border-2 border-blue-200/60 rounded-lg md:rounded-xl flex items-center justify-center group-hover:border-amber-400 group-hover:shadow-lg transition-all duration-300">
-                <span className="text-blue-800 text-sm md:text-base">🎓</span>
-              </div>
-              <h3 className="text-base md:text-lg font-serif-academic font-bold text-blue-900 leading-tight flex-1">
-                {university.name}
-              </h3>
-            </div>
-            <p className="text-slate-700 leading-relaxed font-outfit text-xs md:text-sm">{university.description}</p>
-          </div>
-        ))}
-      </div>
-    </section>
-  )
-}
-
 // Rating Section
 const RatingSection = ({ rating }) => (
   <footer className="mt-12 md:mt-16 pt-6 md:pt-8 border-t border-slate-200/60">
@@ -348,7 +353,6 @@ const SingleBlogCard = ({ blog }) => {
       setActiveSection(currentSection)
       setIsScrolled(window.scrollY > 10)
 
-      // Calculate reading progress
       const article = document.querySelector("article")
       if (article) {
         const scrollTop = window.scrollY
@@ -397,12 +401,15 @@ const SingleBlogCard = ({ blog }) => {
         handleTOCClick={handleTOCClick}
       />
 
-<div className="flex pt-16 max-w-7xl mx-auto px-0 md:px-4">
-        {/* Desktop Sidebar TOC */}
+      <div className="flex pt-16 max-w-7xl mx-auto px-2 md:px-4">
+        {/* Desktop TOC Sidebar (Left) */}
         <DesktopTOCSidebar htmlContent={htmlContent} activeSection={activeSection} handleTOCClick={handleTOCClick} />
 
+        {/* Related Institutions Sidebar (Right) */}
+        <RelatedInstitutionsSidebar similarUniversities={similarUniversities} />
+
         {/* Main Content */}
-        <div className="flex-1 lg:ml-60 xl:ml-64 transition-all duration-300">
+        <div className="flex-1 lg:ml-60 xl:ml-64 xl:mr-76 transition-all duration-300">
           <div className="max-w-4xl mx-auto lg:max-w-3xl xl:max-w-4xl">
             <article className="px-3 md:px-6 lg:px-8 py-6 md:py-8 font-outfit">
               {/* Article Header */}
@@ -418,9 +425,6 @@ const SingleBlogCard = ({ blog }) => {
                   className="academic-content text-slate-700 leading-relaxed"
                 />
               </div>
-
-              {/* Similar Universities */}
-              <SimilarUniversities similarUniversities={similarUniversities} />
 
               {/* Rating */}
               <RatingSection rating={rating} />
@@ -545,6 +549,13 @@ const SingleBlogCard = ({ blog }) => {
         .line-clamp-2 {
           display: -webkit-box;
           -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+
+        .line-clamp-3 {
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
           -webkit-box-orient: vertical;
           overflow: hidden;
         }
