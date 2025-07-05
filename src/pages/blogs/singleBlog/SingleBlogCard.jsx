@@ -558,27 +558,38 @@ const SingleBlogCard = ({ blog }) => {
     setReadingTime(time)
   }, [htmlContent])
 
- useEffect(() => {
+useEffect(() => {
   const handleScroll = () => {
-    const sections = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
-    let currentSection = '';
+    const sections = document.querySelectorAll("h1, h2, h3, h4, h5, h6")
+    let currentSection = ""
 
     sections.forEach((section) => {
-      if (window.scrollY >= section.offsetTop - 120) {
-        currentSection = section.id;
+      if (window.scrollY >= section.offsetTop - 200) {
+        currentSection = section.id
       }
-    });
+    })
 
-    setActiveSection(currentSection);
-  };
+    setActiveSection(currentSection)
+    setIsScrolled(window.scrollY > 10)
 
-  window.addEventListener('scroll', handleScroll);
+    const article = document.querySelector("article")
+    if (article) {
+      const scrollTop = window.scrollY
+      const docHeight = article.offsetHeight
+      const winHeight = window.innerHeight
+      const scrollPercent = scrollTop / (docHeight - winHeight)
+      setReadingProgress(Math.min(100, Math.max(0, scrollPercent * 100)))
+    }
+  }
 
-  // fire immediately in case user is already scrolled
+  window.addEventListener("scroll", handleScroll)
+
+  // run once immediately so TOC is correct even on first render
   handleScroll();
 
-  return () => window.removeEventListener('scroll', handleScroll);
-}, [htmlContent]); // changed dependency to htmlContent
+  return () => window.removeEventListener("scroll", handleScroll)
+}, [htmlContent])
+
 
 
   const handleTOCClick = useCallback((e, id) => {
