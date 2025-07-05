@@ -200,8 +200,7 @@ const MobileTOCOverlay = ({ isTocOpen, setIsTocOpen, htmlContent, activeSection,
 
 // Desktop TOC Sidebar (Left)
 const DesktopTOCSidebar = ({ htmlContent, activeSection, handleTOCClick }) => (
-<div className="hidden lg:block w-52 xl:w-64 fixed left-4 xl:left-6 top-20 h-[calc(100vh-5rem)] bg-white/95 backdrop-blur-xl shadow-2xl border border-slate-200/60 rounded-2xl overflow-hidden z-20 transition-all duration-300">
-
+  <div className="hidden lg:block w-56 xl:w-60 fixed left-3 xl:left-4 top-20 h-[calc(100vh-5rem)] bg-white/95 backdrop-blur-xl shadow-2xl border border-slate-200/60 rounded-2xl overflow-hidden z-20 transition-all duration-300">
     <div className="h-full flex flex-col">
       <div className="p-4 xl:p-5 border-b border-slate-200/60 bg-gradient-to-r from-blue-50/80 to-amber-50/60">
         <div className="flex items-center gap-2 mb-2">
@@ -217,12 +216,12 @@ const DesktopTOCSidebar = ({ htmlContent, activeSection, handleTOCClick }) => (
   </div>
 )
 
-// NEW: Related Institutions Fixed Sidebar (Right)
+// NEW: Related Institutions Absolute Sidebar (Right)
 const RelatedInstitutionsSidebar = ({ similarUniversities }) => {
   if (!similarUniversities || similarUniversities.length === 0) return null
 
   return (
-    <div className="hidden xl:block w-72 fixed right-2 top-20 h-[calc(100vh-5rem)] bg-white/95 backdrop-blur-xl shadow-2xl border border-slate-200/60 rounded-2xl overflow-hidden z-20 transition-all duration-300">
+    <div className="hidden xl:block w-72 absolute right-0 top-20 h-[calc(100vh-5rem)] bg-white/95 backdrop-blur-xl shadow-2xl border border-slate-200/60 rounded-2xl overflow-hidden z-20 transition-all duration-300">
       <div className="h-full flex flex-col">
         {/* Header */}
         <div className="p-4 border-b border-slate-200/60 bg-gradient-to-r from-amber-50/80 to-blue-50/60">
@@ -402,7 +401,7 @@ const SingleBlogCard = ({ blog }) => {
         handleTOCClick={handleTOCClick}
       />
 
-      <div className="flex pt-16 max-w-7xl mx-auto px-2 md:px-4">
+      <div className="flex pt-16 max-w-7xl mx-auto px-2 md:px-4 relative">
         {/* Desktop TOC Sidebar (Left) */}
         <DesktopTOCSidebar htmlContent={htmlContent} activeSection={activeSection} handleTOCClick={handleTOCClick} />
 
