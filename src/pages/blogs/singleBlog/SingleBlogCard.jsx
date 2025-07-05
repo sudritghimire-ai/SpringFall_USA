@@ -2,7 +2,6 @@
 
 import { useEffect, useState, useCallback } from "react"
 import EditorJSHTML from "editorjs-html"
-import { ChevronDown, ChevronUp, Clock, User, Calendar, Share2, Bookmark, Printer, Eye } from "lucide-react"
 
 // Utility function for date formatting
 const formatDate = (dateString) => {
@@ -134,7 +133,7 @@ const customParsers = {
 
 const editorJSHTML = EditorJSHTML(customParsers)
 
-// Enhanced Floating Action Bar
+// Enhanced Floating Action Bar (using only SVG icons)
 const FloatingActionBar = ({ readingProgress, onShare, onBookmark, onPrint, isBookmarked }) => (
   <div className="fixed bottom-8 right-8 z-50 flex flex-col gap-4">
     {/* Progress Circle */}
@@ -173,7 +172,19 @@ const FloatingActionBar = ({ readingProgress, onShare, onBookmark, onPrint, isBo
         className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-purple-500 hover:to-pink-500 text-white rounded-full shadow-2xl hover:shadow-3xl transform hover:scale-110 transition-all duration-500 flex items-center justify-center group backdrop-blur-xl"
         title="Share Article"
       >
-        <Share2 className="w-7 h-7 group-hover:scale-110 transition-transform duration-300" />
+        <svg
+          className="w-7 h-7 group-hover:scale-110 transition-transform duration-300"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"
+          />
+        </svg>
       </button>
 
       <button
@@ -181,9 +192,19 @@ const FloatingActionBar = ({ readingProgress, onShare, onBookmark, onPrint, isBo
         className={`w-16 h-16 ${isBookmarked ? "bg-gradient-to-r from-amber-500 to-orange-500" : "bg-gradient-to-r from-slate-500 to-slate-600"} hover:from-amber-500 hover:to-orange-500 text-white rounded-full shadow-2xl hover:shadow-3xl transform hover:scale-110 transition-all duration-500 flex items-center justify-center group backdrop-blur-xl`}
         title={isBookmarked ? "Remove Bookmark" : "Bookmark Article"}
       >
-        <Bookmark
+        <svg
           className={`w-7 h-7 group-hover:scale-110 transition-transform duration-300 ${isBookmarked ? "fill-current" : ""}`}
-        />
+          fill={isBookmarked ? "currentColor" : "none"}
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"
+          />
+        </svg>
       </button>
 
       <button
@@ -191,13 +212,25 @@ const FloatingActionBar = ({ readingProgress, onShare, onBookmark, onPrint, isBo
         className="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-emerald-500 hover:to-teal-500 text-white rounded-full shadow-2xl hover:shadow-3xl transform hover:scale-110 transition-all duration-500 flex items-center justify-center group backdrop-blur-xl"
         title="Print Article"
       >
-        <Printer className="w-7 h-7 group-hover:scale-110 transition-transform duration-300" />
+        <svg
+          className="w-7 h-7 group-hover:scale-110 transition-transform duration-300"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"
+          />
+        </svg>
       </button>
     </div>
   </div>
 )
 
-// Enhanced Header
+// Enhanced Header (using only SVG icons)
 const BlogHeader = ({ isScrolled, tocOpen, setTocOpen, readingTime, viewCount }) => (
   <header
     className={`fixed top-0 left-0 right-0 z-40 transition-all duration-700 ${
@@ -214,23 +247,57 @@ const BlogHeader = ({ isScrolled, tocOpen, setTocOpen, readingTime, viewCount })
           aria-label="Toggle Table of Contents"
         >
           {tocOpen ? (
-            <ChevronUp className="w-6 h-6 text-slate-700 group-hover:text-blue-600 transition-colors duration-300" />
+            <svg
+              className="w-6 h-6 text-slate-700 group-hover:text-blue-600 transition-colors duration-300"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+            </svg>
           ) : (
-            <ChevronDown className="w-6 h-6 text-slate-700 group-hover:text-blue-600 transition-colors duration-300" />
+            <svg
+              className="w-6 h-6 text-slate-700 group-hover:text-blue-600 transition-colors duration-300"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
           )}
         </button>
 
         <div className="flex items-center gap-4">
           {readingTime && (
             <div className="hidden sm:flex items-center gap-3 px-6 py-3 bg-white/80 backdrop-blur-xl rounded-full border border-white/40 shadow-xl">
-              <Clock className="w-5 h-5 text-blue-600" />
+              <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
               <span className="text-sm font-semibold text-slate-700">{readingTime} min read</span>
             </div>
           )}
 
           {viewCount && (
             <div className="hidden md:flex items-center gap-3 px-6 py-3 bg-white/80 backdrop-blur-xl rounded-full border border-white/40 shadow-xl">
-              <Eye className="w-5 h-5 text-purple-600" />
+              <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                />
+              </svg>
               <span className="text-sm font-semibold text-slate-700">{viewCount.toLocaleString()} views</span>
             </div>
           )}
@@ -442,7 +509,9 @@ const SingleBlogCard = ({ blog }) => {
                   className="text-slate-500 hover:text-slate-700 p-3 rounded-2xl hover:bg-slate-100/60 transition-all duration-300"
                   aria-label="Close Table of Contents"
                 >
-                  <ChevronUp className="w-6 h-6" />
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+                  </svg>
                 </button>
               </div>
             </div>
@@ -502,18 +571,39 @@ const SingleBlogCard = ({ blog }) => {
 
                   <div className="flex items-center justify-center space-x-8 text-slate-600 flex-wrap gap-6">
                     <div className="flex items-center gap-4 px-8 py-4 bg-white/60 backdrop-blur-sm rounded-full border border-white/40 shadow-xl">
-                      <Calendar className="w-6 h-6 text-amber-600" />
+                      <svg className="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                        />
+                      </svg>
                       <time className="font-semibold text-sm">{formatDate(createdAt)}</time>
                     </div>
 
                     <div className="flex items-center gap-4 px-8 py-4 bg-white/60 backdrop-blur-sm rounded-full border border-white/40 shadow-xl">
-                      <User className="w-6 h-6 text-blue-600" />
+                      <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                        />
+                      </svg>
                       <span className="font-semibold text-sm">{author || "SpringFallUSA Editorial"}</span>
                     </div>
 
                     {readingTime && (
                       <div className="flex items-center gap-4 px-8 py-4 bg-white/60 backdrop-blur-sm rounded-full border border-white/40 shadow-xl">
-                        <Clock className="w-6 h-6 text-purple-600" />
+                        <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                          />
+                        </svg>
                         <span className="font-semibold text-sm">{readingTime} min read</span>
                       </div>
                     )}
