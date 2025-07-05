@@ -397,7 +397,7 @@ const SingleBlogCard = ({ blog }) => {
         handleTOCClick={handleTOCClick}
       />
 
-      <div className="flex pt-16 max-w-7xl mx-auto px-2 md:px-4">
+<div className="flex pt-16 max-w-7xl mx-auto px-0 md:px-4">
         {/* Desktop Sidebar TOC */}
         <DesktopTOCSidebar htmlContent={htmlContent} activeSection={activeSection} handleTOCClick={handleTOCClick} />
 
