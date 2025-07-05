@@ -409,7 +409,7 @@ const SingleBlogCard = ({ blog }) => {
         <RelatedInstitutionsSidebar similarUniversities={similarUniversities} />
 
         {/* Main Content */}
-        <div className="flex-1 lg:ml-60 xl:ml-64 xl:mr-76 transition-all duration-300">
+        <div className="flex-1 lg:ml-60 xl:ml-64 xl:mr-[19rem] transition-all duration-300">
           <div className="max-w-4xl mx-auto lg:max-w-3xl xl:max-w-4xl">
             <article className="px-3 md:px-6 lg:px-8 py-6 md:py-8 font-outfit">
               {/* Article Header */}
