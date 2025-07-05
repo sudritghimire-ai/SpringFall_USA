@@ -221,7 +221,7 @@ const RelatedInstitutionsSidebar = ({ similarUniversities }) => {
   if (!similarUniversities || similarUniversities.length === 0) return null
 
   return (
-    <div className="hidden xl:block w-72 fixed right-3 top-20 h-[calc(100vh-5rem)] bg-white/95 backdrop-blur-xl shadow-2xl border border-slate-200/60 rounded-2xl overflow-hidden z-20 transition-all duration-300">
+    <div className="hidden xl:block w-72 fixed right-6 xl:right-8 top-20 h-[calc(100vh-5rem)] bg-white/95 backdrop-blur-xl shadow-2xl border border-slate-200/60 rounded-2xl overflow-hidden z-20 transition-all duration-300">
       <div className="h-full flex flex-col">
         {/* Header */}
         <div className="p-4 border-b border-slate-200/60 bg-gradient-to-r from-amber-50/80 to-blue-50/60">
@@ -409,7 +409,7 @@ const SingleBlogCard = ({ blog }) => {
         <RelatedInstitutionsSidebar similarUniversities={similarUniversities} />
 
         {/* Main Content */}
-<div className="flex-1 lg:ml-48 xl:ml-52 xl:mr-[19rem] transition-all duration-300">
+        <div className="flex-1 lg:ml-60 xl:ml-64 xl:mr-76 transition-all duration-300">
           <div className="max-w-4xl mx-auto lg:max-w-3xl xl:max-w-4xl">
             <article className="px-3 md:px-6 lg:px-8 py-6 md:py-8 font-outfit">
               {/* Article Header */}
