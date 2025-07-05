@@ -1,8 +1,23 @@
 "use client"
 
 import { useEffect, useState, useCallback } from "react"
-import { formatDate } from "./formatDate"
 import EditorJSHTML from "editorjs-html"
+
+// Utility function for date formatting
+const formatDate = (dateString) => {
+  if (!dateString) return ""
+
+  try {
+    const date = new Date(dateString)
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    })
+  } catch (error) {
+    return ""
+  }
+}
 
 // Enhanced custom parsers with academic styling
 const customParsers = {
@@ -104,6 +119,11 @@ const customParsers = {
                 </div>
               </div>
             </blockquote>`
+  },
+
+  paragraph: (block) => {
+    const { text } = block.data
+    return `<p class="mb-6 text-slate-700 leading-relaxed text-lg">${text}</p>`
   },
 }
 
