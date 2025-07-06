@@ -4,7 +4,6 @@ import { useFetchBlogByIdQuery } from '../../../redux/features/blogs/blogsApi';
 import SingleBlogCard from './SingleBlogCard';
 import CommentCards from '../../comments/CommentCards';
 import RelatedBlogs from './RelatedBlogs';
-import RelatedInstitutions from './RelatedInstitutions';
 
 const SingleBlog = () => {
   const { id } = useParams();
