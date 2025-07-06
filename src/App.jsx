@@ -5,13 +5,15 @@ import './App.css';
 function App() {
   const location = useLocation();
 
-  // hide navbar for single blog detail pages
-  const isBlogDetailPage = /^\/blogs\/[a-zA-Z0-9]+$/.test(location.pathname);
+  const hideNavbar = (
+    /^\/blogs\/[a-zA-Z0-9]+$/.test(location.pathname) ||
+    location.pathname === "/login"
+  );
 
   return (
     <>
       <div className="bg-bgPrimary min-h-screen flex flex-col">
-        {!isBlogDetailPage && <Navbar />}
+        {!hideNavbar && <Navbar />}
         <div className="flex-grow">
           <Outlet />
         </div>
