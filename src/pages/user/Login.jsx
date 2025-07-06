@@ -153,7 +153,7 @@ const Login = () => {
               <div className="inline-flex items-center gap-2 px-3 py-1 bg-gray-800/50 border border-gray-700 rounded-full">
                 <div className="w-2 h-2 bg-green-400 rounded-full"></div>
                 <span className="text-xs text-gray-300 font-medium tracking-wide">
-                  GRAVITY
+                 Be the reason they rise with a smile-
                 </span>
               </div>
             </div>
