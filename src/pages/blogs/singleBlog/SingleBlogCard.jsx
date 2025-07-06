@@ -320,34 +320,33 @@ const SingleBlogCard = ({ blog }) => {
             </div>
 
             {/* Similar Universities Section */}
-            {similarUniversities && similarUniversities.length > 0 && (
-<section className="mt-0 pt-16 border-t-2 border-gradient-to-r from-amber-600 to-amber-400 relative">
-                <div className="absolute top-[-2px] left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-amber-600 to-amber-400 rounded-full"></div>
-                <div className="text-center mb-12">
-                  <h2 className="text-4xl font-serif-academic font-bold text-slate-800 mb-4">Related Institutions</h2>
-                  <p className="text-slate-600 font-outfit text-lg">Explore similar academic opportunities</p>
-                </div>
-                <div className="grid gap-8 md:grid-cols-2">
-                  {similarUniversities.map((university, index) => (
-                    <div
-                      key={university.id}
-                      className="bg-gradient-to-br from-white to-slate-50/50 p-8 rounded-3xl shadow-lg border border-slate-200/60 hover:shadow-2xl hover:border-blue-200 transition-all duration-500 group backdrop-blur-sm transform hover:scale-[1.02]"
-                      style={{ animationDelay: `${index * 0.1}s` }}
-                    >
-                      <div className="flex items-start gap-4 mb-6">
-                        <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-blue-50 border-2 border-blue-200/60 rounded-2xl flex items-center justify-center group-hover:border-amber-400 group-hover:shadow-lg transition-all duration-300">
-                          <span className="text-blue-800 text-xl">🎓</span>
-                        </div>
-                        <h3 className="text-xl font-serif-academic font-bold text-blue-900 leading-tight flex-1">
-                          {university.name}
-                        </h3>
-                      </div>
-                      <p className="text-slate-700 leading-relaxed font-outfit">{university.description}</p>
-                    </div>
-                  ))}
-                </div>
-              </section>
-            )}
+   <section className="mt-0 pt-16 border-t-2 border-gradient-to-r from-amber-600 to-amber-400 relative overflow-x-hidden">
+  <div className="absolute top-[-2px] left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-amber-600 to-amber-400 rounded-full"></div>
+  <div className="text-center mb-12">
+    <h2 className="text-4xl font-serif-academic font-bold text-slate-800 mb-4">Related Institutions</h2>
+    <p className="text-slate-600 font-outfit text-lg">Explore similar academic opportunities</p>
+  </div>
+  <div className="grid gap-8 md:grid-cols-2 overflow-x-hidden">
+    {similarUniversities.map((university, index) => (
+      <div
+        key={university.id}
+        className="bg-gradient-to-br from-white to-slate-50/50 p-8 rounded-3xl shadow-lg border border-slate-200/60 hover:shadow-2xl hover:border-blue-200 transition-all duration-500 group backdrop-blur-sm transform hover:scale-[1.02] origin-center"
+        style={{ animationDelay: `${index * 0.1}s` }}
+      >
+        <div className="flex items-start gap-4 mb-6">
+          <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-blue-50 border-2 border-blue-200/60 rounded-2xl flex items-center justify-center group-hover:border-amber-400 group-hover:shadow-lg transition-all duration-300">
+            <span className="text-blue-800 text-xl">🎓</span>
+          </div>
+          <h3 className="text-xl font-serif-academic font-bold text-blue-900 leading-tight flex-1">
+            {university.name}
+          </h3>
+        </div>
+        <p className="text-slate-700 leading-relaxed font-outfit">{university.description}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
 
             {/* Rating Section */}
             <footer className="mt-20 pt-12 border-t border-slate-200/60">
