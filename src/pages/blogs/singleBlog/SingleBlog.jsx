@@ -9,7 +9,6 @@ import RelatedBlogs from './RelatedBlogs';
 const TableOfContents = ({ blog }) => {
   const [isOpen, setIsOpen] = useState(false);
   
-  // Generate TOC items based on your blog structure
   const tocItems = blog ? [
     { id: 'quick-facts', title: 'Quick Facts', level: 1, icon: '📌' },
     { id: 'deadlines', title: 'Deadlines', level: 1, icon: '📅' },
@@ -93,10 +92,8 @@ const TableOfContents = ({ blog }) => {
 
 // Related Institutions Component
 const RelatedInstitutions = ({ blog }) => {
-  // Check for real institution data - adjust these paths based on your actual data structure
   const institutions = blog?.relatedInstitutions || blog?.institutions || [];
   
-  // Only render if there are actual institutions with real data
   const validInstitutions = institutions.filter(inst => 
     inst && inst.name && inst.name !== 'Loading...' && inst.name.trim() !== ''
   );
@@ -106,7 +103,7 @@ const RelatedInstitutions = ({ blog }) => {
   }
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mb-6">
+    <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
       <div className="p-4 border-b border-gray-100 bg-gradient-to-r from-purple-50 to-pink-50">
         <div className="flex items-center gap-3">
           <span className="text-2xl">🏛️</span>
@@ -214,7 +211,7 @@ const SingleBlog = () => {
     );
   }
 
-  // Check if we have real institution data (not placeholder/loading data)
+  // Check if we have real institution data
   const institutions = blog.post?.relatedInstitutions || blog.post?.institutions || [];
   const validInstitutions = institutions.filter(inst => 
     inst && inst.name && inst.name !== 'Loading...' && inst.name.trim() !== ''
@@ -224,52 +221,59 @@ const SingleBlog = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <div className="container mx-auto pt-24 md:pt-20 px-4 max-w-7xl">
-        {/* 3-Column Layout */}
+        
+        {/* Perfect 3-6-3 Grid Layout */}
         <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 xl:gap-8 pb-12">
           
-          {/* Column 1: Table of Contents - Left Sidebar */}
-          <div className="xl:col-span-3 order-2 xl:order-1">
+          {/* Column 1: Table of Contents (3/12 = 25%) */}
+          <div className="xl:col-span-3 order-2 xl:order-1 bg-blue-50 border-2 border-blue-200 rounded-lg p-1">
             <div className="xl:sticky xl:top-24">
-              <TableOfContents blog={blog.post} />
+              <div className="bg-white rounded-lg p-2">
+                <div className="text-xs font-mono text-blue-600 mb-2">COL 1: TOC (3/12)</div>
+                <TableOfContents blog={blog.post} />
+              </div>
             </div>
           </div>
 
-          {/* Column 2: Main Blog Content + Comments - Center */}
-          <div className="xl:col-span-6 order-1 xl:order-2">
-            {/* Main Blog Post */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mb-8">
-              <SingleBlogCard blog={blog.post} />
-            </div>
-            
-            {/* Comments Section */}
-            <div id="comments" className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-              <div className="p-4 border-b border-gray-100 bg-gradient-to-r from-blue-50 to-cyan-50">
-                <div className="flex items-center gap-3">
-                  <span className="text-2xl">💬</span>
-                  <h3 className="font-semibold text-gray-900">Comments</h3>
+          {/* Column 2: Main Content (6/12 = 50%) */}
+          <div className="xl:col-span-6 order-1 xl:order-2 bg-green-50 border-2 border-green-200 rounded-lg p-1">
+            <div className="bg-white rounded-lg p-2">
+              <div className="text-xs font-mono text-green-600 mb-2">COL 2: MAIN CONTENT (6/12)</div>
+              
+              {/* Main Blog Post */}
+              <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mb-8">
+                <SingleBlogCard blog={blog.post} />
+              </div>
+              
+              {/* Comments Section */}
+              <div id="comments" className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                <div className="p-4 border-b border-gray-100 bg-gradient-to-r from-blue-50 to-cyan-50">
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl">💬</span>
+                    <h3 className="font-semibold text-gray-900">Comments</h3>
+                  </div>
+                  <div className="mt-2 h-1 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full"></div>
                 </div>
-                <div className="mt-2 h-1 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full"></div>
-              </div>
-              <div className="p-4">
-                <CommentCards />
+                <div className="p-4">
+                  <CommentCards />
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Column 3: Related Content - Right Sidebar */}
-          <div className="xl:col-span-3 order-3">
-            <div className="xl:sticky xl:top-24 space-y-6">
-              {hasInstitutions ? (
-                <>
-                  {/* Show Related Institutions first if they exist */}
+          {/* Column 3: Related Content (3/12 = 25%) */}
+          <div className="xl:col-span-3 order-3 bg-pink-50 border-2 border-pink-200 rounded-lg p-1">
+            <div className="xl:sticky xl:top-24">
+              <div className="bg-white rounded-lg p-2">
+                <div className="text-xs font-mono text-pink-600 mb-2">COL 3: RELATED (3/12)</div>
+                
+                {/* Show EITHER Related Institutions OR Related Articles - NEVER BOTH */}
+                {hasInstitutions ? (
                   <RelatedInstitutions blog={blog.post} />
-                  {/* Then show Related Articles below */}
+                ) : (
                   <RelatedArticlesSection />
-                </>
-              ) : (
-                /* Show only Related Articles if no institutions */
-                <RelatedArticlesSection />
-              )}
+                )}
+              </div>
             </div>
           </div>
         </div>
