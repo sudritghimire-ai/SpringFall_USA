@@ -32,7 +32,7 @@ const TableOfContents = ({ blog }) => {
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
       {/* Mobile Toggle */}
-      <div className="lg:hidden">
+      <div className="xl:hidden">
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="w-full p-4 text-left font-semibold text-gray-900 flex justify-between items-center hover:bg-gray-50 transition-colors"
@@ -53,7 +53,7 @@ const TableOfContents = ({ blog }) => {
       </div>
 
       {/* TOC Header for Desktop */}
-      <div className="hidden lg:block p-4 border-b border-gray-100 bg-gradient-to-r from-blue-50 to-indigo-50">
+      <div className="hidden xl:block p-4 border-b border-gray-100 bg-gradient-to-r from-blue-50 to-indigo-50">
         <div className="flex items-center gap-3">
           <span className="text-2xl">📚</span>
           <h3 className="font-semibold text-gray-900">Table of Contents</h3>
@@ -62,7 +62,7 @@ const TableOfContents = ({ blog }) => {
       </div>
 
       {/* TOC Content */}
-      <div className={`${isOpen ? 'block' : 'hidden'} lg:block`}>
+      <div className={`${isOpen ? 'block' : 'hidden'} xl:block`}>
         {tocItems.length > 0 ? (
           <nav className="p-4 space-y-1">
             {tocItems.map((item, index) => (
@@ -96,13 +96,17 @@ const RelatedInstitutions = ({ blog }) => {
   // Check for real institution data - adjust these paths based on your actual data structure
   const institutions = blog?.relatedInstitutions || blog?.institutions || [];
   
-  // Only render if there are actual institutions
-  if (!institutions || institutions.length === 0) {
+  // Only render if there are actual institutions with real data
+  const validInstitutions = institutions.filter(inst => 
+    inst && inst.name && inst.name !== 'Loading...' && inst.name.trim() !== ''
+  );
+
+  if (!validInstitutions || validInstitutions.length === 0) {
     return null;
   }
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+    <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mb-6">
       <div className="p-4 border-b border-gray-100 bg-gradient-to-r from-purple-50 to-pink-50">
         <div className="flex items-center gap-3">
           <span className="text-2xl">🏛️</span>
@@ -112,7 +116,7 @@ const RelatedInstitutions = ({ blog }) => {
       </div>
       
       <div className="p-4 space-y-4">
-        {institutions.slice(0, 5).map((institution, index) => (
+        {validInstitutions.slice(0, 5).map((institution, index) => (
           <div key={institution.id || index} className="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
             <div className="w-10 h-10 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-lg flex items-center justify-center flex-shrink-0">
               <span className="text-lg">🎓</span>
@@ -210,22 +214,29 @@ const SingleBlog = () => {
     );
   }
 
-  // Check if we have real institution data
-  const hasInstitutions = blog.post?.relatedInstitutions?.length > 0 || blog.post?.institutions?.length > 0;
+  // Check if we have real institution data (not placeholder/loading data)
+  const institutions = blog.post?.relatedInstitutions || blog.post?.institutions || [];
+  const validInstitutions = institutions.filter(inst => 
+    inst && inst.name && inst.name !== 'Loading...' && inst.name.trim() !== ''
+  );
+  const hasInstitutions = validInstitutions.length > 0;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <div className="container mx-auto pt-24 md:pt-20 px-4 max-w-7xl">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 pb-12">
-          {/* Table of Contents - Left Sidebar */}
-          <div className="lg:col-span-3 order-2 lg:order-1">
-            <div className="sticky top-24">
+        {/* 3-Column Layout */}
+        <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 xl:gap-8 pb-12">
+          
+          {/* Column 1: Table of Contents - Left Sidebar */}
+          <div className="xl:col-span-3 order-2 xl:order-1">
+            <div className="xl:sticky xl:top-24">
               <TableOfContents blog={blog.post} />
             </div>
           </div>
 
-          {/* Main Blog Content */}
-          <div className="lg:col-span-6 order-1 lg:order-2">
+          {/* Column 2: Main Blog Content + Comments - Center */}
+          <div className="xl:col-span-6 order-1 xl:order-2">
+            {/* Main Blog Post */}
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mb-8">
               <SingleBlogCard blog={blog.post} />
             </div>
@@ -245,17 +256,18 @@ const SingleBlog = () => {
             </div>
           </div>
 
-          {/* Right Sidebar - Show either Related Institutions OR Related Articles */}
-          <div className="lg:col-span-3 order-3">
-            <div className="sticky top-24 space-y-6">
+          {/* Column 3: Related Content - Right Sidebar */}
+          <div className="xl:col-span-3 order-3">
+            <div className="xl:sticky xl:top-24 space-y-6">
               {hasInstitutions ? (
-                <RelatedInstitutions blog={blog.post} />
+                <>
+                  {/* Show Related Institutions first if they exist */}
+                  <RelatedInstitutions blog={blog.post} />
+                  {/* Then show Related Articles below */}
+                  <RelatedArticlesSection />
+                </>
               ) : (
-                <RelatedArticlesSection />
-              )}
-              
-              {/* If we have institutions, show a smaller related articles section below */}
-              {hasInstitutions && (
+                /* Show only Related Articles if no institutions */
                 <RelatedArticlesSection />
               )}
             </div>
