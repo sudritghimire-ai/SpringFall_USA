@@ -179,7 +179,7 @@ const SingleBlogCard = ({ blog }) => {
       <header
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${
           isScrolled
-            ? "bg-white/95 backdrop-blur-xl shadow-xl border-b border-slate-200/60"
+            ? "bg-white/30 backdrop-blur-xl shadow-xl border-b border-slate-200/60"
             : "bg-gradient-to-r from-white/90 via-blue-50/80 to-amber-50/70 backdrop-blur-md"
         }`}
       >
