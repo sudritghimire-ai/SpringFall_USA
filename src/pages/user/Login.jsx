@@ -75,112 +75,19 @@ const Login = () => {
         <div className="bg-black/40 backdrop-blur-sm border border-gray-700/50 rounded-lg shadow-2xl p-8">
           {/* Header Section */}
           <div className="text-center mb-8">
-            {/* Clickable Gravity Calligraphy Logo */}
+            {/* Cursive Gravity Logo */}
             <Link 
               to="/" 
               className="inline-block mb-6 hover:opacity-80 transition-opacity duration-200 cursor-pointer"
             >
-              <svg 
-                width="140" 
-                height="60" 
-                viewBox="0 0 140 60" 
-                className="mx-auto"
-                fill="none" 
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                {/* Enhanced Calligraphy-style "Gravity" */}
-                
-                {/* G - Elegant swirl */}
-                <path 
-                  d="M12 42C8 42 5 39 5 35C5 28 10 22 18 22C26 22 30 28 30 35C30 39 28 42 25 42C22 42 20 39 20 35C20 31 22 28 25 28C28 28 30 31 30 35M25 35L32 35" 
-                  stroke="white" 
-                  strokeWidth="2.5" 
-                  strokeLinecap="round" 
-                  fill="none"
-                />
-                
-                {/* r - Flowing connection */}
-                <path 
-                  d="M36 30L36 45M36 30C36 30 40 25 45 30C48 33 46 36 43 36C40 36 38 33 38 30" 
-                  stroke="white" 
-                  strokeWidth="2.5" 
-                  strokeLinecap="round" 
-                  fill="none"
-                />
-                
-                {/* a - Classic calligraphy a */}
-                <path 
-                  d="M52 30C52 30 48 25 52 25C56 25 58 28 58 32C58 36 56 39 52 39C48 39 46 36 46 32C46 28 48 25 52 25M52 39L52 45" 
-                  stroke="white" 
-                  strokeWidth="2.5" 
-                  strokeLinecap="round" 
-                  fill="none"
-                />
-                
-                {/* v - Sharp elegant V */}
-                <path 
-                  d="M62 30L68 45L74 30" 
-                  stroke="white" 
-                  strokeWidth="2.5" 
-                  strokeLinecap="round" 
-                  fill="none"
-                />
-                
-                {/* i - Simple with flowing dot */}
-                <path 
-                  d="M78 30L78 45M78 25C78 25 79 24 80 25C81 26 80 27 78 25" 
-                  stroke="white" 
-                  strokeWidth="2.5" 
-                  strokeLinecap="round" 
-                  fill="none"
-                />
-                
-                {/* t - Crossed with flourish */}
-                <path 
-                  d="M84 20L84 42C84 44 86 45 88 45C90 45 92 44 92 42M80 32L88 32" 
-                  stroke="white" 
-                  strokeWidth="2.5" 
-                  strokeLinecap="round" 
-                  fill="none"
-                />
-                
-                {/* y - Descending elegant tail */}
-                <path 
-                  d="M96 30L102 42M108 30L102 42L100 48C99 50 97 51 95 50" 
-                  stroke="white" 
-                  strokeWidth="2.5" 
-                  strokeLinecap="round" 
-                  fill="none"
-                />
-                
-                {/* Elegant underline flourishes */}
-                <path 
-                  d="M8 50C20 48 32 48 44 50C56 52 68 52 80 50C92 48 104 48 116 50" 
-                  stroke="white" 
-                  strokeWidth="1.5" 
-                  strokeLinecap="round" 
-                  fill="none" 
-                  opacity="0.7"
-                />
-                
-                {/* Additional decorative swirls */}
-                <path 
-                  d="M5 48C3 46 3 44 5 42" 
-                  stroke="white" 
-                  strokeWidth="1" 
-                  strokeLinecap="round" 
-                  fill="none" 
-                  opacity="0.5"
-                />
-                <path 
-                  d="M118 48C120 46 120 44 118 42" 
-                  stroke="white" 
-                  strokeWidth="1" 
-                  strokeLinecap="round" 
-                  fill="none" 
-                  opacity="0.5"
-                />
-              </svg>
+              <div className="text-5xl text-white font-bold tracking-wide" style={{
+                fontFamily: 'Brush Script MT, cursive, serif',
+                textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
+                transform: 'rotate(-2deg)',
+                letterSpacing: '2px'
+              }}>
+                𝒢𝓇𝒶𝓋𝒾𝓉𝓎
+              </div>
             </Link>
             
             <h1 className="text-2xl font-bold text-white mb-2 tracking-tight">
