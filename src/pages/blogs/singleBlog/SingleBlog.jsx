@@ -33,9 +33,10 @@ const SingleBlog = () => {
 
 
               {/* Adjust related blogs width */}
-              <div className="lg:w-1/4 w-full mt-6 lg:mt-0">
-                <RelatedBlogs />
-              </div>
+             <div className="lg:w-1/4 w-full mt-6 lg:mt-0 lg:ml-4">
+  <RelatedBlogs />
+</div>
+
             </div>
           )}
         </div>
