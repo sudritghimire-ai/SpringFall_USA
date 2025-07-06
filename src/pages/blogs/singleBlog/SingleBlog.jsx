@@ -27,7 +27,7 @@ const SingleBlog = () => {
           {blog?.post && (
             <div className="flex flex-col lg:flex-row justify-between items-start md:gap-12 gap-8">
               {/* Increase width of the blog content */}
-           <div className="lg:w-2/3 w-full lg:ml-[-4rem]">
+           <div className="lg:w-2/3 w-full lg:ml-[-6rem]">
   <SingleBlogCard blog={blog.post} />
 </div>
 
