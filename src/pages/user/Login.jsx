@@ -75,9 +75,77 @@ const Login = () => {
         <div className="bg-black/40 backdrop-blur-sm border border-gray-700/50 rounded-lg shadow-2xl p-8">
           {/* Header Section */}
           <div className="text-center mb-8">
-            {/* Gravity Logo */}
-            <div className="inline-flex items-center justify-center w-12 h-12 bg-white rounded-lg mb-6 shadow-lg">
-              <span className="text-xl font-bold text-black tracking-tight">G</span>
+            {/* Gravity Calligraphy Logo */}
+            <div className="mb-6">
+              <svg 
+                width="120" 
+                height="50" 
+                viewBox="0 0 120 50" 
+                className="mx-auto"
+                fill="none" 
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                {/* Calligraphy-style "Gravity" */}
+                <path 
+                  d="M8 35C8 35 12 20 18 20C24 20 26 28 26 32C26 36 24 40 20 40C16 40 14 36 14 32C14 28 16 24 20 24C24 24 28 28 28 32" 
+                  stroke="white" 
+                  strokeWidth="2" 
+                  strokeLinecap="round" 
+                  fill="none"
+                />
+                <path 
+                  d="M32 25L32 40M32 25C32 25 36 20 40 25C44 30 40 35 36 35C32 35 32 30 32 25Z" 
+                  stroke="white" 
+                  strokeWidth="2" 
+                  strokeLinecap="round" 
+                  fill="none"
+                />
+                <path 
+                  d="M46 25L46 40M46 25C46 25 50 20 54 25L54 40" 
+                  stroke="white" 
+                  strokeWidth="2" 
+                  strokeLinecap="round" 
+                  fill="none"
+                />
+                <path 
+                  d="M58 25L58 40M58 25L66 40M66 25L66 40" 
+                  stroke="white" 
+                  strokeWidth="2" 
+                  strokeLinecap="round" 
+                  fill="none"
+                />
+                <path 
+                  d="M70 40L70 25M70 40C70 40 74 35 78 40M78 25L78 40" 
+                  stroke="white" 
+                  strokeWidth="2" 
+                  strokeLinecap="round" 
+                  fill="none"
+                />
+                <path 
+                  d="M82 25L82 35C82 38 84 40 87 40C90 40 92 38 92 35L92 25M82 32L92 32" 
+                  stroke="white" 
+                  strokeWidth="2" 
+                  strokeLinecap="round" 
+                  fill="none"
+                />
+                <path 
+                  d="M96 25L96 40M96 25C96 25 100 20 104 25L100 32.5L108 40" 
+                  stroke="white" 
+                  strokeWidth="2" 
+                  strokeLinecap="round" 
+                  fill="none"
+                />
+                
+                {/* Elegant underline flourish */}
+                <path 
+                  d="M15 45C25 43 35 43 45 45C55 47 65 47 75 45C85 43 95 43 105 45" 
+                  stroke="white" 
+                  strokeWidth="1" 
+                  strokeLinecap="round" 
+                  fill="none" 
+                  opacity="0.6"
+                />
+              </svg>
             </div>
             
             <h1 className="text-2xl font-bold text-white mb-2 tracking-tight">
