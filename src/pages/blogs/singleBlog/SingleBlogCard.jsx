@@ -250,7 +250,7 @@ const SingleBlogCard = ({ blog }) => {
 
       <div className="flex pt-16">
         {/* Desktop Sidebar TOC */}
-        <div className="hidden lg:block lg:w-80 xl:w-96 fixed left-6 top-20 h-[calc(100vh-5rem)] bg-white/95 backdrop-blur-xl shadow-2xl border border-slate-200/60 rounded-3xl overflow-hidden z-20">
+        <div className="hidden lg:block lg:w-64 xl:w-72 fixed left-6 top-20 h-[calc(100vh-5rem)] bg-white/95 backdrop-blur-xl shadow-2xl border border-slate-200/60 rounded-3xl overflow-hidden z-20">
           <div className="h-full flex flex-col">
             <div className="p-8 border-b border-slate-200/60 bg-gradient-to-r from-blue-50/80 to-amber-50/60">
               <div className="flex items-center gap-3 mb-2">
