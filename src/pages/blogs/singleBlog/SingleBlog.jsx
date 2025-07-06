@@ -31,7 +31,7 @@ const SingleBlog = () => {
                 <SingleBlogCard blog={blog.post} />
               </div>
               {/* Adjust related blogs width */}
-              <div className="lg:w-1/4 w-full mt-6 lg:mt-0">
+              <div className="lg:w-1/5 w-full mt-6 lg:mt-0">
                 <RelatedBlogs />
               </div>
             </div>
