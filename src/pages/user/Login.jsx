@@ -75,78 +75,113 @@ const Login = () => {
         <div className="bg-black/40 backdrop-blur-sm border border-gray-700/50 rounded-lg shadow-2xl p-8">
           {/* Header Section */}
           <div className="text-center mb-8">
-            {/* Gravity Calligraphy Logo */}
-            <div className="mb-6">
+            {/* Clickable Gravity Calligraphy Logo */}
+            <Link 
+              to="/" 
+              className="inline-block mb-6 hover:opacity-80 transition-opacity duration-200 cursor-pointer"
+            >
               <svg 
-                width="120" 
-                height="50" 
-                viewBox="0 0 120 50" 
+                width="140" 
+                height="60" 
+                viewBox="0 0 140 60" 
                 className="mx-auto"
                 fill="none" 
                 xmlns="http://www.w3.org/2000/svg"
               >
-                {/* Calligraphy-style "Gravity" */}
+                {/* Enhanced Calligraphy-style "Gravity" */}
+                
+                {/* G - Elegant swirl */}
                 <path 
-                  d="M8 35C8 35 12 20 18 20C24 20 26 28 26 32C26 36 24 40 20 40C16 40 14 36 14 32C14 28 16 24 20 24C24 24 28 28 28 32" 
+                  d="M12 42C8 42 5 39 5 35C5 28 10 22 18 22C26 22 30 28 30 35C30 39 28 42 25 42C22 42 20 39 20 35C20 31 22 28 25 28C28 28 30 31 30 35M25 35L32 35" 
                   stroke="white" 
-                  strokeWidth="2" 
-                  strokeLinecap="round" 
-                  fill="none"
-                />
-                <path 
-                  d="M32 25L32 40M32 25C32 25 36 20 40 25C44 30 40 35 36 35C32 35 32 30 32 25Z" 
-                  stroke="white" 
-                  strokeWidth="2" 
-                  strokeLinecap="round" 
-                  fill="none"
-                />
-                <path 
-                  d="M46 25L46 40M46 25C46 25 50 20 54 25L54 40" 
-                  stroke="white" 
-                  strokeWidth="2" 
-                  strokeLinecap="round" 
-                  fill="none"
-                />
-                <path 
-                  d="M58 25L58 40M58 25L66 40M66 25L66 40" 
-                  stroke="white" 
-                  strokeWidth="2" 
-                  strokeLinecap="round" 
-                  fill="none"
-                />
-                <path 
-                  d="M70 40L70 25M70 40C70 40 74 35 78 40M78 25L78 40" 
-                  stroke="white" 
-                  strokeWidth="2" 
-                  strokeLinecap="round" 
-                  fill="none"
-                />
-                <path 
-                  d="M82 25L82 35C82 38 84 40 87 40C90 40 92 38 92 35L92 25M82 32L92 32" 
-                  stroke="white" 
-                  strokeWidth="2" 
-                  strokeLinecap="round" 
-                  fill="none"
-                />
-                <path 
-                  d="M96 25L96 40M96 25C96 25 100 20 104 25L100 32.5L108 40" 
-                  stroke="white" 
-                  strokeWidth="2" 
+                  strokeWidth="2.5" 
                   strokeLinecap="round" 
                   fill="none"
                 />
                 
-                {/* Elegant underline flourish */}
+                {/* r - Flowing connection */}
                 <path 
-                  d="M15 45C25 43 35 43 45 45C55 47 65 47 75 45C85 43 95 43 105 45" 
+                  d="M36 30L36 45M36 30C36 30 40 25 45 30C48 33 46 36 43 36C40 36 38 33 38 30" 
+                  stroke="white" 
+                  strokeWidth="2.5" 
+                  strokeLinecap="round" 
+                  fill="none"
+                />
+                
+                {/* a - Classic calligraphy a */}
+                <path 
+                  d="M52 30C52 30 48 25 52 25C56 25 58 28 58 32C58 36 56 39 52 39C48 39 46 36 46 32C46 28 48 25 52 25M52 39L52 45" 
+                  stroke="white" 
+                  strokeWidth="2.5" 
+                  strokeLinecap="round" 
+                  fill="none"
+                />
+                
+                {/* v - Sharp elegant V */}
+                <path 
+                  d="M62 30L68 45L74 30" 
+                  stroke="white" 
+                  strokeWidth="2.5" 
+                  strokeLinecap="round" 
+                  fill="none"
+                />
+                
+                {/* i - Simple with flowing dot */}
+                <path 
+                  d="M78 30L78 45M78 25C78 25 79 24 80 25C81 26 80 27 78 25" 
+                  stroke="white" 
+                  strokeWidth="2.5" 
+                  strokeLinecap="round" 
+                  fill="none"
+                />
+                
+                {/* t - Crossed with flourish */}
+                <path 
+                  d="M84 20L84 42C84 44 86 45 88 45C90 45 92 44 92 42M80 32L88 32" 
+                  stroke="white" 
+                  strokeWidth="2.5" 
+                  strokeLinecap="round" 
+                  fill="none"
+                />
+                
+                {/* y - Descending elegant tail */}
+                <path 
+                  d="M96 30L102 42M108 30L102 42L100 48C99 50 97 51 95 50" 
+                  stroke="white" 
+                  strokeWidth="2.5" 
+                  strokeLinecap="round" 
+                  fill="none"
+                />
+                
+                {/* Elegant underline flourishes */}
+                <path 
+                  d="M8 50C20 48 32 48 44 50C56 52 68 52 80 50C92 48 104 48 116 50" 
+                  stroke="white" 
+                  strokeWidth="1.5" 
+                  strokeLinecap="round" 
+                  fill="none" 
+                  opacity="0.7"
+                />
+                
+                {/* Additional decorative swirls */}
+                <path 
+                  d="M5 48C3 46 3 44 5 42" 
                   stroke="white" 
                   strokeWidth="1" 
                   strokeLinecap="round" 
                   fill="none" 
-                  opacity="0.6"
+                  opacity="0.5"
+                />
+                <path 
+                  d="M118 48C120 46 120 44 118 42" 
+                  stroke="white" 
+                  strokeWidth="1" 
+                  strokeLinecap="round" 
+                  fill="none" 
+                  opacity="0.5"
                 />
               </svg>
-            </div>
+            </Link>
             
             <h1 className="text-2xl font-bold text-white mb-2 tracking-tight">
               Admin Portal
