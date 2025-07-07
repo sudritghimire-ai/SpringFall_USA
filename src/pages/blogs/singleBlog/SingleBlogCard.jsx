@@ -41,10 +41,12 @@ const customParsers = {
   },
   header: (block) => {
     const { text, level } = block.data
-    const id = text
-      .toLowerCase()
-      .replace(/\s+/g, "-")
-      .replace(/[^\w-]/g, "")
+   const id = text
+  .toLowerCase()
+  .replace(/\p{Emoji_Presentation}/gu, "") // remove emoji
+  .replace(/\s+/g, "-")
+  .replace(/[^\p{L}\p{N}-]/gu, "") // allow letters/numbers/hyphens
+
     const headerClasses = {
       1: "text-4xl lg:text-5xl font-serif-academic font-bold text-slate-800 mt-16 mb-8 pb-6 border-b-2 border-gradient-to-r from-amber-600 to-amber-400 relative after:content-[''] after:absolute after:bottom-[-2px] after:left-0 after:w-20 after:h-0.5 after:bg-gradient-to-r after:from-amber-600 after:to-amber-400",
       2: "text-3xl lg:text-4xl font-serif-academic font-semibold text-blue-900 mt-14 mb-6 relative before:content-[''] before:absolute before:left-[-1.5rem] before:top-1/2 before:transform before:-translate-y-1/2 before:w-1 before:h-8 before:bg-gradient-to-b before:from-blue-600 before:to-blue-400 before:rounded-full",
