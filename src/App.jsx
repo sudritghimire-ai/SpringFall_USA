@@ -6,7 +6,7 @@ function App() {
   const location = useLocation();
 
   // 🔴 PAUSE TOGGLE
-  const isPaused = true; // 👉 set this to true to pause, false to unpause
+  const isPaused = false; // 👉 set this to true to pause, false to unpause
 
   // Determine if Navbar should be hidden
   const hideNavbar = (
