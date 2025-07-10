@@ -15,8 +15,7 @@ const Blogs = () => {
    const handleSearchChange = (e) => {
     const value = e.target.value;
     setSearch(value);
-    setQuery({ search: value, category }); // live search feautre will happen 
-};
+    setQuery({ search: value, category });
 
 
     const handleSearch = () => setQuery({ search, category });
