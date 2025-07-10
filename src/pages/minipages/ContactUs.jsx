@@ -9,7 +9,6 @@ const ContactUs = () => {
           We would love to hear from you! Please feel free to reach out with any questions, feedback, or comments. We'll get back to you as soon as possible.
         </p>
 
-        {/* Placeholder for your form */}
         <div className="text-center text-lg font-semibold text-gray-700 mb-4">
           Add your contact form here later.
         </div>
