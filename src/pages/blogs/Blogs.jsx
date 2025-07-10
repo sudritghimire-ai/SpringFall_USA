@@ -12,9 +12,12 @@ const Blogs = () => {
     const { data: blogs = [], error, isLoading } = useFetchBlogsQuery(query);
     console.log(blogs);
 
-    const handleSearchChange = (e) => {
-        setSearch(e.target.value);
-    };
+   const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setSearch(value);
+    setQuery({ search: value, category }); // live search feautre will happen 
+};
+
 
     const handleSearch = () => setQuery({ search, category });
 
