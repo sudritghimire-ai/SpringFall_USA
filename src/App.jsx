@@ -5,10 +5,10 @@ import './App.css';
 function App() {
   const location = useLocation();
 
-  // 🔴 PAUSE TOGGLE
-  const isPaused = false; // 👉 set this to true to pause, false to unpause
 
-  // Determine if Navbar should be hidden
+  const isPaused = true;
+
+
   const hideNavbar = (
     /^\/blogs\/[a-zA-Z0-9]+$/.test(location.pathname) ||
     location.pathname === "/login"
