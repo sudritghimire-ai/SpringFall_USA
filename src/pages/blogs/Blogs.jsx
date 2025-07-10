@@ -10,15 +10,15 @@ const Blogs = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const blogsPerPage = 9;
 
-  // Fetch data using Redux
+
   const { data: blogs = [], error, isLoading } = useFetchBlogsQuery(query);
 
-  // 🔍 Live search logic
+
   const handleSearchChange = (e) => {
     const value = e.target.value;
     setSearch(value);
     setQuery({ search: value, category });
-    setCurrentPage(1); // Reset to first page
+    setCurrentPage(1);
   };
 
   const handleSearch = () => {
@@ -26,7 +26,7 @@ const Blogs = () => {
     setCurrentPage(1);
   };
 
-  // 🔢 Pagination logic
+
   const indexOfLast = currentPage * blogsPerPage;
   const indexOfFirst = indexOfLast - blogsPerPage;
   const currentBlogs = blogs.slice(indexOfFirst, indexOfLast);
@@ -34,21 +34,21 @@ const Blogs = () => {
 
   return (
     <div className="mt-16 container mx-auto px-4 sm:px-6 lg:px-8">
-      {/* Search Bar */}
+
       <SearchBlog
         search={search}
         handleSearchChange={handleSearchChange}
         handleSearch={handleSearch}
       />
 
-      {/* Loading State */}
+
       {isLoading && (
         <div className="flex justify-center items-center py-20">
           <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
         </div>
       )}
 
-      {/* Error State */}
+
       {error && (
         <div className="text-center py-10 px-4 bg-red-50 rounded-xl border border-red-100 text-red-500 mt-8">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 mx-auto mb-3 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -58,7 +58,7 @@ const Blogs = () => {
         </div>
       )}
 
-      {/* Blog Count */}
+
       {!isLoading && !error && blogs.length > 0 && (
         <div className="flex justify-between items-center mb-8 mt-8">
           <h2 className="text-2xl font-bold text-gray-800">
@@ -69,7 +69,7 @@ const Blogs = () => {
         </div>
       )}
 
-      {/* No Results */}
+
       {!isLoading && !error && blogs.length === 0 && (
         <div className="text-center py-16 px-4">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 mx-auto mb-4 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -80,7 +80,6 @@ const Blogs = () => {
         </div>
       )}
 
-      {/* Blogs Grid */}
       <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-x-6 gap-y-10 mb-16">
         {currentBlogs.map((blog) => (
           <Link
@@ -88,7 +87,7 @@ const Blogs = () => {
             key={blog._id}
             className="group flex flex-col h-full bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 relative"
           >
-            {/* Image Container */}
+  
             <div className="relative overflow-hidden aspect-[16/9]">
               <img
                 src={blog.coverImg || '/placeholder.svg?height=300&width=400'}
@@ -102,7 +101,7 @@ const Blogs = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
 
-            {/* Content */}
+
             <div className="flex flex-col flex-grow p-5">
               <h2 className="text-xl font-bold text-gray-800 mb-3 line-clamp-2 group-hover:text-blue-600 transition-colors duration-300">
                 {blog.title}
@@ -111,7 +110,7 @@ const Blogs = () => {
                 {blog.description || 'No description available.'}
               </p>
 
-              {/* Footer */}
+
               <div className="flex justify-between items-center mt-auto pt-4 border-t border-gray-100">
                 <span className="inline-flex items-center text-xs font-medium text-gray-500">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -132,7 +131,7 @@ const Blogs = () => {
               </div>
             </div>
 
-            {/* Category Tag */}
+
             {blog.category && (
               <div className="absolute top-4 left-4 bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
                 {blog.category}
@@ -142,7 +141,7 @@ const Blogs = () => {
         ))}
       </div>
 
-      {/* Pagination Controls */}
+
       {blogs.length > blogsPerPage && (
         <div className="flex justify-center items-center mt-10 space-x-2">
           {Array.from({ length: totalPages }, (_, i) => (
