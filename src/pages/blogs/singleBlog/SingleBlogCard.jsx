@@ -180,10 +180,11 @@ const SingleBlogCard = ({ blog }) => {
       {/* Fixed Header Bar */}
       <header
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${
-          isScrolled
-            ? "bg-white/30 backdrop-blur-xl shadow-xl border-b border-slate-200/60"
-            : "bg-gradient-to-r from-white/90 via-blue-50/80 to-amber-50/70 backdrop-blur-md"
-        }`}
+  isScrolled
+    ? "bg-white/90 backdrop-blur-xl shadow-xl border-b border-slate-200/60"
+    : "bg-white lg:bg-gradient-to-r lg:from-white/90 lg:via-blue-50/80 lg:to-amber-50/70 backdrop-blur-md"
+}`}
+
       >
         <div className="flex items-center justify-between px-4 lg:px-6 py-4 max-w-7xl mx-auto">
           {/* Left: Hamburger Menu (Mobile Only) */}
