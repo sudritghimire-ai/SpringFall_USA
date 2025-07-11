@@ -25,19 +25,18 @@ const SingleBlog = () => {
           {error && <div className="text-red-600">Something went wrong...</div>}
 
           {blog?.post && (
-            <div className="flex flex-col lg:flex-row justify-between items-start md:gap-12 gap-8">
-              {/* Increase width of the blog content */}
-           <div className="lg:w-2/3 w-full lg:ml-[-8rem]">
-  <SingleBlogCard blog={blog.post} />
+          <div className="flex flex-col lg:flex-row justify-between items-start md:gap-12 gap-8 overflow-x-hidden">
+  {/* Main blog content with safer width and no negative margins */}
+  <div className="w-full xl:w-[72%] lg:w-[70%]">
+    <SingleBlogCard blog={blog.post} />
+  </div>
+
+  {/* Related blogs with consistent sizing */}
+  <div className="w-full lg:w-[28%] mt-6 lg:mt-0">
+    <RelatedBlogs />
+  </div>
 </div>
 
-
-              {/* Adjust related blogs width */}
-             <div className="lg:w-1/4 w-full mt-6 lg:mt-0 lg:ml-4">
-  <RelatedBlogs />
-</div>
-
-            </div>
           )}
         </div>
       </div>
