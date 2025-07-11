@@ -1,3 +1,4 @@
+[media pointer="file-service://file-KchDKcTDajU4C5aMza29Fi"]
 "use client"
 import { useEffect, useState } from "react"
 import { formatDate } from "../../../utils/formatDate"
@@ -168,7 +169,7 @@ const SingleBlogCard = ({ blog }) => {
   }
 
   return (
-<div className="min-h-screen bg-white sm:bg-gradient-to-br sm:from-slate-50 sm:via-blue-50/30 sm:to-amber-50/20 relative">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-amber-50/20 relative">
       {/* Reading Progress Bar */}
       <div className="fixed top-0 left-0 w-full h-1 bg-slate-200/50 z-50">
         <div
@@ -180,11 +181,10 @@ const SingleBlogCard = ({ blog }) => {
       {/* Fixed Header Bar */}
       <header
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${
-  isScrolled
-    ? "bg-white/90 backdrop-blur-xl shadow-xl border-b border-slate-200/60"
-    : "bg-white lg:bg-gradient-to-r lg:from-white/90 lg:via-blue-50/80 lg:to-amber-50/70 backdrop-blur-md"
-}`}
-
+          isScrolled
+            ? "bg-white/30 backdrop-blur-xl shadow-xl border-b border-slate-200/60"
+            : "bg-gradient-to-r from-white/90 via-blue-50/80 to-amber-50/70 backdrop-blur-md"
+        }`}
       >
         <div className="flex items-center justify-between px-4 lg:px-6 py-4 max-w-7xl mx-auto">
           {/* Left: Hamburger Menu (Mobile Only) */}
@@ -273,7 +273,7 @@ const SingleBlogCard = ({ blog }) => {
           <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 font-outfit">
             {/* Header Section */}
             <header className="text-center mb-16 pb-12 border-b border-slate-200/60 relative">
-<div className="hidden sm:absolute sm:inset-0 sm:bg-gradient-to-b sm:from-blue-50/30 sm:to-transparent sm:rounded-3xl sm:-mx-8 sm:-my-8"></div>
+              <div className="absolute inset-0 bg-gradient-to-b from-blue-50/30 to-transparent rounded-3xl -mx-8 -my-8"></div>
               <div className="relative">
                 <div className="mb-8">
 <span className="inline-flex items-center gap-3 px-6 py-3 border-2 border-blue-200/60 text-blue-800 rounded-full text-sm font-semibold tracking-wider uppercase font-outfit bg-white hover:border-blue-300 hover:shadow-lg transition-all duration-300">
@@ -301,7 +301,7 @@ const SingleBlogCard = ({ blog }) => {
             {/* Cover Image */}
             {coverImg && (
               <figure className="mb-16">
-<div className="relative bg-white sm:bg-gradient-to-br sm:from-white sm:to-slate-50/50 p-6 rounded-3xl sm:border border-transparent sm:border-slate-200/60 shadow-none sm:shadow-xl max-w-5xl mx-auto sm:backdrop-blur-sm">
+                <div className="relative bg-gradient-to-br from-white to-slate-50/50 p-6 rounded-3xl border border-slate-200/60 shadow-xl max-w-5xl mx-auto backdrop-blur-sm">
                   <img
                     src={coverImg || "/placeholder.svg"}
                     alt="Article cover"
@@ -332,10 +332,9 @@ const SingleBlogCard = ({ blog }) => {
                 </div>
                 <div className="grid gap-8 md:grid-cols-2">
                   {similarUniversities.map((university, index) => (
-                   <div
-  key={university.id}
-  className="bg-white sm:bg-gradient-to-br sm:from-white sm:to-slate-50/50 p-8 rounded-3xl shadow-none sm:shadow-lg border-none sm:border sm:border-slate-200/60 sm:hover:shadow-2xl sm:hover:border-blue-200 transition-all duration-500 group sm:backdrop-blur-sm transform hover:scale-[1.01]"
-
+                    <div
+                      key={university.id}
+                      className="bg-gradient-to-br from-white to-slate-50/50 p-8 rounded-3xl shadow-lg border border-slate-200/60 hover:shadow-2xl hover:border-blue-200 transition-all duration-500 group backdrop-blur-sm transform hover:scale-[1.01]"
                       style={{ animationDelay: `${index * 0.1}s` }}
                     >
                       <div className="flex items-start gap-4 mb-6">
@@ -355,9 +354,8 @@ const SingleBlogCard = ({ blog }) => {
 
 
             {/* Rating Section */}
-          <footer className="mt-20 pt-12 border-t border-slate-200/60">
-<div className="bg-white sm:bg-gradient-to-br sm:from-white sm:to-blue-50/30 border-none sm:border-2 sm:border-blue-200/60 p-10 rounded-3xl text-center sm:hover:border-amber-300 shadow-none sm:hover:shadow-2xl transition-all duration-500 sm:backdrop-blur-sm">
-
+            <footer className="mt-20 pt-12 border-t border-slate-200/60">
+              <div className="bg-gradient-to-br from-white to-blue-50/30 border-2 border-blue-200/60 p-10 rounded-3xl text-center hover:border-amber-300 hover:shadow-2xl transition-all duration-500 backdrop-blur-sm">
                 <div className="flex items-center justify-center gap-3 mb-4">
                   <span className="text-amber-600 text-2xl">🏆</span>
                   <span className="font-serif-academic font-bold text-slate-800 text-xl">Academic Rating</span>
@@ -506,4 +504,4 @@ const SingleBlogCard = ({ blog }) => {
   )
 }
 
-export default SingleBlogCard
+export default SingleBlogCard 
