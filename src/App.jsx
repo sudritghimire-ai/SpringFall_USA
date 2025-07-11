@@ -22,17 +22,43 @@ function App() {
     location.pathname === "/login"
   );
 
-  if (isBlogPage && isMobile) {
-    return (
-      <div className="h-screen flex items-center justify-center bg-gradient-to-br from-slate-100 to-blue-50 text-center p-6">
-        <div className="bg-white p-8 rounded-2xl shadow-lg border border-slate-200 max-w-md mx-auto">
-          <h2 className="text-2xl font-bold text-red-600 mb-4">Not Supported on Mobile</h2>
-          <p className="text-slate-700 text-lg">This blog is only accessible on larger screens (laptop, PC, or tablet).</p>
-          <p className="text-slate-500 mt-2 text-sm">Please open the site on a bigger device.</p>
+if (isBlogPage && isMobile) {
+  return (
+    <div className="h-screen w-full bg-gradient-to-br from-slate-100 via-blue-50/40 to-amber-50/20 flex items-center justify-center px-6">
+      <div className="bg-white p-10 rounded-3xl shadow-2xl border border-slate-200 max-w-lg text-center animate-fadeIn">
+        <div className="mb-4">
+          <span className="text-4xl">🚫</span>
         </div>
+        <h1 className="text-3xl font-serif-academic font-bold text-red-600 mb-4 tracking-tight">
+          Not Available on Mobile
+        </h1>
+        <p className="text-slate-700 text-lg font-outfit leading-relaxed">
+          This academic blog is designed for larger screens.
+          <br />For the best experience, please use a laptop, desktop, or tablet.
+        </p>
+        <p className="text-sm text-slate-500 mt-6 font-outfit italic">
+          We’ll see you on a bigger screen! 😊
+        </p>
       </div>
-    );
-  }
+
+      <style jsx="true">{`
+        .animate-fadeIn {
+          animation: fadeInUp 0.6s ease-out forwards;
+          opacity: 0;
+          transform: translateY(15px);
+        }
+
+        @keyframes fadeInUp {
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
+    </div>
+  );
+}
+
 
   if (isPaused) {
     return (
