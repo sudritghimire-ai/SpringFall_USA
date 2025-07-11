@@ -164,16 +164,11 @@ const handleTOCClick = (e, id) => {
       top: target.offsetTop - 160,
       behavior: "smooth",
     })
-
-    // Delay setting active section until after scroll starts
-    setTimeout(() => {
-      setActiveSection(id)
-    }, 100) // ← small delay to fix double-click issue
   }
 
-  setIsTocOpen(false)
+  setActiveSection(id)     // ✅ Highlight the clicked item
+  setIsTocOpen(false)      // ✅ Close TOC (for mobile)
 }
-
 
 
 
