@@ -157,6 +157,9 @@ const SingleBlogCard = ({ blog }) => {
 
 const handleTOCClick = (e, id) => {
   e.preventDefault()
+  setActiveSection(id) // ⬅️ Highlight the clicked item
+  setIsTocOpen(false)
+
   const target = document.getElementById(id)
   if (target) {
     window.scrollTo({
@@ -164,9 +167,8 @@ const handleTOCClick = (e, id) => {
       behavior: "smooth",
     })
   }
-  setActiveSection(id) 
-  setIsTocOpen(false)
 }
+
 
 
 
