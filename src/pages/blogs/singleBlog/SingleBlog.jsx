@@ -12,7 +12,8 @@ const SingleBlog = () => {
   return (
     <>
       {/* Main Content */}
-      <div className="text-primary container mx-auto mt-24 md:mt-20 px-4 sm:px-6 lg:px-8">
+
+      <div className="text-primary container mx-auto mt-24 md:mt-20 px-4">
         <div>
           {isLoading && (
             <div className="flex justify-center items-center py-20">
@@ -24,16 +25,18 @@ const SingleBlog = () => {
           {error && <div className="text-red-600">Something went wrong...</div>}
 
           {blog?.post && (
-            <div className="flex flex-col lg:flex-row justify-between items-start gap-8 md:gap-12">
-              {/* Blog Content */}
-              <div className="w-full lg:w-2/3 ml-0 lg:ml-[-8rem]">
-                <SingleBlogCard blog={blog.post} />
-              </div>
+            <div className="flex flex-col lg:flex-row justify-between items-start md:gap-12 gap-8">
+              {/* Increase width of the blog content */}
+           <div className="lg:w-2/3 w-full lg:ml-[-8rem]">
+  <SingleBlogCard blog={blog.post} />
+</div>
 
-              {/* Related Blogs */}
-              <div className="w-full lg:w-1/4 mt-6 lg:mt-0 lg:ml-4">
-                <RelatedBlogs />
-              </div>
+
+              {/* Adjust related blogs width */}
+             <div className="lg:w-1/4 w-full mt-6 lg:mt-0 lg:ml-4">
+  <RelatedBlogs />
+</div>
+
             </div>
           )}
         </div>
@@ -42,4 +45,4 @@ const SingleBlog = () => {
   );
 };
 
-export default SingleBlog;
+export default SingleBlog;  is this working for phone also
