@@ -230,3 +230,9 @@ html {
 .academic-content > *:last-child {
   margin-bottom: 0 !important;
 }
+@media (max-width: 639px) {
+  header {
+    background: white !important;
+    background-image: none !important;
+  }
+}
