@@ -332,9 +332,10 @@ const SingleBlogCard = ({ blog }) => {
                 </div>
                 <div className="grid gap-8 md:grid-cols-2">
                   {similarUniversities.map((university, index) => (
-                    <div
-                      key={university.id}
-                      className="bg-gradient-to-br from-white to-slate-50/50 p-8 rounded-3xl shadow-lg border border-slate-200/60 hover:shadow-2xl hover:border-blue-200 transition-all duration-500 group backdrop-blur-sm transform hover:scale-[1.01]"
+                   <div
+  key={university.id}
+  className="bg-white sm:bg-gradient-to-br sm:from-white sm:to-slate-50/50 p-8 rounded-3xl shadow-none sm:shadow-lg border-none sm:border sm:border-slate-200/60 sm:hover:shadow-2xl sm:hover:border-blue-200 transition-all duration-500 group sm:backdrop-blur-sm transform hover:scale-[1.01]"
+
                       style={{ animationDelay: `${index * 0.1}s` }}
                     >
                       <div className="flex items-start gap-4 mb-6">
@@ -354,8 +355,9 @@ const SingleBlogCard = ({ blog }) => {
 
 
             {/* Rating Section */}
-            <footer className="mt-20 pt-12 border-t border-slate-200/60">
-              <div className="bg-gradient-to-br from-white to-blue-50/30 border-2 border-blue-200/60 p-10 rounded-3xl text-center hover:border-amber-300 hover:shadow-2xl transition-all duration-500 backdrop-blur-sm">
+          <footer className="mt-20 pt-12 border-t border-slate-200/60">
+<div className="bg-white sm:bg-gradient-to-br sm:from-white sm:to-blue-50/30 border-none sm:border-2 sm:border-blue-200/60 p-10 rounded-3xl text-center sm:hover:border-amber-300 shadow-none sm:hover:shadow-2xl transition-all duration-500 sm:backdrop-blur-sm">
+
                 <div className="flex items-center justify-center gap-3 mb-4">
                   <span className="text-amber-600 text-2xl">🏆</span>
                   <span className="font-serif-academic font-bold text-slate-800 text-xl">Academic Rating</span>
