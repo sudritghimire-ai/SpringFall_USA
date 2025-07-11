@@ -6,7 +6,7 @@ function App() {
   const location = useLocation();
 
 
-  const isPaused = true;
+  const isPaused = false;
 
 
   const hideNavbar = (
