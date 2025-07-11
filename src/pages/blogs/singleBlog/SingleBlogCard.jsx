@@ -157,8 +157,6 @@ const SingleBlogCard = ({ blog }) => {
 
 const handleTOCClick = (e, id) => {
   e.preventDefault()
-  setActiveSection(id) // ⬅️ Highlight the clicked item
-  setIsTocOpen(false)
 
   const target = document.getElementById(id)
   if (target) {
@@ -166,7 +164,14 @@ const handleTOCClick = (e, id) => {
       top: target.offsetTop - 160,
       behavior: "smooth",
     })
+
+    // Delay setting active section until after scroll starts
+    setTimeout(() => {
+      setActiveSection(id)
+    }, 100) // ← small delay to fix double-click issue
   }
+
+  setIsTocOpen(false)
 }
 
 
