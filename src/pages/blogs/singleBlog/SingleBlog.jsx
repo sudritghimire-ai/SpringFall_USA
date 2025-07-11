@@ -45,4 +45,4 @@ const SingleBlog = () => {
   );
 };
 
-export default SingleBlog;  all done but this is not that resposive on phone
+export default SingleBlog;
