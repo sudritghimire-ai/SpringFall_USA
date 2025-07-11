@@ -155,17 +155,19 @@ const SingleBlogCard = ({ blog }) => {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  const handleTOCClick = (e, id) => {
-    e.preventDefault()
-    const target = document.getElementById(id)
-    if (target) {
-      window.scrollTo({
-        top: target.offsetTop - 160,
-        behavior: "smooth",
-      })
-    }
-    setIsTocOpen(false)
+const handleTOCClick = (e, id) => {
+  e.preventDefault()
+  const target = document.getElementById(id)
+  if (target) {
+    window.scrollTo({
+      top: target.offsetTop - 160,
+      behavior: "smooth",
+    })
   }
+  setActiveSection(id) 
+  setIsTocOpen(false)
+}
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-amber-50/20 relative">
