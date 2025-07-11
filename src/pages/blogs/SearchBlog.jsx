@@ -20,12 +20,12 @@ const SearchBlog = ({ search, handleSearchChange, handleSearch }) => {
                     className='w-full py-4 px-6 bg-white text-gray-800 text-lg rounded-xl border border-gray-200 shadow-lg focus:outline-none focus:ring-4 focus:ring-indigo-300 transition duration-300 ease-in-out'
                 />
                 {/* Search Button */}
-                <button
+                {/* <button
                     onClick={handleSearch}
                     className='absolute right-2 top-1/2 transform -translate-y-1/2 px-5 py-2.5 bg-indigo-600 text-white text-base font-semibold rounded-lg shadow-md hover:bg-indigo-700 hover:shadow-lg focus:outline-none transition-all duration-300'
                 >
                     <span>Search</span>
-                </button>
+                </button>*/}
             </div>
         </div>
     );
