@@ -1,4 +1,3 @@
-[media pointer="file-service://file-KchDKcTDajU4C5aMza29Fi"]
 "use client"
 import { useEffect, useState } from "react"
 import { formatDate } from "../../../utils/formatDate"
