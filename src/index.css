@@ -236,3 +236,10 @@ html {
     background-image: none !important;
   }
 }
+@media (max-width: 639px) {
+  .cover-section {
+    background: white !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+}
