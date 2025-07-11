@@ -168,7 +168,7 @@ const SingleBlogCard = ({ blog }) => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-amber-50/20 relative">
+<div className="min-h-screen bg-white sm:bg-gradient-to-br sm:from-slate-50 sm:via-blue-50/30 sm:to-amber-50/20 relative">
       {/* Reading Progress Bar */}
       <div className="fixed top-0 left-0 w-full h-1 bg-slate-200/50 z-50">
         <div
