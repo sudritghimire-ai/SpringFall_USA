@@ -301,7 +301,7 @@ const SingleBlogCard = ({ blog }) => {
             {/* Cover Image */}
             {coverImg && (
               <figure className="mb-16">
-                <div className="relative bg-gradient-to-br from-white to-slate-50/50 p-6 rounded-3xl border border-slate-200/60 shadow-xl max-w-5xl mx-auto backdrop-blur-sm">
+<div className="relative bg-white sm:bg-gradient-to-br sm:from-white sm:to-slate-50/50 p-6 rounded-3xl border border-slate-200/60 shadow-xl max-w-5xl mx-auto backdrop-blur-sm">
                   <img
                     src={coverImg || "/placeholder.svg"}
                     alt="Article cover"
