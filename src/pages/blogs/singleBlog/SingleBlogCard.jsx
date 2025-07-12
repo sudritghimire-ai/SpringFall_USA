@@ -108,15 +108,16 @@ const SingleBlogCard = ({ blog }) => {
             <a
               href={`#${id}`}
               onClick={(e) => handleTOCClick(e, id)}
-              className={`flex items-center py-3 px-4 rounded-xl transition-all duration-300 text-sm font-outfit group relative overflow-hidden ${
-                activeSection === id
-                  ? "bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-900 border-l-4 border-amber-600 shadow-md font-semibold transform scale-[1.02]"
-                  : "text-slate-700 border-l-4 border-transparent hover:bg-gradient-to-r hover:from-slate-50 hover:to-blue-50/50 hover:text-blue-800 hover:shadow-sm hover:transform hover:scale-[1.01] hover:border-l-blue-300"
-              } ${
-                activeSection === id
-                  ? "hover:bg-gradient-to-r hover:from-blue-200 hover:to-indigo-200 hover:shadow-lg"
-                  : ""
-              }`}
+              className={`
+    flex items-center py-3 px-4 rounded-xl transition-all duration-300 text-sm font-outfit group relative overflow-hidden
+    ${
+      activeSection === id
+        ? "bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-900 border-l-4 border-amber-600 shadow-md font-semibold transform scale-[1.02]"
+        : "text-slate-700 border-l-4 border-transparent"
+    }
+    hover:bg-gradient-to-r hover:from-slate-50 hover:to-blue-50/50 hover:text-blue-800 hover:shadow-sm hover:transform hover:scale-[1.01] hover:border-l-blue-300
+    ${activeSection === id ? "hover:from-blue-200 hover:to-indigo-200 hover:shadow-lg" : ""}
+  `}
               data-toc-id={id}
             >
               <span className="leading-tight flex-1">{title}</span>
