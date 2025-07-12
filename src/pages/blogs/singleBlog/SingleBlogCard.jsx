@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { formatDate } from "../../../utils/formatDate"
 import EditorJSHTML from "editorjs-html"
 
@@ -41,11 +41,11 @@ const customParsers = {
   },
   header: (block) => {
     const { text, level } = block.data
-   const id = text
-  .toLowerCase()
-  .replace(/\p{Emoji_Presentation}/gu, "") // remove emoji
-  .replace(/\s+/g, "-")
-  .replace(/[^\p{L}\p{N}-]/gu, "") // allow letters/numbers/hyphens
+    const id = text
+      .toLowerCase()
+      .replace(/\p{Emoji_Presentation}/gu, "") // remove emoji
+      .replace(/\s+/g, "-")
+      .replace(/[^\p{L}\p{N}-]/gu, "") // allow letters/numbers/hyphens
 
     const headerClasses = {
       1: "text-4xl lg:text-5xl font-serif-academic font-bold text-slate-800 mt-16 mb-8 pb-6 border-b-2 border-gradient-to-r from-amber-600 to-amber-400 relative after:content-[''] after:absolute after:bottom-[-2px] after:left-0 after:w-20 after:h-0.5 after:bg-gradient-to-r after:from-amber-600 after:to-amber-400",
@@ -79,20 +79,21 @@ const SingleBlogCard = ({ blog }) => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [readingProgress, setReadingProgress] = useState(0)
 
+  // Add ref for TOC container
+  const tocContainerRef = useRef(null)
+
   const parsedContent = editorJSHTML.parse(content)
   const htmlContent = Array.isArray(parsedContent) ? parsedContent.join("") : parsedContent
 
   const generateTOC = (content) => {
     const headings = content.match(/<h[1-6][^>]*>(.*?)<\/h[1-6]>/g)
     if (!headings) return []
-
     return headings
       .map((heading, index) => {
         const title = heading.replace(/<[^>]*>/g, "")
         const id = heading.match(/id="([^"]*)"/)?.[1]
         const level = Number.parseInt(heading.match(/<h([1-6])/)?.[1])
         if (!id) return null
-
         const indentClass = level > 2 ? "ml-8" : level > 1 ? "ml-4" : ""
         const iconMap = {
           1: "📚",
@@ -102,24 +103,23 @@ const SingleBlogCard = ({ blog }) => {
           5: "•",
           6: "•",
         }
-
         return (
           <li key={id} className={`toc-item mb-1 ${indentClass}`} style={{ animationDelay: `${(index + 1) * 0.1}s` }}>
-          <a
-  href={`#${id}`}
-  onClick={(e) => handleTOCClick(e, id)}
-  className={`flex items-center py-3 px-4 rounded-xl transition-all duration-300 text-sm font-outfit group relative overflow-hidden ${
-    activeSection === id
-      ? "bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-900 border-l-4 border-amber-600 shadow-md font-semibold transform scale-[1.02]"
-      : "text-slate-700 hover:bg-gradient-to-r hover:from-slate-50 hover:to-blue-50/50 hover:text-blue-800 hover:shadow-sm hover:transform hover:scale-[1.01]"
-  }`}
->
-  <span className="leading-tight flex-1">{title}</span>
-  {activeSection === id && (
-    <div className="absolute right-2 w-2 h-2 bg-amber-500 rounded-full animate-pulse"></div>
-  )}
-</a>
-
+            <a
+              href={`#${id}`}
+              onClick={(e) => handleTOCClick(e, id)}
+              className={`flex items-center py-3 px-4 rounded-xl transition-all duration-300 text-sm font-outfit group relative overflow-hidden ${
+                activeSection === id
+                  ? "bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-900 border-l-4 border-amber-600 shadow-md font-semibold transform scale-[1.02]"
+                  : "text-slate-700 hover:bg-gradient-to-r hover:from-slate-50 hover:to-blue-50/50 hover:text-blue-800 hover:shadow-sm hover:transform hover:scale-[1.01]"
+              }`}
+              data-toc-id={id}
+            >
+              <span className="leading-tight flex-1">{title}</span>
+              {activeSection === id && (
+                <div className="absolute right-2 w-2 h-2 bg-amber-500 rounded-full animate-pulse"></div>
+              )}
+            </a>
           </li>
         )
       })
@@ -130,16 +130,13 @@ const SingleBlogCard = ({ blog }) => {
     const handleScroll = () => {
       const sections = document.querySelectorAll("h1, h2, h3, h4, h5, h6")
       let currentSection = ""
-
       sections.forEach((section) => {
         if (window.scrollY >= section.offsetTop - 200) {
           currentSection = section.id
         }
       })
-
       setActiveSection(currentSection)
       setIsScrolled(window.scrollY > 10)
-
       // Calculate reading progress
       const article = document.querySelector("article")
       if (article) {
@@ -150,24 +147,34 @@ const SingleBlogCard = ({ blog }) => {
         setReadingProgress(Math.min(100, Math.max(0, scrollPercent * 100)))
       }
     }
-
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-const handleTOCClick = (e, id) => {
-  const target = document.getElementById(id)
-  if (target) {
-    window.scrollTo({
-      top: target.offsetTop - 160,
-      behavior: "smooth",
-    })
+  // Add useEffect to auto-scroll TOC item into view
+  useEffect(() => {
+    if (activeSection && tocContainerRef.current) {
+      const activeTocItem = tocContainerRef.current.querySelector(`[data-toc-id="${activeSection}"]`)
+      if (activeTocItem) {
+        activeTocItem.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        })
+      }
+    }
+  }, [activeSection])
+
+  const handleTOCClick = (e, id) => {
+    const target = document.getElementById(id)
+    if (target) {
+      window.scrollTo({
+        top: target.offsetTop - 160,
+        behavior: "smooth",
+      })
+    }
+    setActiveSection(id)
+    setIsTocOpen(false)
   }
-  setActiveSection(id)
-  setIsTocOpen(false)
-}
-
-
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-amber-50/20 relative">
@@ -178,7 +185,6 @@ const handleTOCClick = (e, id) => {
           style={{ width: `${readingProgress}%` }}
         />
       </div>
-
       {/* Fixed Header Bar */}
       <header
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${
@@ -200,7 +206,6 @@ const handleTOCClick = (e, id) => {
               </svg>
             </button>
           </div>
-
           {/* Center: SpringFallUSA Brand */}
           <div className="flex items-center justify-center flex-1">
             <div className="flex items-center gap-3">
@@ -213,14 +218,12 @@ const handleTOCClick = (e, id) => {
               </div>
             </div>
           </div>
-
           {/* Right: Future Icons Space */}
           <div className="flex items-center gap-2 lg:w-24 justify-end">
             <div className="w-8 h-8 flex items-center justify-center"></div>
           </div>
         </div>
       </header>
-
       {/* Mobile TOC Overlay */}
       {isTocOpen && (
         <div className="lg:hidden fixed inset-0 z-30 bg-black/60 backdrop-blur-sm" onClick={() => setIsTocOpen(false)}>
@@ -251,7 +254,6 @@ const handleTOCClick = (e, id) => {
           </div>
         </div>
       )}
-
       <div className="flex pt-16">
         {/* Desktop Sidebar TOC */}
         <div className="hidden lg:block lg:w-64 xl:w-72 fixed left-6 top-20 h-[calc(100vh-5rem)] bg-white/95 backdrop-blur-xl shadow-2xl border border-slate-200/60 rounded-3xl overflow-hidden z-20">
@@ -263,12 +265,11 @@ const handleTOCClick = (e, id) => {
               </div>
               <div className="w-16 h-1 bg-gradient-to-r from-amber-600 to-amber-400 rounded-full"></div>
             </div>
-            <div className="flex-1 overflow-y-auto p-6">
+            <div className="flex-1 overflow-y-auto p-6" ref={tocContainerRef}>
               <ul className="space-y-1">{generateTOC(htmlContent)}</ul>
             </div>
           </div>
         </div>
-
         {/* Main Content */}
         <div className="flex-1 lg:ml-[22rem] xl:ml-[26rem]">
           <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 font-outfit">
@@ -277,7 +278,7 @@ const handleTOCClick = (e, id) => {
               <div className="absolute inset-0 bg-gradient-to-b from-blue-50/30 to-transparent rounded-3xl -mx-8 -my-8"></div>
               <div className="relative">
                 <div className="mb-8">
-<span className="inline-flex items-center gap-3 px-6 py-3 border-2 border-blue-200/60 text-blue-800 rounded-full text-sm font-semibold tracking-wider uppercase font-outfit bg-white hover:border-blue-300 hover:shadow-lg transition-all duration-300">
+                  <span className="inline-flex items-center gap-3 px-6 py-3 border-2 border-blue-200/60 text-blue-800 rounded-full text-sm font-semibold tracking-wider uppercase font-outfit bg-white hover:border-blue-300 hover:shadow-lg transition-all duration-300">
                     <span className="text-lg">🏆</span>
                     {category}
                   </span>
@@ -298,7 +299,6 @@ const handleTOCClick = (e, id) => {
                 </div>
               </div>
             </header>
-
             {/* Cover Image */}
             {coverImg && (
               <figure className="mb-16">
@@ -314,7 +314,6 @@ const handleTOCClick = (e, id) => {
                 </div>
               </figure>
             )}
-
             {/* Article Content */}
             <div className="prose prose-lg max-w-none">
               <div
@@ -322,10 +321,9 @@ const handleTOCClick = (e, id) => {
                 className="academic-content text-slate-700 leading-relaxed"
               />
             </div>
-
-   {/* Similar Universities Section */}
+            {/* Similar Universities Section */}
             {similarUniversities && similarUniversities.length > 0 && (
-<section className="mt-0 pt-16 border-t-2 border-gradient-to-r from-amber-600 to-amber-400 relative">
+              <section className="mt-0 pt-16 border-t-2 border-gradient-to-r from-amber-600 to-amber-400 relative">
                 <div className="absolute top-[-2px] left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-amber-600 to-amber-400 rounded-full"></div>
                 <div className="text-center mb-12">
                   <h2 className="text-4xl font-serif-academic font-bold text-slate-800 mb-4">Related Institutions</h2>
@@ -351,9 +349,7 @@ const handleTOCClick = (e, id) => {
                   ))}
                 </div>
               </section>
-            )} 
-
-
+            )}
             {/* Rating Section */}
             <footer className="mt-20 pt-12 border-t border-slate-200/60">
               <div className="bg-gradient-to-br from-white to-blue-50/30 border-2 border-blue-200/60 p-10 rounded-3xl text-center hover:border-amber-300 hover:shadow-2xl transition-all duration-500 backdrop-blur-sm">
@@ -372,7 +368,6 @@ const handleTOCClick = (e, id) => {
           </article>
         </div>
       </div>
-
       <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
         
@@ -505,4 +500,4 @@ const handleTOCClick = (e, id) => {
   )
 }
 
-export default SingleBlogCard 
+export default SingleBlogCard
