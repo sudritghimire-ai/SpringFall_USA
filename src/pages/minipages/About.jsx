@@ -367,34 +367,8 @@ const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
         }
       }
 
-      .chat-footer {
-        padding: 15px 30px;
-        text-align: center;
-        background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
-        border-top: 1px solid rgba(0,0,0,0.05);
-        color: #718096;
-        font-size: 0.9rem;
-        font-weight: 500;
-        position: relative;
-      }
-      
-      .footer-text {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        opacity: 0.8;
-        transition: opacity 0.3s ease;
-      }
-      
-      .footer-text:hover {
-        opacity: 1;
-      }
-      
-      .smile-emoji {
-        font-size: 1.1em;
-        animation: smile 3s ease-in-out infinite;
-      }
+     
+  
       
       @keyframes smile {
         0%, 100% { transform: scale(1); }
@@ -560,11 +534,7 @@ const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
             {loading ? "Sending..." : "Search"}
           </button>
         </div>
-        <footer className="chat-footer">
-          <div className="footer-text">
-            Be a reason they rise with a <span className="smile-emoji">😊-</span>
-          </div>
-        </footer>
+       
       </div>
     </>
   )
