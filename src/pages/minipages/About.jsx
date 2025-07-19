@@ -94,18 +94,16 @@ const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       }
       
       .chat-container {
-        max-width: 900px;
-        margin: 20px auto;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 20px;
+        width: 100%;
+        height: 100vh;
+        margin: 0;
+        border: none;
+        border-radius: 0;
         display: flex;
         flex-direction: column;
-        height: calc(100vh - 120px);
         background: rgba(255, 255, 255, 0.95);
         backdrop-filter: blur(20px);
-        box-shadow: 
-          0 20px 40px rgba(0,0,0,0.1),
-          0 0 0 1px rgba(255, 255, 255, 0.3) inset;
+        box-shadow: none;
         overflow: hidden;
         animation: slideUp 0.6s ease-out;
         position: relative;
@@ -130,14 +128,14 @@ const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
         right: 0;
         height: 4px;
         background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
-        border-radius: 20px 20px 0 0;
+        border-radius: 0;
       }
       
       .chat-header {
-        padding: 25px 30px;
+        padding: 30px 40px;
         background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
         color: #2d3748;
-        font-size: 1.8rem;
+        font-size: 2.2rem;
         font-weight: 700;
         text-align: center;
         user-select: none;
@@ -145,15 +143,19 @@ const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
         letter-spacing: -0.02em;
         position: relative;
         overflow: hidden;
+        min-height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
       
       .chat-header::before {
         content: '🎓';
         position: absolute;
-        left: 30px;
+        left: 40px;
         top: 50%;
         transform: translateY(-50%);
-        font-size: 1.5rem;
+        font-size: 2rem;
         animation: bounce 2s infinite;
       }
       
@@ -171,22 +173,26 @@ const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       
       .chat-messages {
         flex: 1;
-        padding: 25px 30px;
+        padding: 40px 60px;
         overflow-y: auto;
         background: transparent;
         display: flex;
         flex-direction: column;
-        gap: 16px;
+        gap: 20px;
         scroll-behavior: smooth;
+        max-width: 1200px;
+        margin: 0 auto;
+        width: 100%;
+        box-sizing: border-box;
       }
       
       .chat-message {
-        max-width: 75%;
-        padding: 16px 22px;
-        border-radius: 20px;
+        max-width: 65%;
+        padding: 20px 26px;
+        border-radius: 24px;
         word-wrap: break-word;
         white-space: pre-wrap;
-        font-size: 0.95rem;
+        font-size: 1rem;
         line-height: 1.6;
         position: relative;
         animation: messageSlide 0.4s ease-out;
@@ -246,17 +252,21 @@ const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       
       .chat-input-area {
         display: flex;
-        padding: 20px 30px;
+        padding: 30px 60px;
         background: rgba(255, 255, 255, 0.95);
         border-top: 1px solid rgba(0,0,0,0.05);
-        gap: 15px;
+        gap: 20px;
         align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+        width: 100%;
+        box-sizing: border-box;
       }
       
       .chat-input {
         flex: 1;
-        padding: 16px 24px;
-        font-size: 1rem;
+        padding: 20px 28px;
+        font-size: 1.1rem;
         border: 2px solid rgba(102, 126, 234, 0.2);
         border-radius: 30px;
         outline: none;
@@ -285,8 +295,8 @@ const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: white;
         border: none;
-        padding: 16px 28px;
-        font-size: 1rem;
+        padding: 20px 32px;
+        font-size: 1.1rem;
         border-radius: 30px;
         cursor: pointer;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -294,7 +304,7 @@ const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
         font-family: inherit;
         position: relative;
         overflow: hidden;
-        min-width: 120px;
+        min-width: 140px;
         box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
       }
       
@@ -367,12 +377,48 @@ const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
         }
       }
 
-     
-  
       
-      @keyframes smile {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.1); }
+      /* Welcome message styles */
+      .welcome-message {
+        text-align: center;
+        margin: 60px auto;
+        max-width: 600px;
+        opacity: 0.7;
+      }
+      
+      .welcome-title {
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: #4a5568;
+        margin-bottom: 15px;
+      }
+      
+      .welcome-subtitle {
+        font-size: 1.1rem;
+        color: #718096;
+        line-height: 1.6;
+      }
+
+      /* Empty state illustration */
+      .empty-state {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        min-height: 300px;
+      }
+      
+      .empty-icon {
+        font-size: 4rem;
+        margin-bottom: 20px;
+        opacity: 0.6;
+        animation: float 3s ease-in-out infinite;
+      }
+      
+      @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
       }
 
       /* Scrollbar styling */
@@ -396,94 +442,117 @@ const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
 
       /* Responsive design */
       @media (max-width: 768px) {
-        .chat-container {
-          margin: 10px;
-          height: calc(100vh - 20px);
-          max-width: calc(100% - 20px);
-          border-radius: 15px;
-        }
         .chat-header {
-          font-size: 1.5rem;
-          padding: 20px 25px;
+          font-size: 1.8rem;
+          padding: 25px 30px;
+        }
+        .chat-header::before {
+          left: 30px;
+          font-size: 1.6rem;
         }
         .chat-messages {
-          padding: 20px 25px;
-          gap: 12px;
+          padding: 30px 25px;
+          gap: 15px;
         }
         .chat-message {
           max-width: 85%;
-          padding: 12px 18px;
-          font-size: 0.9rem;
+          padding: 15px 20px;
+          font-size: 0.95rem;
         }
         .chat-input-area {
-          padding: 15px 25px;
-          gap: 12px;
+          padding: 25px 25px;
+          gap: 15px;
         }
         .chat-input, .send-button {
-          padding: 14px 20px;
-          font-size: 0.9rem;
+          padding: 16px 22px;
+          font-size: 1rem;
         }
         .send-button {
-          min-width: 100px;
+          min-width: 110px;
+        }
+        .chat-footer {
+          padding: 20px 25px;
+          font-size: 0.9rem;
+        }
+        .welcome-title {
+          font-size: 1.5rem;
+        }
+        .welcome-subtitle {
+          font-size: 1rem;
+        }
+        .empty-icon {
+          font-size: 3rem;
         }
       }
 
       @media (max-width: 480px) {
-        body {
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-        .chat-container {
-          margin: 0;
-          height: 100vh;
-          border-radius: 0;
-          box-shadow: none;
-          border: none;
-        }
         .chat-header {
-          font-size: 1.3rem;
-          padding: 18px 20px;
+          font-size: 1.5rem;
+          padding: 20px 20px;
         }
         .chat-header::before {
           left: 20px;
-          font-size: 1.3rem;
+          font-size: 1.4rem;
         }
         .chat-messages {
-          padding: 15px 20px;
-          gap: 10px;
+          padding: 20px 20px;
+          gap: 12px;
         }
         .chat-message {
           max-width: 90%;
-          padding: 10px 15px;
-          font-size: 0.85rem;
+          padding: 12px 16px;
+          font-size: 0.9rem;
         }
         .chat-input-area {
           flex-direction: column;
-          padding: 15px 20px;
-          gap: 12px;
+          padding: 20px 20px;
+          gap: 15px;
         }
         .chat-input {
           width: 100%;
-          padding: 14px 20px;
+          padding: 16px 20px;
         }
         .send-button {
           width: 100%;
-          padding: 14px 20px;
+          padding: 16px 20px;
           min-width: auto;
         }
         .chat-footer {
-          padding: 12px 20px;
-          font-size: 0.8rem;
+          padding: 18px 20px;
+          font-size: 0.85rem;
+        }
+        .welcome-title {
+          font-size: 1.3rem;
+        }
+        .welcome-subtitle {
+          font-size: 0.95rem;
+        }
+        .empty-icon {
+          font-size: 2.5rem;
         }
       }
     `}</style>
       <div className="chat-container" role="main" aria-label="University Search Engine Chatbot">
         <header className="chat-header">University Search Engine</header>
         <section className="chat-messages" id="chatMessages" aria-live="polite" aria-atomic="false">
-          {messages.map((message) => (
-            <div key={message.id} className={`chat-message ${message.role}`}>
-              {message.content}
+          {messages.length === 0 ? (
+            <div className="empty-state">
+              <div className="empty-icon">🎓</div>
+              <div className="welcome-message">
+                <h2 className="welcome-title">Welcome to University Search Engine</h2>
+                <p className="welcome-subtitle">
+                  Ask me anything about universities, courses, admissions, rankings, or campus life. 
+                  I'm here to help you find the perfect educational path!
+                </p>
+              </div>
             </div>
-          ))}
+          ) : (
+            messages.map((message) => (
+              <div key={message.id} className={`chat-message ${message.role}`}>
+                {message.content}
+              </div>
+            ))
+          )}
           {loading && (
             <div className="chat-message bot">
               <div className="typing-indicator">
@@ -503,23 +572,21 @@ const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
           role="form"
           aria-label="Send message form"
         >
-         <textarea
-  className="chat-input"
-  placeholder="Ask about universities..."
-  value={currentInput}
-  onChange={(e) => setCurrentInput(e.target.value)}
-  onKeyDown={(e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault()
-      sendMessage()
-    }
-  }}
-  disabled={loading}
-  aria-label="Message input"
-  rows={1}
-  style={{ resize: "none" }}
-/>
-
+          <input
+            type="text"
+            className="chat-input"
+            placeholder="Ask about universities..."
+            value={currentInput}
+            onChange={(e) => setCurrentInput(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault()
+                sendMessage()
+              }
+            }}
+            disabled={loading}
+            aria-label="Message input"
+          />
           <button 
             type="button" 
             className="send-button" 
@@ -534,7 +601,7 @@ const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
             {loading ? "Sending..." : "Search"}
           </button>
         </div>
-       
+        
       </div>
     </>
   )
