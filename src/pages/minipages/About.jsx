@@ -29,11 +29,11 @@ export default function ChatBot() {
     setLoading(true)
 
     try {
-
-  const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
   method: "POST",
   headers: {
-    Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`,
+    Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`,
+   
     "Content-Type": "application/json",
   },
   body: JSON.stringify({
