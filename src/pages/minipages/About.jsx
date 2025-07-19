@@ -30,23 +30,19 @@ export default function ChatBot() {
 
     try {
 
-      const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-        method: "POST",
-      headers: {
-  Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`,
-  "HTTP-Referer": "https://www.sitename.com",
-  "X-Title": "SiteName",
-  "Content-Type": "application/json",
-},
+  const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+  method: "POST",
+  headers: {
+    Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`,
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    model: "deepseek/deepseek-r1:free",
+    messages: [{ role: "user", content: userMessage.content }],
+  }),
+})
 
 
-
-        body: JSON.stringify({
-          model: "deepseek/deepseek-r1:free",
-          // Sending only the current user message to preserve original API interaction logic
-          messages: [{ role: "user", content: userMessage.content }],
-        }),
-      })
 
       const data = await res.json()
       const botResponseContent = data.choices?.[0]?.message?.content || "No response received."
