@@ -1,800 +1,314 @@
+'use client';
+import React from 'react';
 "use client"
 
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 
-const universities =[
-  {
-    name: "Caldwell University",
-    location: "Caldwell, New Jersey",
-    ranking: 254,
-    acceptanceRate: "97%",
-    tuition: "$38,500",
-    minGPA: 2.5,
-    minSAT: 990,
-    minACT: 19,
-    minIELTS: 6.0,
-    majors: ["Business", "Nursing", "Psychology", "Computer Science", "Education"],
-    acceptanceLevel: "very high",
-    type: "private",
-    financialAid: "limited",
-    tags: ["Catholic", "Liberal Arts", "Small Campus"],
-    website: "https://springfall-usa.vercel.app/blogs/685b840f7b64d5fbe3d31d95",
-  },
+export default function ChatBot() {
+  const [messages, setMessages] = useState([]) // Stores chat history for UI
+  const [currentInput, setCurrentInput] = useState("") // For the input field
+  const [loading, setLoading] = useState(false)
 
-  {
-    "name": "Morehead State University",
-    "location": "Morehead, Kentucky",
-    "ranking": 48,
-    "acceptanceRate": "82%",
-    "tuition": "$24,070",
-    "minGPA": 2.5,
-    "minSAT": 960,
-    "minACT": 18,
-    "minIELTS": 6.0,
-    "majors": ["Space Science", "Nursing", "Education", "Business Administration", "Engineering Technology"],
-    "acceptanceLevel": "high",
-    "type": "public",
-    "financialAid": "moderate",
-    "tags": ["Regional", "STEM", "Public", "Small Town"],
-    "website": "https://www.moreheadstate.edu"
-  },
-  {
-    "name": "University of Kentucky",
-    "location": "Lexington, Kentucky",
-    "ranking": 142,
-    "acceptanceRate": "94%",
-    "tuition": "$33,406",
-    "minGPA": 2.5,
-    "minSAT": 1070,
-    "minACT": 22,
-    "minIELTS": 6.5,
-    "majors": ["Engineering", "Business", "Nursing", "Agriculture", "Pharmacy"],
-    "acceptanceLevel": "very high",
-    "type": "public",
-    "financialAid": "strong",
-    "tags": ["R1 Research", "Land Grant", "Health Sciences", "Large Campus"],
-    "website": "https://www.uky.edu"
-  },
-  {
-    "name": "University of Akron",
-    "location": "Akron, Ohio",
-    "ranking": 299,
-    "acceptanceRate": "84%",
-    "tuition": "$21,199",
-    "minGPA": 2.5,
-    "minSAT": 990,
-    "minACT": 19,
-    "minIELTS": 6.0,
-    "majors": ["Polymer Engineering", "Mechanical Engineering", "Computer Science", "Business Analytics", "Nursing"],
-    "acceptanceLevel": "high",
-    "type": "public",
-    "financialAid": "moderate",
-    "tags": ["STEM", "Affordable", "Innovation", "Urban"],
-    "website": "https://www.uakron.edu"
-  },
-  {
-    "name": "Utah State University",
-    "location": "Logan, Utah",
-    "ranking": 250,
-    "acceptanceRate": "93%",
-    "tuition": "$24,412",
-    "minGPA": 2.8,
-    "minSAT": 1020,
-    "minACT": 20,
-    "minIELTS": 6.0,
-    "majors": ["Aerospace Engineering", "Environmental Science", "Psychology", "Agricultural Science", "Education"],
-    "acceptanceLevel": "very high",
-    "type": "public",
-    "financialAid": "strong",
-    "tags": ["Land Grant", "Outdoor Life", "Research", "Mountain Campus"],
-    "website": "https://www.usu.edu"
-  },
+  const messagesEndRef = useRef(null) // Ref for auto-scrolling
 
-  {
-    name: "Dakota State University (DSU)",
-    location: "Madison, South Dakota",
-    ranking: 295,
-    acceptanceRate: "83%",
-    tuition: "$12,600",
-    minGPA: 2.5,
-    minSAT: 1000,
-    minACT: 20,
-    minIELTS: 6.0,
-    majors: ["Cybersecurity", "Computer Science", "Business", "Health Informatics", "Education"],
-    acceptanceLevel: "high",
-    type: "public",
-    financialAid: "limited",
-    tags: ["Tech Focus", "Affordable", "STEM-Friendly"],
-    website: "https://springfall-usa.vercel.app/blogs/685a68c1ee4aa9c2a0284a53",
-  },
-  {
-    name: "Southeast Missouri State University (SEMO)",
-    location: "Cape Girardeau, Missouri",
-    ranking: 331,
-    acceptanceRate: "86%",
-    tuition: "$16,000",
-    minGPA: 2.5,
-    minSAT: 1020,
-    minACT: 21,
-    minIELTS: 6.0,
-    majors: ["Business", "Education", "Nursing", "Computer Science", "Environmental Science"],
-    acceptanceLevel: "high",
-    type: "public",
-    financialAid: "limited",
-    tags: ["Regional", "Affordable", "Safe Community"],
-    website: "https://springfall-usa.vercel.app/blogs/685a49f52176a4f49e94e800",
-  },
-  {
-    name: "University of Southern Mississippi",
-    location: "Hattiesburg, Mississippi",
-    ranking: 332,
-    acceptanceRate: "97%",
-    tuition: "$11,500",
-    minGPA: 2.5,
-    minSAT: 1030,
-    minACT: 21,
-    minIELTS: 6.0,
-    majors: ["Business", "Nursing", "Education", "Computer Science", "Social Sciences"],
-    acceptanceLevel: "very high",
-    type: "public",
-    financialAid: "limited",
-    tags: ["Research", "Southern", "Affordable"],
-    website: "https://springfall-usa.vercel.app/blogs/685a41002176a4f49e94e75d",
-  },
-  {
-    name: "Youngstown State University (YSU)",
-    location: "Youngstown, Ohio",
-    ranking: 382,
-    acceptanceRate: "78%",
-    tuition: "$10,300",
-    minGPA: 2.5,
-    minSAT: 1000,
-    minACT: 20,
-    minIELTS: 6.0,
-    majors: ["Business", "Engineering", "Nursing", "Computer Science", "Education"],
-    acceptanceLevel: "high",
-    type: "public",
-    financialAid: "limited",
-    tags: ["Affordable", "Midwest", "Community-Oriented"],
-    website: "https://springfall-usa.vercel.app/blogs/68530c67ba6f44112effba25",
-  },
-  {
-    name: "University of Louisiana at Monroe (ULM)",
-    location: "Monroe, Louisiana",
-    ranking: 419,
-    acceptanceRate: "71%",
-    tuition: "$12,500",
-    minGPA: 2.5,
-    minSAT: 1020,
-    minACT: 20,
-    minIELTS: 6.0,
-    majors: ["Pharmacy", "Business", "Nursing", "Computer Science", "Education"],
-    acceptanceLevel: "high",
-    type: "public",
-    financialAid: "limited",
-    tags: ["Southern", "Affordable", "Health Focus"],
-    website: "https://springfall-usa.vercel.app/blogs/6850f511fbff7786bf9acc59",
-  },
-  {
-    name: "University of North Carolina at Pembroke (UNCP)",
-    location: "Pembroke, North Carolina",
-    ranking: 450,
-    acceptanceRate: "89%",
-    tuition: "$8,900",
-    minGPA: 2.5,
-    minSAT: 1000,
-    minACT: 19,
-    minIELTS: 6.0,
-    majors: ["Business", "Education", "Health Sciences", "Psychology", "Social Work"],
-    acceptanceLevel: "very high",
-    type: "public",
-    financialAid: "limited",
-    tags: ["Affordable", "Community-Oriented", "Diversity"],
-    website: "https://springfall-usa.vercel.app/blogs/68388a161f7fb2b534e08eb5",
-  },
-  {
-    name: "Wright State University",
-    location: "Dayton, Ohio",
-    ranking: 365,
-    acceptanceRate: "95%",
-    tuition: "$20,000",
-    minGPA: 2.5,
-    minSAT: 1040,
-    minACT: 21,
-    minIELTS: 6.0,
-    majors: ["Business", "Engineering", "Nursing", "Computer Science", "Education", "Psychology"],
-    acceptanceLevel: "very high",
-    type: "public",
-    financialAid: "limited",
-    tags: ["STEM-Friendly", "Affordable", "Urban"],
-    website: "https://springfall-usa.vercel.app/blogs/6835ff74b63c38ffbeeae374",
-  },
-  {
-    name: "Idaho State University (ISU)",
-    location: "Pocatello, Idaho",
-    ranking: 331,
-    acceptanceRate: "100%",
-    tuition: "$27,466",
-    minGPA: 2.25,
-    minSAT: 1015,
-    minACT: 22,
-    minIELTS: 5.5,
-    majors: ["Nursing", "Health Sciences", "Engineering", "Business", "Education", "Computer Science", "Pharmacy", "Psychology", "Liberal Arts"],
-    acceptanceLevel: "high",
-    type: "public",
-    financialAid: "limited",
-    tags: ["Health-Focused", "Research", "Affordable"],
-    website: "https://springfall-usa.vercel.app/blogs/6835f544216832277c08969d",
-  },
-  {
-    name: "Lyon College",
-    location: "Batesville, Arkansas",
-    ranking: 458,
-    acceptanceRate: "75%",
-    tuition: "$31,500",
-    minGPA: 2.75,
-    minSAT: 1050,
-    minACT: 21,
-    minIELTS: 6.0,
-    majors: ["Biology", "Business", "Psychology", "History", "Education"],
-    acceptanceLevel: "medium",
-    type: "private",
-    financialAid: "generous (up to $18,000/year)",
-    tags: ["Liberal Arts", "Private", "Community-Oriented"],
-    website: "https://springfall-usa.vercel.app/blogs/68356497b6a455c5d88f7461",
-  },
-  {
-    name: "University of South Dakota (USD)",
-    location: "Vermillion, South Dakota",
-    ranking: 321,
-    acceptanceRate: "87%",
-    tuition: "$12,800",
-    minGPA: 2.5,
-    minSAT: 1030,
-    minACT: 21,
-    minIELTS: 6.0,
-    majors: ["Business", "Health Sciences", "Nursing", "Computer Science", "Law"],
-    acceptanceLevel: "high",
-    type: "public",
-    financialAid: "limited",
-    tags: ["Affordable", "Research", "Community-Oriented"],
-    website: "https://springfall-usa.vercel.app/blogs/683553503e9a0bc0ba1e2eca",
-  },
-  {
-    name: "University of Cincinnati (UC)",
-    location: "Cincinnati, Ohio",
-    ranking: 142,
-    acceptanceRate: "86%",
-    tuition: "$28,500",
-    minGPA: 3.0,
-    minSAT: 1150,
-    minACT: 24,
-    minIELTS: 6.5,
-    majors: ["Engineering", "Business", "Health Sciences", "Computer Science", "Architecture"],
-    acceptanceLevel: "medium",
-    type: "public",
-    financialAid: "limited",
-    tags: ["Research", "Urban", "Public"],
-    website: "https://springfall-usa.vercel.app/blogs/6834b58b29b79dd4f6cd2279",
-  },
-  {
-    name: "Louisiana State University Shreveport (LSUS)",
-    location: "Shreveport, Louisiana",
-    ranking: 500,
-    acceptanceRate: "84%",
-    tuition: "$20,400",
-    minGPA: 2.5,
-    minSAT: 1020,
-    minACT: 20,
-    minIELTS: 6.0,
-    majors: ["Business", "Health Sciences", "Computer Science", "Education", "Social Work"],
-    acceptanceLevel: "high",
-    type: "public",
-    financialAid: "limited",
-    tags: ["Affordable", "Community-Oriented", "Southern"],
-    website: "https://springfall-usa.vercel.app/blogs/68341939f5952aa054f06f17",
-  },
-  {
-    name: "Texas A&M University - College Station (TAMU)",
-    location: "College Station, Texas",
-    ranking: 67,
-    acceptanceRate: "64%",
-    tuition: "$39,800",
-    minGPA: 3.0,
-    minSAT: 1250,
-    minACT: 26,
-    minIELTS: 7.0,
-    majors: ["Engineering", "Business", "Computer Science", "Agriculture", "Architecture", "Education"],
-    acceptanceLevel: "medium",
-    type: "public",
-    financialAid: "limited",
-    tags: ["Research", "STEM Focus", "Large Campus"],
-    website: "https://springfall-usa.vercel.app/blogs/6832cc5c35f6e2a832f74e9f",
-  },
-  {
-    name: "Middle Tennessee State University (MTSU)",
-    location: "Murfreesboro, Tennessee",
-    ranking: 293,
-    acceptanceRate: "94%",
-    tuition: "$12,200",
-    minGPA: 2.5,
-    minSAT: 1100,
-    minACT: 22,
-    minIELTS: 5.5,
-    majors: ["Aerospace", "Business", "Music", "Mechatronics Engineering", "Psychology", "Media & Entertainment"],
-    acceptanceLevel: "very high",
-    type: "public",
-    financialAid: "generous (up to $16,000/year)",
-    tags: ["Affordable", "Supportive", "Cultural Diversity", "STEM-Friendly"],
-    website: "https://springfall-usa.vercel.app/blogs/68315b9e32f5a705c0e436a2",
-  },
-  {
-    name: "Jacksonville State University (JSU)",
-    location: "Jacksonville, Alabama",
-    ranking: 697,
-    acceptanceRate: "64%",
-    tuition: "$24,230",
-    minGPA: 2.5,
-    minSAT: 980,
-    minACT: 19,
-    minIELTS: 6.0,
-    majors: ["Business", "Nursing", "Education", "Computer Science", "Engineering Technology"],
-    acceptanceLevel: "high",
-    type: "public",
-    financialAid: "limited",
-    tags: ["Affordable", "Southern", "Community-Oriented"],
-    website: "https://springfall-usa.vercel.app/blogs/68298c505022bb8a6efc5548",
-  },
-  {
-    name: "University of Wisconsin-Green Bay",
-    location: "Green Bay, Wisconsin",
-    ranking: 537,
-    acceptanceRate: "84%",
-    tuition: "$17,300",
-    minGPA: 2.75,
-    minSAT: 1030,
-    minACT: 20,
-    minIELTS: 6.0,
-    majors: ["Psychology", "Business", "Nursing", "Environmental Science", "Computer Science"],
-    acceptanceLevel: "high",
-    type: "public",
-    financialAid: "limited",
-    tags: ["Eco Campus", "Affordable", "Safe Community"],
-    website: "https://springfall-usa.vercel.app/blogs/6826dce8b870a0f044dbc0cd",
-  },
-  {
-    name: "University of Wisconsin-Superior",
-    location: "Superior, Wisconsin",
-    ranking: 931,
-    acceptanceRate: "82%",
-    tuition: "$16,930",
-    minGPA: 2.5,
-    minSAT: 980,
-    minACT: 19,
-    minIELTS: 6.0,
-    majors: ["Business", "Education", "Computer Science", "Health Sciences", "Social Work"],
-    acceptanceLevel: "high",
-    type: "public",
-    financialAid: "limited",
-    tags: ["Small Classes", "Affordable", "Liberal Arts"],
-    website: "https://springfall-usa.vercel.app/blogs/6826d33fb870a0f044dbc040",
-  },
-  {
-    name: "McNeese State University",
-    location: "Lake Charles, Louisiana",
-    ranking: 861,
-    acceptanceRate: "63%",
-    tuition: "$12,500",
-    minGPA: 2.5,
-    minSAT: 980,
-    minACT: 19,
-    minIELTS: 6.0,
-    majors: ["Engineering", "Nursing", "Education", "Business", "Agriculture"],
-    acceptanceLevel: "high",
-    type: "public",
-    financialAid: "limited",
-    tags: ["Affordable", "STEM Focus", "Southern"],
-    website: "https://springfall-usa.vercel.app/blogs/6824bb70c5f80929f4d5d37d",
-  },
-  {
-    name: "Louisiana Tech University",
-    location: "Ruston, Louisiana",
-    ranking: 324,
-    acceptanceRate: "64%",
-    tuition: "$21,894",
-    minGPA: 2.75,
-    minSAT: 1100,
-    minACT: 22,
-    minIELTS: 6.5,
-    majors: ["Engineering", "Business", "Computer Science", "Architecture", "Education"],
-    acceptanceLevel: "medium",
-    type: "public",
-    financialAid: "limited",
-    tags: ["Tech Focus", "Affordable", "Public Research"],
-    website: "https://springfall-usa.vercel.app/blogs/682475472c6f25f9e777d840",
-  },
-  {
-    name: "Weber State University",
-    location: "Ogden, Utah",
-    ranking: 425,
-    acceptanceRate: "100%",
-    tuition: "$17,545",
-    minGPA: 2.5,
-    minSAT: 1000,
-    minACT: 20,
-    minIELTS: 6.0,
-    majors: ["Nursing", "Engineering", "Business", "Computer Science", "Education"],
-    acceptanceLevel: "high",
-    type: "public",
-    financialAid: "limited",
-    tags: ["Open Admission", "Affordable", "Utah Public"],
-    website: "https://springfall-usa.vercel.app/blogs/682088009c81af52ecd7c45d",
-  },
-  {
-    name: "University of Texas at Arlington (UTA)",
-    location: "Arlington, Texas",
-    ranking: 158,
-    acceptanceRate: "88%",
-    tuition: "$11,786",
-    minGPA: 2.75,
-    minSAT: 1100,
-    minACT: 22,
-    minIELTS: 6.5,
-    majors: ["Engineering", "Nursing", "Business", "Architecture", "Computer Science"],
-    acceptanceLevel: "high",
-    type: "public",
-    financialAid: "limited",
-    tags: ["Urban", "Diverse", "Research-Oriented"],
-    website: "https://springfall-usa.vercel.app/blogs/681dec66ce3277f5baea6e69",
-  },
-  {
-    name: "University of Idaho",
-    location: "Moscow, Idaho",
-    ranking: 331,
-    acceptanceRate: "78%",
-    tuition: "$27,466",
-    minGPA: 2.5,
-    minSAT: 1010,
-    minACT: 21,
-    minIELTS: 6.0,
-    majors: ["Business", "Education", "Engineering", "Health Sciences", "Computer Science"],
-    acceptanceLevel: "high",
-    type: "public",
-    financialAid: "limited",
-    tags: ["Affordable", "Research", "Community-Oriented"],
-    website: "https://springfall-usa.vercel.app/blogs/681deb7cce3277f5baea6e5b",
-  },
-  {
-    name: "Texas State University (TXST)",
-    location: "San Marcos, Texas",
-    ranking: 208,
-    acceptanceRate: "89%",
-    tuition: "$10,000",
-    minGPA: 3.0,
-    minSAT: 1080,
-    minACT: 22,
-    minIELTS: 6.5,
-    majors: ["Business", "Chemistry", "Computer Science", "Engineering", "Education"],
-    acceptanceLevel: "medium",
-    type: "public",
-    financialAid: "limited",
-    tags: ["Affordable", "Research", "Hill Country Campus"],
-    website: "https://springfall-usa.vercel.app/blogs/681dd63f481b8bf3f0432214",
-  },
-  {
-    name: "Arkansas State University (ASU)",
-    location: "Jonesboro, Arkansas",
-    ranking: 396,
-    acceptanceRate: "67%",
-    tuition: "$11,820",
-    minGPA: 2.5,
-    minSAT: 980,
-    minACT: 19,
-    minIELTS: 6.0,
-    majors: ["Business", "Nursing", "Education", "Engineering", "Computer Science"],
-    acceptanceLevel: "high",
-    type: "public",
-    financialAid: "limited",
-    tags: ["Affordable", "Southern", "Friendly Campus"],
-    website: "https://springfall-usa.vercel.app/blogs/681da10ba6683ec206d4001c",
-  }
-]
+  // Auto-scroll to bottom on new messages or loading state changes
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+  }, [messages, loading])
 
-
-const USAUniversityFinder = () => {
-  const [gpa, setGpa] = useState("")
-  const [ielts, setIelts] = useState("")
-  const [major, setMajor] = useState("")
-  const [budget, setBudget] = useState("")
-  const [matches, setMatches] = useState([])
-  const [notification, setNotification] = useState("")
-
-  const showNotification = (message) => {
-    setNotification(message)
-    setTimeout(() => setNotification(""), 4000)
-  }
-
-  const findUniversities = () => {
-    const g = Number.parseFloat(gpa)
-    const i = Number.parseFloat(ielts)
-    const b = budget
-
-    if (!g || !i || !major) {
-      showNotification("Please enter GPA, IELTS, and select a major.")
+  async function sendMessage() {
+    if (!currentInput.trim()) {
+      // Add a temporary message for empty input
+      setMessages((prev) => [...prev, { id: Date.now(), role: "bot", content: "Please enter a message." }])
       return
     }
 
-    if (g > 4 || g < 0 || i > 9 || i < 0) {
-      showNotification("Please enter valid GPA (0-4) and IELTS (0-9)")
-      return
+    const userMessage = { id: Date.now(), role: "user", content: currentInput }
+    setMessages((prev) => [...prev, userMessage]) // Add user message to history
+    setCurrentInput("") // Clear input immediately
+    setLoading(true)
+
+    try {
+      const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+        method: "POST",
+      headers: {
+  Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`,
+  "HTTP-Referer": "https://www.sitename.com",
+  "X-Title": "SiteName",
+  "Content-Type": "application/json",
+},
+
+        body: JSON.stringify({
+          model: "deepseek/deepseek-r1:free",
+          // Sending only the current user message to preserve original API interaction logic
+          messages: [{ role: "user", content: userMessage.content }],
+        }),
+      })
+
+      const data = await res.json()
+      const botResponseContent = data.choices?.[0]?.message?.content || "No response received."
+      const botMessage = { id: Date.now() + 1, role: "bot", content: botResponseContent }
+      setMessages((prev) => [...prev, botMessage]) // Add bot message to history
+    } catch (error) {
+      const errorMessage = { id: Date.now() + 1, role: "bot", content: "Error: " + error.message }
+      setMessages((prev) => [...prev, errorMessage])
+    } finally {
+      setLoading(false)
     }
-
-    const filtered = universities.filter((uni) => {
-      const gCheck = g >= uni.minGPA
-      const iCheck = i >= uni.minIELTS
-      const mCheck = uni.majors.includes(major)
-
-      let lower = 0,
-        upper = Number.POSITIVE_INFINITY
-      if (b === "20000") upper = 20000
-      else if (b === "40000") {
-        lower = 20000
-        upper = 40000
-      } else if (b === "60000") {
-        lower = 40000
-        upper = 60000
-      } else if (b === "100000") lower = 60000
-
-      const tuition = Number.parseInt(uni.tuition.replace(/[^0-9]/g, "")) || 0
-      const bCheck = tuition >= lower && tuition <= upper
-
-      return gCheck && iCheck && mCheck && bCheck
-    })
-
-    setMatches(filtered.sort((a, b) => a.ranking - b.ranking))
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-cyan-50 relative overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-30">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `radial-gradient(circle at 25px 25px, rgba(99, 102, 241, 0.1) 2px, transparent 0), radial-gradient(circle at 75px 75px, rgba(6, 182, 212, 0.1) 2px, transparent 0)`,
-            backgroundSize: "100px 100px",
-          }}
-        ></div>
-      </div>
+    <>
+      <style>{`
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #f7f7f8; /* Light background for the whole page, similar to ChatGPT */
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif; /* Modern font stack */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        color: #343541; /* Default text color */
+      }
+      .chat-container {
+        max-width: 800px; /* Wider for a more spacious feel */
+        margin: 20px auto; /* Less margin on top/bottom for full height feel */
+        border: 1px solid #e5e5e5; /* Subtle border */
+        border-radius: 12px; /* Rounded corners */
+        display: flex;
+        flex-direction: column;
+        height: calc(100vh - 40px); /* Full height minus margin */
+        background: #ffffff; /* White for the chat box */
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08); /* Softer, larger shadow */
+        overflow: hidden;
+      }
+      .chat-header {
+        padding: 20px 25px;
+        background-color: #f0f0f0; /* Light grey for header */
+        color: #343541; /* Dark text */
+        font-size: 1.6rem; /* Slightly larger font */
+        font-weight: 600; /* Medium bold */
+        text-align: center;
+        user-select: none;
+        border-bottom: 1px solid #e5e5e5; /* Subtle separator */
+        letter-spacing: 0.02em;
+      }
+      .chat-messages {
+        flex: 1;
+        padding: 20px 25px;
+        overflow-y: auto;
+        background: #ffffff; /* White background for messages area */
+        display: flex;
+        flex-direction: column;
+        gap: 12px; /* Space between messages */
+        scroll-behavior: smooth;
+      }
+      .chat-message {
+        max-width: 75%; /* Slightly less wide */
+        padding: 12px 18px; /* More padding */
+        border-radius: 18px; /* Rounded, but not fully pill-shaped */
+        word-wrap: break-word;
+        white-space: pre-wrap;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05); /* Very subtle shadow for bubbles */
+        font-size: 0.95rem; /* Standard message font size */
+        line-height: 1.5;
+      }
+      .chat-message.user {
+        background-color: #e6f2ff; /* Light blue for user, similar to ChatGPT's subtle highlight */
+        color: #343541;
+        align-self: flex-end; /* Align to right */
+        border-bottom-right-radius: 6px; /* Slightly less rounded on one corner */
+      }
+      .chat-message.bot {
+        background-color: #f7f7f8; /* Very light grey for bot, almost white */
+        color: #343541;
+        align-self: flex-start; /* Align to left */
+        border-bottom-left-radius: 6px; /* Slightly less rounded on one corner */
+      }
+      .chat-input-area {
+        display: flex;
+        padding: 15px 25px;
+        background-color: #ffffff; /* White background for input area */
+        border-top: 1px solid #e5e5e5; /* Subtle separator */
+      }
+      .chat-input {
+        flex: 1;
+        padding: 12px 20px; /* More padding */
+        font-size: 1rem;
+        border: 1px solid #d1d5db; /* Light grey border */
+        border-radius: 24px; /* Rounded */
+        outline: none;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        background-color: #ffffff; /* White input background */
+        color: #343541; /* Dark text */
+      }
+      .chat-input::placeholder {
+        color: #9ca3af; /* Lighter placeholder text */
+      }
+      .chat-input:focus {
+        border-color: #a7d9ff; /* Light blue border on focus */
+        box-shadow: 0 0 0 3px rgba(167, 217, 255, 0.4); /* Light blue glow */
+      }
+      .send-button {
+        margin-left: 15px;
+        background-color: #10a37f; /* ChatGPT's green */
+        color: white;
+        border: none;
+        padding: 12px 25px; /* More padding */
+        font-size: 1rem;
+        border-radius: 24px; /* Rounded */
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        font-weight: 500;
+      }
+      .send-button:disabled {
+        background-color: #d1d5db; /* Light grey when disabled */
+        color: #9ca3af;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+      .send-button:hover:not(:disabled) {
+        background-color: #0e8e6f; /* Darker green on hover */
+        transform: translateY(-1px); /* Subtle lift effect */
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* Shadow on hover */
+      }
+      .send-button:active:not(:disabled) {
+        transform: translateY(0);
+        box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      }
 
-      {/* Fixed Header */}
-    {/* Fixed Header */}
-{/* 
-<header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-white/70 border-b border-white/20 shadow-lg">
-  <div className="max-w-7xl mx-auto px-6 py-4">
-    <div className="flex items-center justify-center">
-      <div className="text-center">
-        <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-indigo-600 to-cyan-600 bg-clip-text text-transparent">
-          University Search Engine
-        </h1>
-        <p className="text-sm text-gray-600 mt-1">Find your perfect match among top American universities</p>
-      </div>
-    </div>
-  </div>
-</header>
-*/}
+      /* Scrollbar styling */
+      .chat-messages::-webkit-scrollbar {
+        width: 8px;
+      }
+      .chat-messages::-webkit-scrollbar-track {
+        background: #f0f0f0;
+        border-radius: 10px;
+      }
+      .chat-messages::-webkit-scrollbar-thumb {
+        background-color: #c0c0c0;
+        border-radius: 4px;
+      }
+      .chat-messages::-webkit-scrollbar-thumb:hover {
+        background-color: #a0a0a0;
+      }
 
-      {/* Notification */}
-      {notification && (
-        <div className="fixed top-24 left-1/2 transform -translate-x-1/2 z-50 animate-pulse">
-          <div className="backdrop-blur-md bg-red-500/90 text-white px-6 py-3 rounded-2xl shadow-2xl border border-red-400/30">
-            <div className="flex items-center space-x-2">
-              <div className="w-2 h-2 bg-white rounded-full animate-bounce"></div>
-              <span className="font-medium">{notification}</span>
+      /* Responsive design */
+      @media (max-width: 768px) {
+        .chat-container {
+          margin: 10px;
+          height: calc(100vh - 20px);
+          max-width: 98%;
+          border-radius: 8px;
+        }
+        .chat-header {
+          font-size: 1.4rem;
+          padding: 15px 20px;
+        }
+        .chat-messages {
+          padding: 15px 20px;
+          gap: 10px;
+        }
+        .chat-message {
+          max-width: 88%;
+          padding: 10px 15px;
+          font-size: 0.9rem;
+        }
+        .chat-input-area {
+          padding: 10px 20px;
+        }
+        .chat-input, .send-button {
+          padding: 10px 18px;
+          font-size: 0.9rem;
+        }
+        .send-button {
+          margin-left: 10px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .chat-container {
+          margin: 0;
+          height: 100vh;
+          border-radius: 0;
+          box-shadow: none;
+        }
+        .chat-header {
+          font-size: 1.2rem;
+          padding: 12px 15px;
+        }
+        .chat-messages {
+          padding: 10px 15px;
+          gap: 8px;
+        }
+        .chat-message {
+          max-width: 100%; /* Allow full width on small screens */
+          padding: 8px 12px;
+          font-size: 0.85rem;
+        }
+        .chat-input-area {
+          flex-direction: column;
+          padding: 10px 15px;
+        }
+        .chat-input {
+          margin-bottom: 10px;
+          width: 100%;
+          padding: 10px 15px;
+        }
+        .send-button {
+          margin-left: 0;
+          width: 100%;
+          padding: 10px 15px;
+        }
+      }
+    `}</style>
+      <div className="chat-container" role="main" aria-label="University Search Engine Chatbot">
+        <header className="chat-header">University Search Engine</header>
+        <section className="chat-messages" id="chatMessages" aria-live="polite" aria-atomic="false">
+          {messages.map((message) => (
+            <div key={message.id} className={`chat-message ${message.role}`}>
+              {message.content}
             </div>
-          </div>
-        </div>
-      )}
-
-      {/* Main Content */}
-      <div className="pt-32 pb-12 px-6">
-        <div className="max-w-6xl mx-auto">
-          {/* Search Form */}
-          <div className="backdrop-blur-xl bg-white/40 rounded-3xl shadow-2xl border border-white/30 p-8 mb-12">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-              <div className="space-y-3">
-                <label className="block text-sm font-semibold text-gray-700 tracking-wide">CGPA (0-4)</label>
-                <input
-                  type="number"
-                  step="0.01"
-                  min="0"
-                  max="4"
-                  value={gpa}
-                  onChange={(e) => setGpa(e.target.value)}
-                  className="w-full backdrop-blur-sm bg-white/60 border border-white/40 rounded-2xl px-6 py-4 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition-all duration-300 shadow-lg"
-                  placeholder="Enter your GPA"
-                />
-              </div>
-
-              <div className="space-y-3">
-                <label className="block text-sm font-semibold text-gray-700 tracking-wide">IELTS Score (0-9)</label>
-                <input
-                  type="number"
-                  step="0.1"
-                  min="0"
-                  max="9"
-                  value={ielts}
-                  onChange={(e) => setIelts(e.target.value)}
-                  className="w-full backdrop-blur-sm bg-white/60 border border-white/40 rounded-2xl px-6 py-4 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition-all duration-300 shadow-lg"
-                  placeholder="Enter your IELTS score"
-                />
-              </div>
-
-              <div className="space-y-3">
-                <label className="block text-sm font-semibold text-gray-700 tracking-wide">Preferred Major</label>
-                <select
-                  value={major}
-                  onChange={(e) => setMajor(e.target.value)}
-                  className="w-full backdrop-blur-sm bg-white/60 border border-white/40 rounded-2xl px-6 py-4 text-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition-all duration-300 shadow-lg"
-                >
-                  <option value="">Select a major</option>
-                  {Array.from(new Set(universities.flatMap((u) => u.majors)))
-                    .sort()
-                    .map((m, i) => (
-                      <option key={i} value={m}>
-                        {m}
-                      </option>
-                    ))}
-                </select>
-              </div>
-
-              <div className="space-y-3">
-                <label className="block text-sm font-semibold text-gray-700 tracking-wide">
-                  Budget (Max Tuition USD)
-                </label>
-                <select
-                  value={budget}
-                  onChange={(e) => setBudget(e.target.value)}
-                  className="w-full backdrop-blur-sm bg-white/60 border border-white/40 rounded-2xl px-6 py-4 text-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition-all duration-300 shadow-lg"
-                >
-                  <option value="">No Limit</option>
-                  <option value="20000">Under $20,000</option>
-                  <option value="40000">$20,000 - $40,000</option>
-                  <option value="60000">$40,000 - $60,000</option>
-                  <option value="100000">$60,000+</option>
-                </select>
-              </div>
-            </div>
-
-            <button
-              onClick={findUniversities}
-              className="w-full bg-gradient-to-r from-indigo-600 to-cyan-600 hover:from-indigo-700 hover:to-cyan-700 text-white font-bold py-4 px-8 rounded-2xl shadow-xl hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-300 text-lg tracking-wide"
+          ))}
+          {loading && (
+            <div
+              className="chat-message bot"
+              style={{
+                fontStyle: "italic",
+                color: "#9ca3af",
+                alignSelf: "flex-start",
+                backgroundColor: "#f7f7f8",
+                boxShadow: "none",
+              }}
             >
-              Find My Perfect Universities
-            </button>
-          </div>
-
-          {/* Results Section */}
-          {matches.length > 0 && (
-            <div className="space-y-8">
-              <div className="text-center">
-                <h2 className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-cyan-600 bg-clip-text text-transparent mb-2">
-                  Your University Matches
-                </h2>
-                <p className="text-gray-600">Found {matches.length} universities that match your criteria</p>
-              </div>
-
-              <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                {matches.map((uni, idx) => (
-                  <div
-                    key={idx}
-                    className="backdrop-blur-xl bg-white/50 rounded-3xl shadow-2xl border border-white/30 p-6 hover:shadow-3xl hover:scale-[1.02] transition-all duration-300 group"
-                  >
-                    {/* University Header */}
-                    <div className="mb-6">
-                      <div className="flex items-start justify-between mb-3">
-                        <div className="flex-1">
-                          <h3 className="text-lg font-bold text-gray-800 group-hover:text-indigo-600 transition-colors duration-300 leading-tight">
-                            {uni.name}
-                          </h3>
-                          <p className="text-sm text-gray-600 mt-1 flex items-center">
-                            <span className="w-1 h-1 bg-gray-400 rounded-full mr-2"></span>
-                            {uni.location}
-                          </p>
-                        </div>
-                        <div className="text-right">
-                          <div className="text-xs font-semibold text-indigo-600 bg-indigo-50 px-2 py-1 rounded-full">
-                            #{uni.ranking}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Stats Grid */}
-                    <div className="grid grid-cols-2 gap-4 mb-6">
-                      <div className="text-center p-3 bg-white/40 rounded-2xl backdrop-blur-sm">
-                        <div className="text-xs text-gray-600 mb-1">Acceptance</div>
-                        <div className="font-bold text-green-600">{uni.acceptanceRate}</div>
-                      </div>
-                      <div className="text-center p-3 bg-white/40 rounded-2xl backdrop-blur-sm">
-                        <div className="text-xs text-gray-600 mb-1">Tuition</div>
-                        <div className="font-bold text-blue-600">{uni.tuition}</div>
-                      </div>
-                    </div>
-
-                    {/* Tags */}
-                    <div className="flex flex-wrap gap-2 mb-6">
-                      {uni.tags.slice(0, 3).map((tag, i) => (
-                        <span
-                          key={i}
-                          className="text-xs bg-gradient-to-r from-indigo-100 to-cyan-100 text-indigo-700 px-3 py-1 rounded-full font-medium"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* Acceptance Level & Action */}
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
-                        <div
-                          className={`w-3 h-3 rounded-full ${
-                            uni.acceptanceLevel === "high" || uni.acceptanceLevel === "very high"
-                              ? "bg-green-400"
-                              : uni.acceptanceLevel === "medium"
-                                ? "bg-yellow-400"
-                                : "bg-red-400"
-                          }`}
-                        ></div>
-                        <span
-                          className={`text-sm font-semibold ${
-                            uni.acceptanceLevel === "high" || uni.acceptanceLevel === "very high"
-                              ? "text-green-600"
-                              : uni.acceptanceLevel === "medium"
-                                ? "text-yellow-600"
-                                : "text-red-600"
-                          }`}
-                        >
-                          {uni.acceptanceLevel.charAt(0).toUpperCase() + uni.acceptanceLevel.slice(1)} chance
-                        </span>
-                      </div>
-
-                      {uni.website && (
-                        <button
-                          onClick={() => window.open(uni.website, "_blank")}
-                          className="bg-gradient-to-r from-indigo-500 to-cyan-500 hover:from-indigo-600 hover:to-cyan-600 text-white px-4 py-2 rounded-xl text-sm font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
-                        >
-                          Learn More
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
+              Typing...
             </div>
           )}
-
-          {/* No Results */}
-          {matches.length === 0 && gpa && ielts && major && (
-            <div className="text-center py-16">
-              <div className="backdrop-blur-xl bg-white/40 rounded-3xl shadow-2xl border border-white/30 p-12 max-w-md mx-auto">
-                <div className="w-16 h-16 bg-gradient-to-r from-gray-200 to-gray-300 rounded-full mx-auto mb-6 flex items-center justify-center">
-                  <div className="w-8 h-8 bg-gray-400 rounded-full"></div>
-                </div>
-                <h3 className="text-xl font-bold text-gray-700 mb-3">No Matches Found</h3>
-                <p className="text-gray-600 mb-6">
-                  No universities match your current criteria. Try adjusting your requirements to find more options.
-                </p>
-                <div className="text-sm text-gray-500">
-                  Consider lowering your GPA/IELTS requirements or expanding your budget range.
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
+          <div ref={messagesEndRef} /> {/* Element to scroll into view */}
+        </section>
+        <form
+          className="chat-input-area"
+          onSubmit={(e) => {
+            e.preventDefault()
+            sendMessage()
+          }}
+          role="form"
+          aria-label="Send message form"
+        >
+          <input
+            type="text"
+            className="chat-input"
+            placeholder="Ask about universities..."
+            value={currentInput}
+            onChange={(e) => setCurrentInput(e.target.value)}
+            disabled={loading}
+            aria-label="Message input"
+          />
+          <button type="submit" className="send-button" disabled={loading}>
+            {loading ? "Sending..." : "Search"}
+          </button>
+        </form>
       </div>
-    </div>
+    </>
   )
 }
-
-export default USAUniversityFinder
