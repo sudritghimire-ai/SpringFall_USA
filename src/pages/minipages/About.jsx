@@ -29,6 +29,8 @@ export default function ChatBot() {
     setLoading(true)
 
     try {
+console.log('API Key:', process.env.REACT_APP_API_KEY);
+
       const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
         method: "POST",
       headers: {
@@ -37,7 +39,7 @@ export default function ChatBot() {
   "X-Title": "SiteName",
   "Content-Type": "application/json",
 },
-console.log('API Key:', process.env.REACT_APP_API_KEY)
+
 
 
         body: JSON.stringify({
