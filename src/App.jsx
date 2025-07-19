@@ -17,10 +17,14 @@ function App() {
 
   const isPaused = false;
 
-  const hideNavbar = (
-    /^\/blogs\/[a-zA-Z0-9]+$/.test(location.pathname) ||
-    location.pathname === "/login"
-  );
+
+
+const hideNavbar = (
+  /^\/blogs\/[a-zA-Z0-9]+$/.test(location.pathname) ||
+  location.pathname === "/login" ||
+  location.pathname === "/about-us"
+);
+
 
 if (isBlogPage && isMobile) {
   return (
