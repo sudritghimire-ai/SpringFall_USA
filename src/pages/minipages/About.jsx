@@ -37,6 +37,8 @@ export default function ChatBot() {
   "X-Title": "SiteName",
   "Content-Type": "application/json",
 },
+console.log('API Key:', process.env.REACT_APP_API_KEY)
+
 
         body: JSON.stringify({
           model: "deepseek/deepseek-r1:free",
