@@ -131,12 +131,17 @@ const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
         border-radius: 0;
       }
       
-     .chat-header {
+   .chat-header {
+  max-width: 1200px;    /* same max width as input */
+  width: 100%;          /* fill max-width but no more */
+  margin: 0 auto;       /* center horizontally */
+  box-sizing: border-box;
+
+  /* keep your other styles */
   padding: 18px 40px;
   font-size: 1.4rem;
-  min-height: unset; /* or remove this line */
-  height: 52px; /* match input height exactly */
-  line-height: 52px; /* vertically center text */
+  height: 52px;
+  line-height: 52px;
   background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
   color: #2d3748;
   font-weight: 700;
@@ -145,7 +150,6 @@ const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
   border-bottom: 1px solid rgba(0,0,0,0.05);
   letter-spacing: -0.02em;
   position: relative;
-  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
