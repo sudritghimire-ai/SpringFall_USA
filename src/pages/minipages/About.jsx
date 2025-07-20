@@ -132,7 +132,7 @@ const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       }
       
    .chat-header {
-  max-width: 1200px;    /* same max width as input */
+  max-width: 1100px;    /* same max width as input */
   width: 100%;          /* fill max-width but no more */
   margin: 0 auto;       /* center horizontally */
   box-sizing: border-box;
