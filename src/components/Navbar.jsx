@@ -10,7 +10,8 @@ import { logout } from '../redux/features/auth/authSlice';
 const navLists = [
     { name: "Home", path: '/' },
     { name: "Privacy and Policy", path: '/privacy-policy' },
-    { name: "University Search", path: '/about-us' }
+    { name: "University Search", path: '/about-us' },
+    { name: "StudySync", external: true, url: "https://studysync-1-thil.onrender.com/" } // added StudySync external link
 ];
 
 const Navbar = () => {
@@ -61,18 +62,31 @@ const Navbar = () => {
                 <ul className='hidden sm:flex items-center gap-x-8'>
                     {navLists.map((list, index) => (
                         <li key={index} className='flex-shrink-0'>
-                            <NavLink
-                                to={list.path}
-                                className={({ isActive }) =>
-                                    `relative px-3 py-2 overflow-hidden group rounded-md font-medium text-base ${
-                                        isActive ? 'text-[#1E73BE] font-semibold' : 'text-gray-700'
-                                    }`
-                                }
-                                onClick={closeMenu}
-                            >
-                                <span className="absolute top-0 left-0 w-full h-0 bg-gradient-to-r from-blue-50 to-blue-100 group-hover:h-full transition-all duration-500 ease-out rounded-md -z-10"></span>
-                                <span className="relative">{list.name}</span>
-                            </NavLink>
+                            {list.external ? (
+                                <a
+                                    href={list.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="relative px-3 py-2 overflow-hidden group rounded-md font-medium text-base text-gray-700 hover:text-[#1E73BE]"
+                                    onClick={closeMenu}
+                                >
+                                    <span className="absolute top-0 left-0 w-full h-0 bg-gradient-to-r from-blue-50 to-blue-100 group-hover:h-full transition-all duration-500 ease-out rounded-md -z-10"></span>
+                                    <span className="relative">{list.name}</span>
+                                </a>
+                            ) : (
+                                <NavLink
+                                    to={list.path}
+                                    className={({ isActive }) =>
+                                        `relative px-3 py-2 overflow-hidden group rounded-md font-medium text-base ${
+                                            isActive ? 'text-[#1E73BE] font-semibold' : 'text-gray-700'
+                                        }`
+                                    }
+                                    onClick={closeMenu}
+                                >
+                                    <span className="absolute top-0 left-0 w-full h-0 bg-gradient-to-r from-blue-50 to-blue-100 group-hover:h-full transition-all duration-500 ease-out rounded-md -z-10"></span>
+                                    <span className="relative">{list.name}</span>
+                                </NavLink>
+                            )}
                         </li>
                     ))}
                     <li>
@@ -140,19 +154,31 @@ const Navbar = () => {
                             <ul className="space-y-5">
                                 {navLists.map((list, index) => (
                                     <li key={index}>
-                                        <NavLink
-                                            to={list.path}
-                                            className={({ isActive }) =>
-                                                `block text-center py-2.5 px-6 rounded-full text-base transition-all duration-300 ${
-                                                    isActive
-                                                        ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-md'
-                                                        : 'bg-white text-[#1E73BE] border border-[#1E73BE]'
-                                                }`
-                                            }
-                                            onClick={closeMenu}
-                                        >
-                                            {list.name}
-                                        </NavLink>
+                                        {list.external ? (
+                                            <a
+                                                href={list.url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="block text-center py-2.5 px-6 rounded-full text-base transition-all duration-300 bg-white text-[#1E73BE] border border-[#1E73BE]"
+                                                onClick={closeMenu}
+                                            >
+                                                {list.name}
+                                            </a>
+                                        ) : (
+                                            <NavLink
+                                                to={list.path}
+                                                className={({ isActive }) =>
+                                                    `block text-center py-2.5 px-6 rounded-full text-base transition-all duration-300 ${
+                                                        isActive
+                                                            ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-md'
+                                                            : 'bg-white text-[#1E73BE] border border-[#1E73BE]'
+                                                    }`
+                                                }
+                                                onClick={closeMenu}
+                                            >
+                                                {list.name}
+                                            </NavLink>
+                                        )}
                                     </li>
                                 ))}
                             </ul>
