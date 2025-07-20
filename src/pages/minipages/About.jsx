@@ -131,23 +131,26 @@ const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
         border-radius: 0;
       }
       
-      .chat-header {
-        padding: 30px 40px;
-        background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-        color: #2d3748;
-        font-size: 2.2rem;
-        font-weight: 700;
-        text-align: center;
-        user-select: none;
-        border-bottom: 1px solid rgba(0,0,0,0.05);
-        letter-spacing: -0.02em;
-        position: relative;
-        overflow: hidden;
-        min-height: 80px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
+     .chat-header {
+  padding: 18px 40px;
+  font-size: 1.4rem;
+  min-height: unset; /* or remove this line */
+  height: 52px; /* match input height exactly */
+  line-height: 52px; /* vertically center text */
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+  color: #2d3748;
+  font-weight: 700;
+  text-align: center;
+  user-select: none;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  letter-spacing: -0.02em;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
       
       .chat-header::before {
         content: '🎓';
