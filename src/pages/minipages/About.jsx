@@ -572,21 +572,22 @@ const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
           role="form"
           aria-label="Send message form"
         >
-          <input
-            type="text"
-            className="chat-input"
-            placeholder="Ask about universities..."
-            value={currentInput}
-            onChange={(e) => setCurrentInput(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                e.preventDefault()
-                sendMessage()
-              }
-            }}
-            disabled={loading}
-            aria-label="Message input"
-          />
+        <textarea
+  rows={2}
+  className="chat-input"
+  placeholder="Ask about universities..."
+  value={currentInput}
+  onChange={(e) => setCurrentInput(e.target.value)}
+  onKeyDown={(e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  }}
+  disabled={loading}
+  aria-label="Message input"
+/>
+
           <button 
             type="button" 
             className="send-button" 
