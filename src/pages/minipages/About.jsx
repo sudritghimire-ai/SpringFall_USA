@@ -100,17 +100,30 @@ const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
         50% { opacity: 0.8; }
       }
       
+      .chat-wrapper {
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+      
       .chat-container {
         width: 100%;
-        height: 100vh;
+        max-width: 800px;
+        max-height: 90vh;
         margin: 0;
         border: none;
-        border-radius: 0;
+        border-radius: 24px;
         display: flex;
         flex-direction: column;
         background: rgba(255, 255, 255, 0.98);
         backdrop-filter: blur(25px);
-        box-shadow: none;
+        box-shadow: 
+          0 20px 60px rgba(102, 126, 234, 0.15),
+          0 8px 32px rgba(0, 0, 0, 0.1);
         overflow: hidden;
         animation: slideUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         position: relative;
@@ -369,6 +382,8 @@ const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       
       .chat-input {
         flex: 1;
+        min-height: 52px;
+        max-height: 120px;
         padding: 22px 32px;
         font-size: 1.1rem;
         border: 2px solid rgba(102, 126, 234, 0.15);
@@ -382,6 +397,9 @@ const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
         font-weight: 400;
         position: relative;
         box-shadow: 0 4px 16px rgba(102, 126, 234, 0.08);
+        resize: none;
+        overflow-y: auto;
+        line-height: 1.5;
       }
       
       .chat-input::placeholder {
@@ -595,6 +613,13 @@ const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
 
       /* Responsive design */
       @media (max-width: 768px) {
+        .chat-wrapper {
+          padding: 15px;
+        }
+        .chat-container {
+          max-height: 95vh;
+          border-radius: 20px;
+        }
         .chat-header {
           font-size: 2rem;
           padding: 30px 35px;
@@ -635,6 +660,13 @@ const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       }
 
       @media (max-width: 480px) {
+        .chat-wrapper {
+          padding: 10px;
+        }
+        .chat-container {
+          max-height: 98vh;
+          border-radius: 16px;
+        }
         .chat-header {
           font-size: 1.7rem;
           padding: 25px 25px;
@@ -677,7 +709,8 @@ const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
         }
       }
     `}</style>
-      <div className="chat-container" role="main" aria-label="University Search Engine Chatbot">
+              <div className="chat-wrapper">
+          <div className="chat-container" role="main" aria-label="University Search Engine Chatbot">
         <header className="chat-header">University Search Engine</header>
         <section className="chat-messages" id="chatMessages" aria-live="polite" aria-atomic="false">
           {messages.length === 0 ? (
@@ -689,7 +722,8 @@ const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
                   Ask me anything about universities, courses, admissions, rankings, or campus life. 
                   I'm here to help you find the perfect educational path!
                 </p>
-              </div>
+                </div>
+        </div>
             </div>
           ) : (
             messages.map((message) => (
@@ -717,14 +751,13 @@ const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
           role="form"
           aria-label="Send message form"
         >
-          <input
-            type="text"
+          <textarea
             className="chat-input"
             placeholder="Ask about universities..."
             value={currentInput}
             onChange={(e) => setCurrentInput(e.target.value)}
             onKeyDown={(e) => {
-              if (e.key === 'Enter') {
+              if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault()
                 sendMessage()
               }
