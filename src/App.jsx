@@ -24,7 +24,7 @@ function App() {
 
   const isBlogPage = /^\/blogs\/[a-zA-Z0-9]+$/.test(location.pathname);
 
-  const isPaused = true;
+  const isPaused = false; // ✅ Set this to false to open the site
   const hideNavbar = (
     /^\/blogs\/[a-zA-Z0-9]+$/.test(location.pathname) ||
     location.pathname === "/login" ||
@@ -50,29 +50,11 @@ function App() {
           </p>
         </div>
 
-        {showDialog && (
-          <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center">
-            <div className="bg-white rounded-2xl shadow-xl px-6 py-8 max-w-sm w-full text-center animate-fadeInUp">
-              <h2 className="text-2xl font-bold font-serif-academic text-blue-700 mb-2">Gravity</h2>
-              <p className="text-gray-700 font-outfit">
-                Special thanks to <br />
-                <span className="text-indigo-500">@kushal_acharya</span> <br />
-                <span className="text-indigo-500">@mukesh_pokhrel</span>
-              </p>
-            </div>
-          </div>
-        )}
-
         <style jsx="true">{`
           .animate-fadeIn {
             animation: fadeInUp 0.6s ease-out forwards;
             opacity: 0;
             transform: translateY(15px);
-          }
-          .animate-fadeInUp {
-            animation: fadeInUp 0.4s ease-out forwards;
-            opacity: 0;
-            transform: translateY(20px);
           }
           @keyframes fadeInUp {
             to {
@@ -90,19 +72,6 @@ function App() {
       <div className="bg-bgPrimary min-h-screen flex flex-col justify-center items-center">
         <h1 className="text-3xl font-bold text-center">🚧 This site is currently paused</h1>
         <p className="mt-2 text-lg">Please check back later.</p>
-
-        {showDialog && (
-          <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center">
-            <div className="bg-white rounded-2xl shadow-xl px-6 py-8 max-w-sm w-full text-center animate-fadeInUp">
-              <h2 className="text-2xl font-bold font-serif-academic text-blue-700 mb-2">Gravity</h2>
-              <p className="text-gray-700 font-outfit">
-                Special thanks to <br />
-                <span className="text-indigo-500">@kushal_acharya</span> <br />
-                <span className="text-indigo-500">@mukesh_pokhrel</span>
-              </p>
-            </div>
-          </div>
-        )}
       </div>
     );
   }
@@ -115,22 +84,33 @@ function App() {
       </div>
       <footer className="mt-auto"></footer>
 
-      {showDialog && (
+      {/* Gravity Dialog */}
+      {!isPaused && showDialog && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center">
-          <div className="bg-white rounded-2xl shadow-xl px-6 py-8 max-w-sm w-full text-center animate-fadeInUp">
-            <h2 className="text-2xl font-bold font-serif-academic text-blue-700 mb-2">Gravity</h2>
-            <p className="text-gray-700 font-outfit">
+          <div className="relative bg-white rounded-3xl shadow-2xl px-8 py-10 max-w-md w-full text-center animate-fadeInUp border border-slate-200">
+            {/* Close Button */}
+            <button
+              onClick={() => setShowDialog(false)}
+              className="absolute top-3 right-3 text-slate-400 hover:text-slate-700 text-lg font-bold"
+              aria-label="Close"
+            >
+              ✖
+            </button>
+
+            <h2 className="text-3xl font-bold font-serif-academic text-blue-700 mb-4">Gravity</h2>
+            <p className="text-gray-700 font-outfit text-base leading-relaxed">
               Special thanks to <br />
-              <span className="text-indigo-500">@kushal_acharya</span> <br />
-              <span className="text-indigo-500">@mukesh_pokhrel</span>
+              <span className="text-indigo-500 font-medium">@kushal_acharya</span> <br />
+              <span className="text-indigo-500 font-medium">@mukesh_pokhrel</span>
             </p>
           </div>
         </div>
       )}
 
+      {/* Fade In Animation */}
       <style jsx="true">{`
         .animate-fadeInUp {
-          animation: fadeInUp 0.4s ease-out forwards;
+          animation: fadeInUp 0.5s ease-out forwards;
           opacity: 0;
           transform: translateY(20px);
         }
