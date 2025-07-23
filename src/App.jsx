@@ -15,7 +15,7 @@ function App() {
 
   const isBlogPage = /^\/blogs\/[a-zA-Z0-9]+$/.test(location.pathname);
 
-  const isPaused = false;
+  const isPaused = true;
 const hideNavbar = (
   /^\/blogs\/[a-zA-Z0-9]+$/.test(location.pathname) ||
   location.pathname === "/login" ||
