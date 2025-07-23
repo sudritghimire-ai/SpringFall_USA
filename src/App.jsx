@@ -19,12 +19,12 @@ function App() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowDialog(false)
-    }, 5000) // Hide after 5 seconds
+    }, 5000)
     return () => clearTimeout(timer)
   }, [])
 
   const isBlogPage = /^\/blogs\/[a-zA-Z0-9]+$/.test(location.pathname)
-  const isPaused = false // ✅ Set this to false to open the site
+  const isPaused = false
 
   const hideNavbar =
     /^\/blogs\/[a-zA-Z0-9]+$/.test(location.pathname) ||
@@ -82,49 +82,63 @@ function App() {
       </div>
       <footer className="mt-auto"></footer>
 
-      {/* ✨ Gravity Dialog (Improved UI) */}
+      {/* 🌟 Gravity Dialog */}
       {!isPaused && showDialog && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center px-4">
-          <div className="relative bg-white/30 border border-white/40 backdrop-blur-xl rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.4)] px-8 py-10 max-w-md w-full text-center animate-fadeInUp transition-transform duration-500 ease-out hover:scale-105 hover:shadow-3xl ring-1 ring-white/10">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-orange-500 to-yellow-400 backdrop-blur-sm p-4">
+          <div className="relative bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 text-center animate-fadeInUp">
             {/* Close Button */}
             <button
               onClick={() => setShowDialog(false)}
-              className="absolute top-4 right-4 text-slate-700 hover:text-blue-700 transition-all text-xl font-bold p-1 rounded-full bg-white/60 hover:bg-white/90 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="absolute top-3 right-3 text-gray-400 hover:text-red-500 transition text-2xl font-bold"
               aria-label="Close"
             >
               ✖
             </button>
 
-            <h2 className="text-4xl font-bold text-blue-900 mb-4 tracking-tight drop-shadow-sm font-serif">
-              Gravity
-            </h2>
-            <p className="text-gray-900 font-medium text-base leading-relaxed font-sans">
-              Special thanks to <br />
-              <span className="text-blue-600 font-semibold hover:underline">@kushal_acharya</span>
-              <br />
-              <span className="text-blue-600 font-semibold hover:underline">@mukesh_pokhrel</span>
-            </p>
+            <h1 className="text-4xl font-bold text-pink-600 mb-2" style={{ fontFamily: "'Pacifico', cursive" }}>
+              Thank You!
+            </h1>
+
+            <p className="text-gray-700 mb-6">Your appreciation has been registered by <b>Gravity</b>.</p>
+
+            <div className="flex gap-4 justify-center mb-4">
+              <button className="bg-yellow-400 hover:bg-yellow-500 text-white px-4 py-2 rounded-full font-semibold shadow-md transition">
+                Download PDF
+              </button>
+              <button
+                onClick={() => setShowDialog(false)}
+                className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-full font-semibold transition"
+              >
+                Back to Site
+              </button>
+            </div>
+
+            <p className="text-sm text-gray-500">Follow Us:</p>
+            <div className="flex justify-center gap-3 mt-2 text-lg text-red-500">
+              <i className="fab fa-facebook cursor-pointer" />
+              <i className="fab fa-twitter cursor-pointer" />
+              <i className="fab fa-youtube cursor-pointer" />
+            </div>
           </div>
+
+          {/* Font + Animation */}
+          <style jsx="true">{`
+            @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+            .animate-fadeInUp {
+              animation: fadeInUp 0.6s ease-out forwards;
+              opacity: 0;
+              transform: translateY(30px);
+            }
+            @keyframes fadeInUp {
+              to {
+                opacity: 1;
+                transform: translateY(0);
+              }
+            }
+          `}</style>
         </div>
       )}
-
-      {/* ✨ Animation Styles */}
-      <style jsx="true">{`
-        .animate-fadeInUp {
-          animation: fadeInUp 0.6s ease-out forwards;
-          opacity: 0;
-          transform: translateY(30px);
-        }
-        @keyframes fadeInUp {
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        .shadow-3xl {
-          box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.1);
-        }
-      `}</style>
     </div>
   )
 }
