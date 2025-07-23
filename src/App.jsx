@@ -81,40 +81,39 @@ function App() {
         <Outlet />
       </div>
       <footer className="mt-auto"></footer>
-      {/* Gravity Dialog */}
+
+      {/* ✨ Gravity Dialog (Improved UI) */}
       {!isPaused && showDialog && (
-        <div className="fixed inset-0 bg-gradient-to-br from-black/70 via-black/60 to-black/70 backdrop-blur-xl z-50 flex items-center justify-center p-4">
-          <div className="relative bg-gradient-to-br from-white/20 to-white/10 rounded-[2.5rem] shadow-2xl border border-white/40 backdrop-blur-md px-10 py-12 max-w-md w-full text-center animate-fadeInUp transform transition-all duration-500 ease-out hover:scale-[1.01] hover:shadow-3xl ring-1 ring-inset ring-white/50 overflow-hidden">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center px-4">
+          <div className="relative bg-white/30 border border-white/40 backdrop-blur-xl rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.4)] px-8 py-10 max-w-md w-full text-center animate-fadeInUp transition-transform duration-500 ease-out hover:scale-105 hover:shadow-3xl ring-1 ring-white/10">
             {/* Close Button */}
             <button
               onClick={() => setShowDialog(false)}
-              className="absolute top-5 right-5 text-slate-600 hover:text-blue-700 transition-all duration-300 text-2xl font-bold p-2 rounded-full bg-white/50 hover:bg-white/80 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              className="absolute top-4 right-4 text-slate-700 hover:text-blue-700 transition-all text-xl font-bold p-1 rounded-full bg-white/60 hover:bg-white/90 focus:outline-none focus:ring-2 focus:ring-blue-400"
               aria-label="Close"
             >
               ✖
             </button>
-            <h2 className="text-5xl font-extrabold font-['YourCursiveFont'] text-blue-800 mb-6 tracking-tight drop-shadow-lg">
+
+            <h2 className="text-4xl font-bold text-blue-900 mb-4 tracking-tight drop-shadow-sm font-serif">
               Gravity
             </h2>
-            <p className="text-gray-900 font-outfit text-lg leading-relaxed">
+            <p className="text-gray-900 font-medium text-base leading-relaxed font-sans">
               Special thanks to <br />
-              <span className="text-blue-600 font-semibold hover:text-blue-700 transition-colors duration-200">
-                @kushal_acharya
-              </span>{" "}
+              <span className="text-blue-600 font-semibold hover:underline">@kushal_acharya</span>
               <br />
-              <span className="text-blue-600 font-semibold hover:text-blue-700 transition-colors duration-200">
-                @mukesh_pokhrel
-              </span>
+              <span className="text-blue-600 font-semibold hover:underline">@mukesh_pokhrel</span>
             </p>
           </div>
         </div>
       )}
-      {/* Fade In Animation */}
+
+      {/* ✨ Animation Styles */}
       <style jsx="true">{`
         .animate-fadeInUp {
-          animation: fadeInUp 0.6s ease-out forwards; /* Slightly longer and smoother */
+          animation: fadeInUp 0.6s ease-out forwards;
           opacity: 0;
-          transform: translateY(30px); /* More pronounced initial translateY */
+          transform: translateY(30px);
         }
         @keyframes fadeInUp {
           to {
@@ -122,9 +121,8 @@ function App() {
             transform: translateY(0);
           }
         }
-        /* Custom shadow for a deeper effect */
         .shadow-3xl {
-          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1);
+          box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.1);
         }
       `}</style>
     </div>
