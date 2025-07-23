@@ -83,26 +83,26 @@ function App() {
       <footer className="mt-auto"></footer>
       {/* Gravity Dialog */}
       {!isPaused && showDialog && (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-lg z-50 flex items-center justify-center p-4">
-          <div className="relative bg-gradient-to-br from-white/20 to-white/10 rounded-3xl shadow-2xl border border-white/30 backdrop-blur-md px-8 py-10 max-w-md w-full text-center animate-fadeInUp overflow-hidden">
+        <div className="fixed inset-0 bg-gradient-to-br from-black/70 via-black/60 to-black/70 backdrop-blur-xl z-50 flex items-center justify-center p-4">
+          <div className="relative bg-gradient-to-br from-white/20 to-white/10 rounded-[2.5rem] shadow-2xl border border-white/40 backdrop-blur-md px-10 py-12 max-w-md w-full text-center animate-fadeInUp transform transition-all duration-500 ease-out hover:scale-[1.01] hover:shadow-3xl ring-1 ring-inset ring-white/50 overflow-hidden">
             {/* Close Button */}
             <button
               onClick={() => setShowDialog(false)}
-              className="absolute top-4 right-4 text-slate-600 hover:text-blue-700 transition-all duration-300 text-xl font-bold p-2 rounded-full bg-white/50 hover:bg-white/80 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              className="absolute top-5 right-5 text-slate-600 hover:text-blue-700 transition-all duration-300 text-2xl font-bold p-2 rounded-full bg-white/50 hover:bg-white/80 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
               aria-label="Close"
             >
               ✖
             </button>
-            <h2 className="text-4xl font-extrabold font-serif-academic text-blue-700 mb-4 tracking-tight drop-shadow-sm">
+            <h2 className="text-5xl font-extrabold font-['YourCursiveFont'] text-blue-800 mb-6 tracking-tight drop-shadow-lg">
               Gravity
             </h2>
-            <p className="text-gray-800 font-outfit text-lg leading-relaxed">
+            <p className="text-gray-900 font-outfit text-lg leading-relaxed">
               Special thanks to <br />
-              <span className="text-blue-500 font-semibold hover:text-blue-600 transition-colors duration-200">
+              <span className="text-blue-600 font-semibold hover:text-blue-700 transition-colors duration-200">
                 @kushal_acharya
               </span>{" "}
               <br />
-              <span className="text-blue-500 font-semibold hover:text-blue-600 transition-colors duration-200">
+              <span className="text-blue-600 font-semibold hover:text-blue-700 transition-colors duration-200">
                 @mukesh_pokhrel
               </span>
             </p>
@@ -112,15 +112,19 @@ function App() {
       {/* Fade In Animation */}
       <style jsx="true">{`
         .animate-fadeInUp {
-          animation: fadeInUp 0.5s ease-out forwards;
+          animation: fadeInUp 0.6s ease-out forwards; /* Slightly longer and smoother */
           opacity: 0;
-          transform: translateY(20px);
+          transform: translateY(30px); /* More pronounced initial translateY */
         }
         @keyframes fadeInUp {
           to {
             opacity: 1;
             transform: translateY(0);
           }
+        }
+        /* Custom shadow for a deeper effect */
+        .shadow-3xl {
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1);
         }
       `}</style>
     </div>
