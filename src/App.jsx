@@ -84,12 +84,12 @@ function App() {
 
       {/* 🌟 Gravity Dialog */}
       {!isPaused && showDialog && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-orange-500 to-yellow-400 backdrop-blur-sm p-4">
-          <div className="relative bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 text-center animate-fadeInUp">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-30 backdrop-blur-[4px] p-4">
+          <div className="relative bg-white bg-opacity-20 backdrop-filter backdrop-blur-md rounded-2xl shadow-lg max-w-md w-full p-8 text-center animate-fadeInUp border border-white border-opacity-30">
             {/* Close Button */}
             <button
               onClick={() => setShowDialog(false)}
-              className="absolute top-3 right-3 text-gray-400 hover:text-red-500 transition text-2xl font-bold"
+              className="absolute top-3 right-3 text-gray-300 hover:text-red-500 transition text-2xl font-bold"
               aria-label="Close"
             >
               ✖
@@ -99,21 +99,14 @@ function App() {
               Thank You!
             </h1>
 
-            <p className="text-gray-700 mb-6">Your appreciation has been registered by <b>Gravity</b>.</p>
+            <p className="text-gray-100 mb-6">Your appreciation has been registered by <b>Gravity</b>.</p>
 
-            <div className="flex gap-4 justify-center mb-4">
-              <button className="bg-yellow-400 hover:bg-yellow-500 text-white px-4 py-2 rounded-full font-semibold shadow-md transition">
-                Download PDF
-              </button>
-              <button
-                onClick={() => setShowDialog(false)}
-                className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-full font-semibold transition"
-              >
-                Back to Site
-              </button>
+            <div className="flex gap-8 justify-center mb-4 text-white text-lg font-semibold select-none">
+              <span>Kushal Acharya</span>
+              <span>Mukesh Pokhrel</span>
             </div>
 
-            <p className="text-sm text-gray-500">Follow Us:</p>
+            <p className="text-sm text-gray-300">Follow Us:</p>
             <div className="flex justify-center gap-3 mt-2 text-lg text-red-500">
               <i className="fab fa-facebook cursor-pointer" />
               <i className="fab fa-twitter cursor-pointer" />
