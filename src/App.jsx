@@ -84,8 +84,31 @@ function App() {
 
       {/* 🌟 Gravity Dialog */}
       {!isPaused && showDialog && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-30 backdrop-blur-[4px] p-4">
-          <div className="relative bg-white bg-opacity-20 backdrop-filter backdrop-blur-md rounded-2xl shadow-lg max-w-md w-full p-8 text-center animate-fadeInUp border border-white border-opacity-30">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-30 backdrop-blur-[6px] p-4">
+          <div
+            className="
+              relative 
+              rounded-2xl 
+              max-w-md 
+              w-full 
+              p-8 
+              text-center 
+              animate-fadeInUp
+              bg-white bg-opacity-15 
+              backdrop-filter backdrop-blur-lg 
+              border border-white border-opacity-20
+              overflow-hidden
+            "
+            style={{
+              backgroundImage: `
+                radial-gradient(circle at 20% 20%, rgba(255, 105, 180, 0.3), transparent 40%),
+                radial-gradient(circle at 80% 30%, rgba(255, 255, 0, 0.3), transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(0, 200, 255, 0.3), transparent 45%),
+                radial-gradient(circle at 70% 70%, rgba(0, 255, 100, 0.3), transparent 50%)
+              `,
+              backgroundBlendMode: "screen",
+            }}
+          >
             {/* Close Button */}
             <button
               onClick={() => setShowDialog(false)}
@@ -95,22 +118,13 @@ function App() {
               ✖
             </button>
 
-            <h1 className="text-4xl font-bold text-pink-600 mb-2" style={{ fontFamily: "'Pacifico', cursive" }}>
+            <h1 className="text-4xl font-bold text-pink-600 mb-6" style={{ fontFamily: "'Pacifico', cursive" }}>
               Thank You!
             </h1>
 
-            <p className="text-gray-100 mb-6">Your appreciation has been registered by <b>Gravity</b>.</p>
-
-            <div className="flex gap-8 justify-center mb-4 text-white text-lg font-semibold select-none">
+            <div className="text-gray-100 text-xl font-semibold select-none flex flex-col gap-2">
               <span>Kushal Acharya</span>
               <span>Mukesh Pokhrel</span>
-            </div>
-
-            <p className="text-sm text-gray-300">Follow Us:</p>
-            <div className="flex justify-center gap-3 mt-2 text-lg text-red-500">
-              <i className="fab fa-facebook cursor-pointer" />
-              <i className="fab fa-twitter cursor-pointer" />
-              <i className="fab fa-youtube cursor-pointer" />
             </div>
           </div>
 
