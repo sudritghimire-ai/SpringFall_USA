@@ -15,7 +15,7 @@ function App() {
 
   const isBlogPage = /^\/blogs\/[a-zA-Z0-9]+$/.test(location.pathname);
 
-  const isPaused = false;
+  const isPaused = true;
 const hideNavbar = (
   /^\/blogs\/[a-zA-Z0-9]+$/.test(location.pathname) ||
   location.pathname === "/login" ||
@@ -63,7 +63,7 @@ if (isBlogPage && isMobile) {
   if (isPaused) {
     return (
       <div className="bg-bgPrimary min-h-screen flex flex-col justify-center items-center">
-        <h1 className="text-3xl font-bold text-center">🚧 This site is currently paused</h1>
+        <h1 className="text-3xl font-bold text-center">🚧 This site is closed for now.</h1>
         <p className="mt-2 text-lg">Please check back later.</p>
       </div>
     );
