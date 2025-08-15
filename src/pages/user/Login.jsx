@@ -86,7 +86,7 @@ const Login = () => {
                 transform: 'rotate(-2deg)',
                 letterSpacing: '2px'
               }}>
-                𝒢𝓇𝒶𝓋𝒾𝓉𝓎
+                𝒪𝓇𝒷𝒾𝓉
               </div>
             </Link>
             
