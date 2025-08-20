@@ -63,8 +63,11 @@ if (isBlogPage && isMobile) {
   if (isPaused) {
     return (
       <div className="bg-bgPrimary min-h-screen flex flex-col justify-center items-center">
-        <h1 className="text-3xl font-bold text-center">🚧 This site is closed for now.</h1>
-        <p className="mt-2 text-lg">Please check back later.</p>
+       <h1 className="text-3xl font-bold text-center">⚠️ This website is permanently closed.</h1>
+<p className="mt-2 text-lg text-center">
+  The project has been discontinued, and all associated data has been permanently deleted. Thank you for your understanding.
+</p>
+
       </div>
     );
   }
