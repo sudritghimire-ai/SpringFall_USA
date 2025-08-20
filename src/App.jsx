@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 function App() {
   const location = useLocation();
   const [isMobile, setIsMobile] = useState(false);
+  const [timeLeft, setTimeLeft] = useState('');
 
   useEffect(() => {
     const userAgent = navigator.userAgent.toLowerCase();
@@ -15,12 +16,36 @@ function App() {
 
   const isBlogPage = /^\/blogs\/[a-zA-Z0-9]+$/.test(location.pathname);
 
-  const isPaused = true;
   const hideNavbar = (
     /^\/blogs\/[a-zA-Z0-9]+$/.test(location.pathname) ||
     location.pathname === "/login" ||
     location.pathname === "/about-us"
   );
+
+  // Set target launch time (5 PM CT)
+  const launchTime = new Date();
+  launchTime.setHours(17, 0, 0, 0); // 5:00 PM CT today
+
+  const [isPaused, setIsPaused] = useState(true);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const now = new Date();
+      const diff = launchTime - now;
+
+      if (diff <= 0) {
+        setIsPaused(false);
+        clearInterval(timer);
+      } else {
+        const hours = Math.floor(diff / 1000 / 60 / 60);
+        const minutes = Math.floor((diff / 1000 / 60) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+        setTimeLeft(`${hours}h ${minutes}m ${seconds}s`);
+      }
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   if (isBlogPage && isMobile) {
     return (
@@ -62,10 +87,8 @@ function App() {
   if (isPaused) {
     return (
       <div className="bg-bgPrimary min-h-screen flex flex-col justify-center items-center">
-        <h1 className="text-3xl font-bold text-center">⚠️ This website is permanently closed.</h1>
-        <p className="mt-2 text-lg text-center">
-          The project has been discontinued and all associated data has been permanently deleted. Thank you for your understanding.
-        </p>
+        <h1 className="text-3xl font-bold text-center">⚠️ This website will open at 5 PM CT</h1>
+        <p className="mt-2 text-lg text-center">Time left: {timeLeft}</p>
       </div>
     );
   }
