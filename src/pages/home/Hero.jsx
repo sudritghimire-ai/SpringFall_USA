@@ -11,7 +11,7 @@ import { FaCheckCircle } from 'react-icons/fa';
 
 export const Hero = () => {
   return (
-    <div className="flex flex-col md:flex-row justify-between items-center md:gap-14 gap-8 py-16 px-5 bg-gradient-to-br from-white via-blue-50 to-blue-100 overflow-hidden relative">
+   <div className="flex flex-col md:flex-row justify-between items-center md:gap-14 gap-8 py-16 px-5 bg-gradient-to-br from-white via-blue-50 to-blue-100 overflow-hidden relative">
       {/* Decorative elements */}
       <div className="absolute top-0 left-0 w-64 h-64 bg-blue-200 rounded-full filter blur-3xl opacity-20 -translate-x-1/2 -translate-y-1/2"></div>
       <div className="absolute bottom-0 right-0 w-80 h-80 bg-blue-300 rounded-full filter blur-3xl opacity-20 translate-x-1/3 translate-y-1/3"></div>
@@ -19,32 +19,32 @@ export const Hero = () => {
       {/* Text Section */}
       <div className="md:w-1/2 w-full text-center md:text-left z-10">
         <div className="inline-block px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm font-medium mb-4 animate-pulse">
-          Your Path to Success
+          Nepal Student Association at Texas State
         </div>
         <h1 className="md:text-6xl text-4xl font-extrabold text-gray-800 mb-6 tracking-wide leading-tight">
-          <span className="text-blue-600 font-serif bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">Application</span>
-          <span className="text-gray-800 text-2xl md:text-3xl"> to </span>
-          <span className="text-blue-600 font-serif bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">Admission</span>,
-          <span className="text-gray-800 text-2xl md:text-3xl block mt-2"> We've Got You Covered</span>
+          <span className="text-blue-600 font-serif bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">Connect</span>
+          <span className="text-gray-800 text-2xl md:text-3xl">. </span>
+          <span className="text-blue-600 font-serif bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">Support</span>,
+          <span className="text-gray-800 text-2xl md:text-3xl block mt-2">Grow Together</span>
         </h1>
 
         <p className="text-lg text-gray-700 mb-8 leading-relaxed max-w-xl">
-          Applying to U.S. universities can feel overwhelming, but we make it simple. 
-          From choosing the right schools to preparing your documents and acing your visa interview, 
-          we guide you every step of the way.
+          Welcome to the Nepal Student Association at Texas State University. 
+          We bring Nepali students together, celebrate our culture, and create a supportive community 
+          where everyone can connect, share experiences, and succeed at Texas State.
         </p>
         <div className="flex flex-col gap-5 items-center md:items-start mb-8">
           <div className="flex items-center group transition-all duration-300 hover:translate-x-2">
             <FaCheckCircle className="text-blue-500 mr-3 text-xl" />
-            <span className="text-gray-800 text-lg font-medium group-hover:text-blue-600 transition-colors">Know everything about your dream university</span>
+            <span className="text-gray-800 text-lg font-medium group-hover:text-blue-600 transition-colors">Connect with Nepali students at Texas State</span>
           </div>
           <div className="flex items-center group transition-all duration-300 hover:translate-x-2">
             <FaCheckCircle className="text-blue-500 mr-3 text-xl" />
-            <span className="text-gray-800 text-lg font-medium group-hover:text-blue-600 transition-colors">Be ready for your visa interview, no stress</span>
+            <span className="text-gray-800 text-lg font-medium group-hover:text-blue-600 transition-colors">Celebrate Nepali culture, traditions, and community</span>
           </div>
           <div className="flex items-center group transition-all duration-300 hover:translate-x-2">
             <FaCheckCircle className="text-blue-500 mr-3 text-xl" />
-            <span className="text-gray-800 text-lg font-medium group-hover:text-blue-600 transition-colors">Get help from students who've done it before</span>
+            <span className="text-gray-800 text-lg font-medium group-hover:text-blue-600 transition-colors">Find support, opportunities, and a home away from home</span>
           </div>
         </div>
         
