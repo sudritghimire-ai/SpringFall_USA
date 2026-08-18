@@ -331,7 +331,7 @@ const SingleBlogCard = ({ blog }) => {
               <section className="mt-0 pt-16 border-t-2 border-gradient-to-r from-amber-600 to-amber-400 relative">
                 <div className="absolute top-[-2px] left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-amber-600 to-amber-400 rounded-full"></div>
                 <div className="text-center mb-12">
-                  <h2 className="text-4xl font-serif-academic font-bold text-slate-800 mb-4">Related Institutions</h2>
+                  <h2 className="text-4xl font-serif-academic font-bold text-slate-800 mb-4">Related Blogs/Papers</h2>
                   <p className="text-slate-600 font-outfit text-lg">Explore similar academic opportunities</p>
                 </div>
                 <div className="grid gap-8 md:grid-cols-2">
