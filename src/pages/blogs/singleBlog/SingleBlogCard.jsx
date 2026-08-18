@@ -276,8 +276,8 @@ const SingleBlogCard = ({ blog }) => {
           </div>
         </div>
         {/* Main Content */}
-        <div className="flex-1 lg:ml-[22rem] xl:ml-[26rem]">
-          <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 font-outfit">
+{/* AFTER */}
+<div className="flex-1">          <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 font-outfit">
             {/* Header Section */}
             <header className="text-center mb-16 pb-12 border-b border-slate-200/60 relative">
               <div className="absolute inset-0 bg-gradient-to-b from-blue-50/30 to-transparent rounded-3xl -mx-8 -my-8"></div>
