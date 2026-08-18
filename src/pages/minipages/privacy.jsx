@@ -59,8 +59,7 @@ const PrivacyPolicy = () => {
             rel="noopener noreferrer"
             className="text-indigo-600 hover:text-indigo-800 underline font-semibold"
           >
-            springfallus.org
-          </a>
+nsa.txst          </a>
           . We take all concerns seriously and will address them promptly.
         </p>
       </section>
