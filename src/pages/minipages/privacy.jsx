@@ -54,7 +54,7 @@ const PrivacyPolicy = () => {
           If you have any complaints regarding content published on this website or have questions
           about our policies, please contact{" "}
           <a
-            href="https://springfallus.org"
+            href="https://nsa.txst"
             target="_blank"
             rel="noopener noreferrer"
             className="text-indigo-600 hover:text-indigo-800 underline font-semibold"
