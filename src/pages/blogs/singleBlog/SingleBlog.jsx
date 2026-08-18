@@ -24,13 +24,19 @@ const SingleBlog = () => {
 
           {error && <div className="text-red-600">Something went wrong...</div>}
 
-          {blog?.post && (
-            <div className="flex flex-col lg:flex-row justify-between items-start md:gap-12 gap-8">
-              {/* Increase width of the blog content */}
-           <div className="lg:w-2/3 w-full lg:ml-[-8rem]">
-  <SingleBlogCard blog={blog.post} />
-</div>
+         {blog?.post && (
+  <div className="flex flex-col lg:flex-row justify-center items-start gap-8 max-w-[1600px] mx-auto">
+    {/* Main Blog Content Container */}
+    <div className="lg:w-2/3 w-full">
+      <SingleBlogCard blog={blog.post} />
+    </div>
 
+    {/* Related Institutions / Blogs Sidebar */}
+    <div className="lg:w-1/4 w-full mt-6 lg:mt-0">
+      <RelatedBlogs />
+    </div>
+  </div>
+)}
 
               {/* Adjust related blogs width */}
              <div className="lg:w-1/4 w-full mt-6 lg:mt-0 lg:ml-14">
