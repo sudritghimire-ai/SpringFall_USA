@@ -94,7 +94,7 @@ const Home = () => {
                   </div>
                   <div>
                     <p className="text-sm text-gray-400">Email:</p>
-                    <a href="mailto:support@springfallus.org" className="text-white hover:text-blue-400 transition-colors duration-300">support@springfallus.org</a>
+                    <a href="mailto:" className="text-white hover:text-blue-400 transition-colors duration-300">support@springfallus.org</a>
                   </div>
                 </div>
                 <div className="flex items-start">
@@ -105,7 +105,7 @@ const Home = () => {
                   </div>
                   <div>
                     <p className="text-sm text-gray-400">Phone:</p>
-                    <a href="tel:+9779819186578" className="text-white hover:text-blue-400 transition-colors duration-300">+(977) 9819186578</a>
+                    <a href="tel:+" className="text-white hover:text-blue-400 transition-colors duration-300">+(977) 9819186578</a>
                   </div>
                 </div>
               </div>
