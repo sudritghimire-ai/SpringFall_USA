@@ -51,7 +51,7 @@ const Navbar = () => {
                     </div>
                     <div className="flex flex-col">
                         <span className="text-xl sm:text-2xl text-[#2C3E50] font-bold tracking-wide group-hover:text-[#1E73BE] transition-colors duration-300 relative">
-                            SpringFallUSA
+                            NSA-Txst
                             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-blue-600 group-hover:w-full transition-all duration-500 ease-out"></span>
                         </span>
                         <span className="text-xs text-gray-500 hidden sm:block">Your Gateway to US Education</span>
