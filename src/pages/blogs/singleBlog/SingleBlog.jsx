@@ -10,44 +10,30 @@ const SingleBlog = () => {
   const { data: blog, error, isLoading } = useFetchBlogByIdQuery(id);
 
   return (
-    <>
-      {/* Main Content */}
-
-      <div className="text-primary container mx-auto mt-24 md:mt-20 px-4">
-        <div>
-          {isLoading && (
-            <div className="flex justify-center items-center py-20">
-              <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-600"></div>
-              <span className="ml-3 text-blue-800 text-lg">Loading blog post...</span>
-            </div>
-          )}
-
-          {error && <div className="text-red-600">Something went wrong...</div>}
-
-         {blog?.post && (
-  <div className="flex flex-col lg:flex-row justify-center items-start gap-8 max-w-[1600px] mx-auto">
-    {/* Main Blog Content Container */}
-    <div className="lg:w-2/3 w-full">
-      <SingleBlogCard blog={blog.post} />
-    </div>
-
-    {/* Related Institutions / Blogs Sidebar */}
-    <div className="lg:w-1/4 w-full mt-6 lg:mt-0">
-      <RelatedBlogs />
-    </div>
-  </div>
-)}
-
-              {/* Adjust related blogs width */}
-             <div className="lg:w-1/4 w-full mt-6 lg:mt-0 lg:ml-14">
-  <RelatedBlogs />
-</div>
-
-            </div>
-          )}
+    <div className="text-primary container mx-auto mt-24 md:mt-20 px-4">
+      {isLoading && (
+        <div className="flex justify-center items-center py-20">
+          <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-600"></div>
+          <span className="ml-3 text-blue-800 text-lg">Loading blog post...</span>
         </div>
-      </div>
-    </>
+      )}
+
+      {error && <div className="text-red-600">Something went wrong...</div>}
+
+      {blog?.post && (
+        <div className="flex flex-col lg:flex-row justify-center items-start gap-8 max-w-[1600px] mx-auto">
+          {/* Main Blog Content Container */}
+          <div className="lg:w-2/3 w-full">
+            <SingleBlogCard blog={blog.post} />
+          </div>
+
+          {/* Related Institutions / Blogs Sidebar */}
+          <div className="lg:w-1/4 w-full mt-6 lg:mt-0">
+            <RelatedBlogs />
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 
