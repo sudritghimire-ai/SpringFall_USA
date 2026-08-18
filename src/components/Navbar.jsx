@@ -3,7 +3,7 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 import { CgMenuGridO } from "react-icons/cg";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useDispatch, useSelector } from 'react-redux';
-import avatarImg from "../assets/images/avatar.png";
+import avatarImg from "../assets/images/logo1.jpg";
 import { useLogoutUserMutation } from '../redux/features/auth/authAPI';
 import { logout } from '../redux/features/auth/authSlice';
 
