@@ -47,7 +47,7 @@ const Navbar = () => {
                 <a href='/' className="flex items-center space-x-3 group">
                     <div className="relative overflow-hidden rounded-full">
                         <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-blue-200 rounded-full scale-0 group-hover:scale-100 transition-transform duration-500 ease-out origin-center"></div>
-                        <img src='/logo1.jpg' alt='Logo' className='h-12 w-12 object-cover rounded-full relative z-10 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(30,115,190,0.3)] transition-all duration-500' />
+                        <img src='/logo.jpeg' alt='Logo' className='h-12 w-12 object-cover rounded-full relative z-10 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(30,115,190,0.3)] transition-all duration-500' />
                     </div>
                     <div className="flex flex-col">
                         <span className="text-xl sm:text-2xl text-[#2C3E50] font-bold tracking-wide group-hover:text-[#1E73BE] transition-colors duration-300 relative">
