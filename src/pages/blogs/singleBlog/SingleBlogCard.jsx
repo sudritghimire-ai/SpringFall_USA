@@ -218,7 +218,7 @@ const SingleBlogCard = ({ blog }) => {
                 <span className="text-white text-lg">🎓</span>
               </div>
               <div className="text-center">
-                <h1 className="text-xl font-serif-academic font-bold text-slate-800 tracking-wide">SpringFallUSA</h1>
+                <h1 className="text-xl font-serif-academic font-bold text-slate-800 tracking-wide">NSA-Txst</h1>
                 <p className="text-xs text-slate-600 font-outfit -mt-1 tracking-wider">ACADEMIC RESOURCES</p>
               </div>
             </div>
@@ -299,7 +299,7 @@ const SingleBlogCard = ({ blog }) => {
                   <span className="text-amber-600 hidden sm:inline text-xl">•</span>
                   <span className="text-blue-800 hover:text-amber-600 cursor-pointer font-semibold text-base flex items-center gap-2 transition-colors duration-300">
                     <span className="text-blue-600">✍️</span>
-                    By {"SpringFallUSA Editorial"}
+                    By {"NSA-Txst"}
                   </span>
                 </div>
               </div>
@@ -366,7 +366,7 @@ const SingleBlogCard = ({ blog }) => {
                   {rating}
                 </div>
                 <p className="text-sm text-slate-600 italic font-outfit tracking-wide">
-                  Evaluated by SpringFallUSA Academic Review Board
+                  Evaluated by NSA-txst
                 </p>
               </div>
             </footer>
